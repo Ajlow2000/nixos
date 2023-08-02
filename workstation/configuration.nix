@@ -75,10 +75,13 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
+  programs.zsh.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ajlow = {
     isNormalUser = true;
     description = "Alec Lowry";
+    shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
@@ -99,7 +102,17 @@
   ];
 
   environment.sessionVariables = rec {
-      NIXOS_CONFIG_PROFILE = "workstation";
+      EDITOR = "nvim";
+
+      NIXOS_CONFIG_PROFILE = "workstation";	# Used to dynamically determine configuration profile in home manager
+      
+      XDG_CACHE_HOME = "$HOME/.cache";
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_STATE_HOME = "$HOME/.local/state";
+      XDG_BIN_HOME = "$HOME/.local/bin"; 	# Not technically in the official xdg specification
+      PATH = [ "${XDG_BIN_HOME}" ];
+
   };
 
   # Some programs need SUID wrappers, can be configured further or are
