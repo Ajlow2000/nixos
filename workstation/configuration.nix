@@ -95,7 +95,6 @@
 	firefox
 	kitty
 	tmux
-	home-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
