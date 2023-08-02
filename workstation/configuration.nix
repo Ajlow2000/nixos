@@ -95,7 +95,12 @@
 	firefox
 	kitty
 	tmux
+	home-manager
   ];
+
+  environment.sessionVariables = rec {
+      NIXOS_CONFIG_PROFILE = "workstation";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
