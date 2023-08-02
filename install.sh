@@ -1,0 +1,1 @@
+# Copy hardware-configuration.nix
