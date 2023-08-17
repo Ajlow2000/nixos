@@ -43,8 +43,13 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  services.xserver.displayManager = {
+      sddm.enable = true;
+      sddm.theme = "${import ../sddm/sddm-theme.nix { inherit pkgs; }}";
+  };
+
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
@@ -99,6 +104,8 @@
 	kitty
 	tmux
 	home-manager
+    libsForQt5.qt5.qtquickcontrols2
+    libsForQt5.qt5.qtgraphicaleffects
   ];
 
   environment.sessionVariables = rec {
