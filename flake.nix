@@ -17,9 +17,9 @@
     nixosConfigurations = {
       workstation = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit system; };
-	modules = [ 
-	  ./workstation/configuration.nix 
-	];
+	    modules = [ 
+	        ./workstation/configuration.nix 
+	    ];
       };
     };
   };
