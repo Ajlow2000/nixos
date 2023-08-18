@@ -95,6 +95,11 @@
         extraGroups = [ "networkmanager" "wheel" ];
     };
 
+    # Looking for a ctrl as modifier and esc as key function
+    # https://discourse.nixos.org/t/troubleshooting-help-services-interception-tools/20389/4
+    # https://ansonvandoren.com/posts/capslock-linux-redux/
+    # https://github.com/NixOS/nixpkgs/issues/126681
+    # 
     # services.interception-tools = {
     #     enable = true;
     #     plugins = with pkgs; [
@@ -102,7 +107,7 @@
     #     ];
     #     udevmonConfig = ''
     #         - JOB:
-    #         "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins}/bin/caps2esc -m 1 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+    #         "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 1 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
     #             DEVICE:
     #                 EVENTS:
     #                     EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
@@ -125,7 +130,7 @@
         home-manager
         libsForQt5.qt5.qtquickcontrols2
         libsForQt5.qt5.qtgraphicaleffects
-        # interception-tools
+        interception-tools
     ];
 
     environment.sessionVariables = rec {
