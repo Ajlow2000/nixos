@@ -25,7 +25,7 @@
 
         eval "$(zoxide init zsh)"
 
-        PROMPT="%{$fg[green]%}[%{$fg[blue]%}%n@%{$fg[blue]%}%m%{ $fg[green]%}%~]%{$reset_color%} "
+        PROMPT="%{$fg[green]%}[%{$fg[blue]%}%n@%{$fg[blue]%}%m%{ $fg[green]%}%~]%{$reset_color%}  "
         RPROMPT="%(?..%F{red}%?%f )[%* %D{%Z}]"
         '';
         zplug = {
