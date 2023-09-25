@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+CURRENT_VOL=$(wpctl get-volume @DEFAULT_SINK@ | cut -d " " -f 2)
+MIN_VOL="0.00"
+
+# Decrement volume by 5 percent down till min.
+test CURRENT_VOL -gt MIN_VOL && wpctl set-volume @DEFAULT_SINK 5%-

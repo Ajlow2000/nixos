@@ -1,0 +1,28 @@
+[user]
+	name = ajlow2000
+	email = ajlow2000@gmail.com
+	username = ajlow2000
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    side-by-side = true
+
+[pull]
+   rebase = true 
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[alias]
+    plog = "log --color --graph --pretty=format:'%Cred%h%Creset %Cgreen(%ci) %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit";
+ 

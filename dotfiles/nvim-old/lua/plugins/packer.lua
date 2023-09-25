@@ -63,6 +63,8 @@ return packer.startup(function(use)
     use { "folke/which-key.nvim" }
     use { "stevearc/oil.nvim" }
     use { "RaafatTurki/hex.nvim", config = function() require("hex").setup() end}
+    
+    use { "wsdjeg/vim-fetch" }
 
     -- Lsp 
     use {

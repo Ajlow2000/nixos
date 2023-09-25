@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+CURRENT_VOL_STR=$(wpctl get-volume @DEFAULT_SINK@ | cut -d " " -f 2 | sed 's/\.//')
+echo $CURRENT_VOL_STR
+CURRENT_VOL=$(printf "%d" $CURRENT_VOL_STR)
+echo $CURRENT_VOL
+
+
+# Increment volume by 5 percent up till max.
+# test CURRENT_VOL -lt MAX_VOL && wpctl set-volume @DEFAULT_SINK 5%+ 
+
