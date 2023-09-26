@@ -8,6 +8,14 @@
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+    nix.settings.auto-optimise-store = true;
+
+    nix.gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 60d";
+    };
+
     # Bootloader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
@@ -67,7 +75,10 @@
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
+    hardware.brillo.enable = true;
+
     # Enable sound with pipewire.
+    services.pipewire.wireplumber.enable = true;
     sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -92,7 +103,7 @@
         isNormalUser = true;
         description = "Alec Lowry";
         shell = pkgs.zsh;
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "video" ];
     };
 
     # Looking for a ctrl as modifier and esc as key function
@@ -131,6 +142,16 @@
         libsForQt5.qt5.qtquickcontrols2
         libsForQt5.qt5.qtgraphicaleffects
         interception-tools
+        wofi
+        (waybar.overrideAttrs (oldAttrs: {
+                    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+                })
+        )
+        swww
+        mako
+        libnotify
+        wl-clipboard
+        networkmanagerapplet
     ];
 
     environment.sessionVariables = rec {
