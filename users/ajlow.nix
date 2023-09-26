@@ -10,7 +10,7 @@
     home.packages = with pkgs; [
         neovim
         tmux
-	    git
+	git
         openssh
         lf
         fzf
@@ -90,11 +90,11 @@
     };
 
     home.file = {
-        # neovim = {
-        #     recursive = true;
-        #     source = ../dotfiles/nvim;
-        #     target = "./.config/nvim";
-        # };
+        neovim = {
+            recursive = true;
+            source = ../dotfiles/nvim;
+            target = "./.config/nvim";
+        };
         kitty = {
             recursive = true;
             source = ../dotfiles/kitty;
