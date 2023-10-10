@@ -141,7 +141,8 @@
         XDG_DESKTOP_DIR="$HOME/desktop";
         XDG_DOWNLOAD_DIR="$HOME/downloads";
 
-        AJLOW_OCAML_TOOLS="dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release";
+        AJLOW_OCAML_TOOLS="dune merlin ocaml-lsp-server odoc ocamlformat utop
+        dune-release core core_unix base";
     };
 
     home.sessionPath = [
