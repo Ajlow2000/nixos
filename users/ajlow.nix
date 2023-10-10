@@ -10,7 +10,7 @@
     home.packages = with pkgs; [
         neovim
         tmux
-	git
+        git
         openssh
         lf
         fzf
@@ -61,6 +61,7 @@
         hack-font
         ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
         wl-clipboard
+        xclip
     ];
 
 
