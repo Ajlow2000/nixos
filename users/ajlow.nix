@@ -26,7 +26,7 @@
         fd
         ripgrep
         unzip
-        exa # switch to eza
+        eza
         bottom
         fd
         hyperfine
@@ -78,7 +78,7 @@
 
     home.shellAliases = {
         gs = "git status";
-        ls = "exa";
+        ls = "eza";
         # cd = "z";
         grep = "grep --color=auto";
         ncu = "sudo nix-channel --update";
