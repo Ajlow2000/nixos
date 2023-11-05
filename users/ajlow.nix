@@ -33,6 +33,7 @@
         atuin # setup
         zoxide
         gnugrep
+        glow
         firefox
         kitty
         typst
