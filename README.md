@@ -5,12 +5,10 @@
     <img src="images/nix-snowflake.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Home Manager</h3>
+  <h3 align="center">Home Manager with Nix</h3>
 
   <p align="center">
     My Home Manager deployed as a flake.
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>H</strong></a>
     <br />
     <br />
     <a href="https://github.com/nix-community/home-manager">Src</a>
