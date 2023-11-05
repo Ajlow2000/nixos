@@ -40,7 +40,9 @@ To rebuild home manager, run the command `home-manager switch
 --flake /path/to/flake/#<flake_profile>` where `flake_profile` is
 whatever gets set in your flake.nix.  I define the following
 alias for convenience:
-```hms = "home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER";```
+```
+hms = "home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER";
+```
 
 One advantage of home manager as a flake is pinned dependencies for reproducibility (flake.lock).
 In practice, this means my nix channel I follow gets pinned and
@@ -96,12 +98,12 @@ truly declarative and reproducible linux environments.
 Enter: [NixOS](https://nixos.org/).
 
 I imagine I discovered NixOS after using the words "declarative"
-or "reproducible".
+or "reproducible" in a google search.
 [Oof](https://www.reddit.com/r/NixOS/comments/1612dt4/reproducible/).
 At any rate, NixOS ended up being a near perfect match with what
 I had been chasing for the last 6+ years of using linux.
 Specifically, the nix tool "Home Manager" replaced all of my
-janky bash scripts/yadm/the ansible of old. If interested, [this
-was one of the
+janky bash scripts/yadm/ansible playbooks I had used previously. 
+If interested, [this was one of the
 blogs](http://ghedam.at/24353/tutorial-getting-started-with-home-manager-for-nix) 
-which inspired me to make the jump.
+which inspired me to make the jump/helped me get started.
