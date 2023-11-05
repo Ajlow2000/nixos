@@ -7,7 +7,7 @@
 
   <h3 align="center">Home Manager with Nix</h3>
 
-  <p style="font-size: large" align="center">
+  <p style="font-size: 30px" align="center">
     My Home Manager deployed as a flake.
     <br />
     <br />
