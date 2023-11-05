@@ -5,9 +5,9 @@
     <img src="images/nix-snowflake.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Home Manager with Nix</h3>
+  <h2 align="center">Home Manager with Nix</h2>
 
-  <p style="font-size: 30px" align="center">
+  <p align="center">
     My Home Manager deployed as a flake.
     <br />
     <br />
