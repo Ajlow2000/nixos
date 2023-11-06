@@ -38,15 +38,17 @@ needed.
 ### Rebuilding and Updating
 To rebuild home manager, run the command `home-manager switch
 --flake /path/to/flake/#<flake_profile>` where `flake_profile` is
-whatever gets set in your flake.nix.  I define the following
+whatever gets set in flake.nix.  I define the following
 alias for convenience:
 ```
-hms = "home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER";
+home.shellAliases = {
+    hms = "home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER";
+}
 ```
 
 One advantage of home manager as a flake is pinned dependencies for reproducibility (flake.lock).
-In practice, this means my nix channel I follow gets pinned and
-thus all packages I download and install are the the same across
+In practice, this means the nix channel I follow gets pinned and
+thus all packages I download and install are the same across
 all machines I use. To upgrade all system packages, I run the
 command ```nix flake update```, rebuild home manager, and then 
 commit my new lockfile.
