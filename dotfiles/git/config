@@ -20,8 +20,14 @@
 [merge]
     conflictstyle = diff3
 
+[difftool]
+    prompt = true
+
 [diff]
-    colorMoved = default
+    tool = nvimdiff
+
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 
 [alias]
     plog = "log --color --graph --pretty=format:'%Cred%h%Creset %Cgreen(%ci) %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit";
