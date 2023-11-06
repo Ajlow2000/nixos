@@ -15,6 +15,7 @@
         lf
         fzf
         delta
+        util-linux
         fd
         sd
         gum
