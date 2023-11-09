@@ -15,6 +15,7 @@
         lf
         fzf
         delta
+        lsb-release
         util-linux
         fd
         sd
