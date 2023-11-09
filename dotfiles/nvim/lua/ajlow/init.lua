@@ -7,3 +7,8 @@ require("ajlow.std.options")
 require("ajlow.std.keymaps")
 require("ajlow.std.autocommands")
 require("ajlow.lazy")
+
+-- TODO: Debugging
+-- TODO: Encryption
+
+-- TODO: https://github.com/rmagatti/auto-session
