@@ -18,6 +18,10 @@
             zoxide add $(pwd)
         }
 
+        autoload -z edit-command-line
+        zle -N edit-command-line
+        bindkey "^X^E" edit-command-line
+
         setopt inc_append_history_time
 
         # opam configuration
