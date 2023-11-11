@@ -28,6 +28,7 @@
         fd
         ripgrep
         unzip
+        texlive.combined.scheme-full
         eza
         bottom
         fd
