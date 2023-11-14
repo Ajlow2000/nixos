@@ -3,6 +3,8 @@
     home.username = "ajlow";
     home.homeDirectory = "/home/ajlow";
 
+    nixpkgs.config.allowUnfreePredicate = _: true;
+
     imports = [
         ../configurations/zsh.nix
     ];
@@ -66,6 +68,10 @@
         ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
         wl-clipboard
         xclip
+        krita
+        gimp
+        inkscape
+        discord
     ];
 
 
