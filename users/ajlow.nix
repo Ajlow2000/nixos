@@ -10,40 +10,54 @@
     ];
 
     home.packages = with pkgs; [
+        ### PDE
         neovim
         tmux
         git
-        openssh
         lf
         fzf
+        ripgrep
+        gnugrep
         delta
-        lsb-release
+        gum
+        lazygit
+        zoxide
+        glow
+        firefox
+        kitty
+        gnumake
+        just
+        mercurial
+        darcs
+        subversion
+        wl-clipboard
+        xclip
+        unixtools.xxd
+        hack-font
+        ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
+
+        ### Utils
         util-linux
+        openssh
+        lsb-release
         fd
         sd
-        gum
         htop
-        circumflex
-        lazygit
         neofetch
-        cbonsai
-        fd
-        ripgrep
         unzip
-        texlive.combined.scheme-full
         eza
         bottom
         fd
         hyperfine
-        atuin # setup
-        zoxide
-        gnugrep
-        glow
-        firefox
-        kitty
-        typst
         nmap
         interception-tools
+        rsync
+        gnupatch
+        bzip2
+
+        ### Language Support
+        texlive.combined.scheme-full
+        typst
         rustup
         opam
         nixd
@@ -55,19 +69,8 @@
         jdk11
         nodejs_20
         gcc
-        gnumake
-        just
-        gnupatch
-        rsync
-        bzip2
-        mercurial
-        darcs
-        subversion
-        unixtools.xxd
-        hack-font
-        ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
-        wl-clipboard
-        xclip
+
+        ### Misc
         krita
         gimp
         inkscape
