@@ -59,7 +59,7 @@
         texlive.combined.scheme-full
         typst
         rustup
-        opam
+        #opam
         nixd
         gopls
         go
