@@ -5,12 +5,6 @@
 
     nixpkgs.config.allowUnfreePredicate = _: true;
 
-    # imports = [
-    #     ../configurations/zsh.nix
-    # ];
-
-    #programs.zsh.enable = true;
-
     home.packages = with pkgs; [
         ### PDE
         neovim
@@ -92,19 +86,6 @@
         };
     };
 
-    # home.shellAliases = {
-    #     gs = "git status";
-    #     ls = "eza";
-    #     grep = "grep --color=auto";
-    #     ncu = "sudo nix-channel --update";
-    #     hms = "home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER";
-    #     nrs = "sudo nixos-rebuild switch --flake $XDG_CONFIG_HOME/nixos/#$NIXOS_CONFIG_PROFILE";
-    #     tsm = "tmux-session-manager";
-    #     gcm = "conventional-commit";
-    #     path = "echo $PATH | tr : '\n'";
-    #     kitty-tmux = "kitty tmux-session-manager home";
-    # };
-
     home.file = {
         neovim = {
             recursive = true;
@@ -145,16 +126,6 @@
             source = ../dotfiles/zsh/zshrc;
             target = "./.zshrc";
         };
-        bash = {
-            recursive = false;
-            source = ../dotfiles/bash/bashrc;
-            target = "./.bashrc";
-        };
-        # wallpaper = {
-        #     recursive = true;
-        #     source = ../dotfiles/wallpaper;
-        #     target = "./.config/wallpaper";
-        # };
     };
 
     home.sessionVariables = {
