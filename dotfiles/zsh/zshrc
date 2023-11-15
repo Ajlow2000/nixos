@@ -16,6 +16,11 @@ alias gcm="conventional-commit"
 alias path="echo $PATH | tr : '\n'"
 alias kitty-tmux="kitty tmux-session-manager home"
 
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+precmd_functions+=(_fix_cursor)
+
 function chpwd() {
     emulate -L zsh
     zoxide add $(pwd)
