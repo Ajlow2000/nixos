@@ -35,8 +35,9 @@ setopt inc_append_history_time
 # opam configuration
 [[ ! -r /home/ajlow/.opam/opam-init/init.zsh ]] || source /home/ajlow/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
+# ~~~~~ Direnv ~~~~~
 eval "$(direnv hook zsh)"
-####
+# Tone down verbosity of loading output
 # https://github.com/direnv/direnv/issues/68#issuecomment-1003426550
 copy_function() {
   test -n "$(declare -f "$1")" || return
@@ -44,20 +45,9 @@ copy_function() {
 }
 copy_function _direnv_hook _direnv_hook__old
 _direnv_hook() {
-  # old line
-  #_direnv_hook__old "$@" 2> >(grep -E -v '^direnv: (export)')
-
-  # my new line
   _direnv_hook__old "$@" 2> >(awk '{if (length >= 200) { sub("^direnv: export.*","direnv: export "NF" environment variables")}}1')
-
-  # as suggested by user "radekh" above
   wait
-
-  # as suggested by user "Ic-guy" below if you're using bash > v4.4
-  # throws error for me on zsh
-  # wait $!
 }
-####
 
 eval "$(zoxide init zsh)"
 
