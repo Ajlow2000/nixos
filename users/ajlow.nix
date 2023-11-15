@@ -61,19 +61,18 @@
         bzip2
 
         ### Language Support
-        texlive.combined.scheme-full
-        typst
-        rustup
+        #texlive.combined.scheme-full
+        #typst
+        #rustup
         #opam
-        nixd
-        gopls
-        go
+        #gopls
+        #go
         nixd
         lua-language-server
         nodePackages_latest.bash-language-server
-        jdk11
-        nodejs_20
-        gcc
+        #jdk11
+        #nodejs_20
+        #gcc
 
         ### Misc
         krita
