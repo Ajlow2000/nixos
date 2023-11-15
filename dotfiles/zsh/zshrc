@@ -6,7 +6,7 @@ precmd() {
 
 # ~~~ Aliases ~~~
 alias gs="git status"
-alias ls="eza"
+alias ls="eza --group-directories-first"
 alias grep="grep --color=auto"
 alias ncu="sudo nix-channel --update"
 alias hms="home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER"
@@ -34,6 +34,30 @@ setopt inc_append_history_time
 
 # opam configuration
 [[ ! -r /home/ajlow/.opam/opam-init/init.zsh ]] || source /home/ajlow/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+eval "$(direnv hook zsh)"
+####
+# https://github.com/direnv/direnv/issues/68#issuecomment-1003426550
+copy_function() {
+  test -n "$(declare -f "$1")" || return
+  eval "${_/$1/$2}"
+}
+copy_function _direnv_hook _direnv_hook__old
+_direnv_hook() {
+  # old line
+  #_direnv_hook__old "$@" 2> >(grep -E -v '^direnv: (export)')
+
+  # my new line
+  _direnv_hook__old "$@" 2> >(awk '{if (length >= 200) { sub("^direnv: export.*","direnv: export "NF" environment variables")}}1')
+
+  # as suggested by user "radekh" above
+  wait
+
+  # as suggested by user "Ic-guy" below if you're using bash > v4.4
+  # throws error for me on zsh
+  # wait $!
+}
+####
 
 eval "$(zoxide init zsh)"
 

@@ -4,6 +4,14 @@
     home.homeDirectory = "/home/ajlow";
 
     nixpkgs.config.allowUnfreePredicate = _: true;
+    
+    programs = {
+        direnv = {
+            enable = true;
+            enableZshIntegration = true;
+            nix-direnv.enable = true;
+        };
+    };
 
     home.packages = with pkgs; [
         ### PDE
