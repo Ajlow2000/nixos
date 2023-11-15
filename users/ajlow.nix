@@ -138,6 +138,11 @@
             source = ../scripts;
             target = "./.local/bin";
         };
+        bash = {
+            recursive = false;
+            source = ../dotfiles/bash/bashrc;
+            target = "./.bashrc";
+        };
         # wallpaper = {
         #     recursive = true;
         #     source = ../dotfiles/wallpaper;

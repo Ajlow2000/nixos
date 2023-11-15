@@ -1,0 +1,8 @@
+exec zsh 
+# HACK: this replaces running bash processes with
+# a zsh process that inherits the proper environment.
+# Mostly doing this so `nix develop` launches me into 
+# my zsh with dev packages in scope while preserving
+# standard bash behaviour for anyone else who might use it.
+#
+# This might be an anti pattern tbh.
