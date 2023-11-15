@@ -1,0 +1,37 @@
+precmd() {
+    precmd() {
+        echo
+    }
+}
+
+# ~~~ Aliases ~~~
+alias gs="git status"
+alias ls="eza"
+alias grep="grep --color=auto"
+alias ncu="sudo nix-channel --update"
+alias hms="home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER"
+alias nrs="sudo nixos-rebuild switch --flake $XDG_CONFIG_HOME/nixos/#$NIXOS_CONFIG_PROFILE"
+alias tsm="tmux-session-manager"
+alias gcm="conventional-commit"
+alias path="echo $PATH | tr : '\n'"
+alias kitty-tmux="kitty tmux-session-manager home"
+
+function chpwd() {
+    emulate -L zsh
+    zoxide add $(pwd)
+}
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+setopt inc_append_history_time
+
+# opam configuration
+[[ ! -r /home/ajlow/.opam/opam-init/init.zsh ]] || source /home/ajlow/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+eval "$(zoxide init zsh)"
+
+autoload -U colors && colors
+PROMPT="%{$fg[green]%}[%{$fg[blue]%}%n@%{$fg[blue]%}%m%{ $fg[green]%}%~]%{$reset_color%} "
+RPROMPT="%(?..%F{red}%?%f )[%* %D{%Z}]"
