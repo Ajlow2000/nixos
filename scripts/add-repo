@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# A convenience wrapper for clone repos with a 
+# specific dir name. Intended for only dev projects that land in ~/repos
+# Ex: ajlow2000/conventional-commit -> ajlow2000_conventional-commit
+
+GIT_URL=$1
+
+GIT_NAMESPACE=$(echo $GIT_URL \
+    | cut -d ":" -f 2 \
+    | cut -d "/" -f 1 \
+    | tr '[:upper:]' '[:lower:]' \
+)
+GIT_REPO=$(echo $GIT_URL \
+    | cut -d ":" -f 2 \
+    | cut -d "/" -f 2 \
+    | sed 's/.\{4\}$//' \
+)
+
+PROJECT_DIR=$GIT_NAMESPACE
+PROJECT_DIR+="_"
+PROJECT_DIR+=$GIT_REPO
+
+git -C "$HOME/repos" clone $GIT_URL $PROJECT_DIR  && zoxide add "$HOME/repos/$PROJECT_DIR"
