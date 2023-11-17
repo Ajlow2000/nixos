@@ -72,7 +72,7 @@
         nodePackages_latest.bash-language-server
         #jdk11
         #nodejs_20
-        #gcc
+        gcc
 
         ### Misc
         krita
