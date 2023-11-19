@@ -82,6 +82,7 @@ in {
         inkscape
         discord
         wireshark
+        grim
     ] ++ [
         toolbox.packages.${system}.default
     ]);
