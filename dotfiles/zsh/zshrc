@@ -4,6 +4,8 @@ precmd() {
     }
 }
 
+path+=($XDG_BIN_HOME)
+
 # ~~~ Aliases ~~~
 alias gs="git status"
 alias ls="eza --group-directories-first"
