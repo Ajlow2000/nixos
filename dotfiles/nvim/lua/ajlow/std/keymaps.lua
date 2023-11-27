@@ -31,7 +31,7 @@ vim.keymap.set(
     "n",
     "Q",
     "<nop>",
-    { desc = "'Worst place in the universe' -ThePrimeagen"}
+    { desc = "Disables the horrible Q mode. Maybe not necessary anymore?"}
 )
 
 vim.keymap.set(
