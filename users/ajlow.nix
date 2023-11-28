@@ -79,6 +79,7 @@
         gimp
         inkscape
         discord
+        wireshark
     ];
 
 
