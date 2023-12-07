@@ -1,3 +1,6 @@
 # direnv
 .envrc
 .direnv/
+
+# nvim
+.nvim.shada
