@@ -29,6 +29,7 @@
         zoxide
         glow
         firefox
+        bat
         kitty
         gnumake
         just
