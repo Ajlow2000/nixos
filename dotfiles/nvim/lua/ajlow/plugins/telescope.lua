@@ -72,22 +72,20 @@ return {
         vim.keymap.set("n", "<leader>sg", ":Telescope git_files<cr>", { desc = "[Telescope] - Search for git files (fuzzyfind)"})
         vim.keymap.set("n", "<leader>rg", ":Telescope live_grep<cr>", { desc = "[Telescope] - Search for text (ripgrep / live_grep)"})
         vim.keymap.set("n", "<leader>sb", ":Telescope buffers<cr>", { desc = "[Telescope] - Search Open Buffers"})
-        --vim.keymap.set("n", "<leader>sp", ":Telescope projects<cr>", { desc = "[Telescope] - Search Projects"})     -- TODO - depecrate in favor of tmux projects
         vim.keymap.set("n", "<leader>sk", ":Telescope keymaps<cr>", { desc = "[Telescope] - Search Keymaps"})
-        vim.keymap.set("n", "<leader>sm", ":Telescope man_pages<cr>", { desc = "[Telescope] - Search Man Pages"})
         vim.keymap.set("n", "<leader>sc", ":Telescope commands<cr>", { desc = "[Telescope] - Search Vim Commands"})
         vim.keymap.set("n", "<leader>sr", ":Telescope registers<cr>", { desc = "[Telescope] - Search Registers"})
         vim.keymap.set("n", "<leader>sh", ":Telescope help_tags<cr>", { desc = "[Telescope] - Search Help Tags"})
-        vim.keymap.set("n", "<leader>so", ":Telescope oldfiles<cr>", { desc = "[Telescope] - Search Search Recent Files"})
         vim.keymap.set("n", "<leader>su", ":Telescope undo theme=dropdown<cr>", { desc = "[Telescope] - Undo History"})
+        vim.keymap.set("n", "<leader>sm", ":Telescope marks<cr>", { desc = "[Telescope] - Search Marks"})
 
         -- Colorscheme TODO - add color preview like lvim
         vim.keymap.set("n", "<leader>scs", ":Telescope colorscheme<cr>", { desc = "[Telescope] - Browse Colorschemes"})
 
         -- Git TODO - wrap in pcall to avoid error out
-        vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<cr>", { desc = "[Telescope] - Checkout Git Branches"})
+        -- vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<cr>", { desc = "[Telescope] - Checkout Git Branches"})
         vim.keymap.set("n", "<leader>gs", ":Telescope git_status<cr>", { desc = "[Telescope] - View Git Status"})
-        vim.keymap.set("n", "<leader>gc", ":Telescope git_commits<cr>", { desc = "[Telescope] - View Git Commits"})
+        vim.keymap.set("n", "<leader>gcm", ":Telescope git_commits<cr>", { desc = "[Telescope] - View Git Commits"})
 
         -- LSP
         vim.keymap.set("n", "<leader>sds", ":Telescope lsp_document_symbols<cr>", { desc = "[Telescope/LSP] - View Document Symbols"})
