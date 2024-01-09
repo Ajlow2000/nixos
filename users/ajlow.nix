@@ -41,6 +41,8 @@
         unixtools.xxd
         hack-font
         ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
+        gh
+        clangd
 
         ### Utils
         util-linux
@@ -51,6 +53,7 @@
         htop
         neofetch
         unzip
+        qmk
         eza
         bottom
         fd
