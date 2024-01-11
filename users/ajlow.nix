@@ -42,7 +42,6 @@
         hack-font
         ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
         gh
-        clangd
 
         ### Utils
         util-linux
