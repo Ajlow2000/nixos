@@ -31,4 +31,5 @@
 
 [alias]
     plog = "log --graph --color --pretty=format:'%Cred%h%Creset %Cgreen(%cs) %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit";
- 
+    new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+    bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
