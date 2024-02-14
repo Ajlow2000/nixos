@@ -33,6 +33,7 @@
         kitty
         gnumake
         just
+        jq
         mercurial
         darcs
         subversion
