@@ -17,6 +17,7 @@
         ### PDE
         neovim
         tmux
+        zellij
         zsh
         git
         lf
