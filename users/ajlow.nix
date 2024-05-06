@@ -114,6 +114,11 @@
             source = ../dotfiles/tmux/tmux.conf;
             target = "./.tmux.conf";
         };
+        zellij = {
+            recursive = true;
+            source = ../dotfiles/zellij;
+            target = "./.config/zellij";
+        };
         hyprland = {
             recursive = true;
             source = ../dotfiles/hypr;
