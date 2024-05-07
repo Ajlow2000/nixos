@@ -1,7 +1,8 @@
 themes {
     everforest {
         fg 211 198 170
-        bg 47 56 62
+        //bg 157 169 160
+        bg 122 132 120
         black 74 85 91
         red 214 73 77
         green 167 192 128
