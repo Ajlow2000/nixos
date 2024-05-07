@@ -16,7 +16,7 @@ alias hms="home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER"
 alias nrs="sudo nixos-rebuild switch --flake $XDG_CONFIG_HOME/nixos/#$NIXOS_CONFIG_PROFILE"
 alias tsm="tmux-session-manager"
 alias gcm="conventional-commit"
-alias path="echo $PATH | tr : '\n'"
+alias path="toolbox misc print-path"
 alias kitty-tmux="kitty tmux-session-manager home"
 
 _fix_cursor() {
