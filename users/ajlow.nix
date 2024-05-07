@@ -1,5 +1,6 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, inputs, ... }:
+let inherit (inputs) toolbox;
+in {
     home.username = "ajlow";
     home.homeDirectory = "/home/ajlow";
 
@@ -13,7 +14,7 @@
         };
     };
 
-    home.packages = with pkgs; [
+    home.packages = with pkgs; ([
         ### PDE
         neovim
         tmux
@@ -85,7 +86,9 @@
         inkscape
         discord
         wireshark
-    ];
+    ] ++ [
+        toolbox.packages.${system}.default
+    ]);
 
 
     xdg.desktopEntries = {
