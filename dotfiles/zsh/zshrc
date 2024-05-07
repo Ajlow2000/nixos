@@ -9,6 +9,7 @@ path+=($XDG_BIN_HOME)
 # ~~~ Aliases ~~~
 alias gs="git status"
 alias ls="eza --group-directories-first"
+alias ltr="ls --tree"
 alias grep="grep --color=auto"
 alias ncu="sudo nix-channel --update"
 alias hms="home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER"
