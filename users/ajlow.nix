@@ -71,7 +71,7 @@ in {
         #typst
         #rustup
         #opam
-        gopls
+        #gopls
         #go
         nixd
         lua-language-server
