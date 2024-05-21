@@ -16,8 +16,10 @@ alias hms="home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER"
 alias nrs="sudo nixos-rebuild switch --flake $XDG_CONFIG_HOME/nixos/#$NIXOS_CONFIG_PROFILE"
 alias tsm="tmux-session-manager"
 alias gcm="conventional-commit"
-alias path="toolbox misc print-path"
 alias kitty-tmux="kitty tmux-session-manager home"
+
+alias path="toolbox misc print-path"
+alias audit="toolbox git audit-dir --ignore-dirs $HOME/.local"
 
 _fix_cursor() {
    echo -ne '\e[5 q'
