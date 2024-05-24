@@ -8,6 +8,7 @@ require("ajlow.utils.custom")
 require("ajlow.std.options")
 require("ajlow.std.keymaps")
 require("ajlow.std.autocommands")
+require("ajlow.std.filetypes")
 require("ajlow.lazy")
 
 -- Conditionally add a playground file for local testing

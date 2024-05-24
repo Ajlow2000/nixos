@@ -24,6 +24,7 @@ return {
                     "cpp",
                     "rust",
                     "go",
+                    "templ",
                     "ocaml",
                     "python",
                     "nix",
