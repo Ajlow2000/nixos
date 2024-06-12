@@ -19,3 +19,12 @@ function is_module_available(name)
 end
 
 
+-- String to Boolean conversion. 
+function stb(str)
+    local lookup_table = {
+        ["true"]=true,
+        ["false"]=false,
+    }
+
+    return lookup_table[string.lower(str)]
+end
