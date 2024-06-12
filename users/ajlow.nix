@@ -65,15 +65,11 @@ in {
         rsync
         gnupatch
         bzip2
+        tokei
 
         ### Language Support
-        #texlive.combined.scheme-full
-        #typst
-        #rustup
-        #opam
-        #gopls
-        #go
         nixd
+        asm-lsp
         lua-language-server
         nodePackages_latest.bash-language-server
         #jdk11
