@@ -75,8 +75,10 @@ in {
         #jdk11
         #nodejs_20
         gcc
+        llvmPackages_9.clang-unwrapped
 
         ### Misc
+        evince
         krita
         gimp
         inkscape
