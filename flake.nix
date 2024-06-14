@@ -27,6 +27,12 @@
 	                ./hosts/hal9000/configuration.nix 
 	            ];
 		    };
+	        multivac = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit system; };
+	            modules = [ 
+	                ./hosts/multivac/configuration.nix 
+	            ];
+		    };
 	    };
             homeConfigurations = {
                 ajlow = home-manager.lib.homeManagerConfiguration {
