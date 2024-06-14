@@ -20,6 +20,14 @@
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
         in {
+	    nixosConfigurations = {
+	        hal9000 = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+	            modules = [ 
+	                ./hosts/hal9000/configuration.nix 
+	            ];
+		};
+	    };
             homeConfigurations = {
                 ajlow = home-manager.lib.homeManagerConfiguration {
                     inherit pkgs;
