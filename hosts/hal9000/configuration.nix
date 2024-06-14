@@ -118,8 +118,6 @@
   environment.sessionVariables = rec {
         EDITOR = "nvim";
 
-        NIXOS_CONFIG_PROFILE = "workstation";	# Used to dynamically determine configuration profile in home manager
-
         XDG_CACHE_HOME = "$HOME/.cache";
         XDG_CONFIG_HOME = "$HOME/.config";
         XDG_DATA_HOME = "$HOME/.local/share";
