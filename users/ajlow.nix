@@ -57,6 +57,7 @@ in {
         unzip
         qmk
         eza
+        usbutils
         bottom
         fd
         hyperfine
