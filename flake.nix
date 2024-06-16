@@ -24,13 +24,13 @@
 	        hal9000 = nixpkgs.lib.nixosSystem {
                 specialArgs = { inherit system; };
 	            modules = [ 
-	                ./hosts/hal9000/configuration.nix 
+	                ./system/hosts/hal9000/configuration.nix 
 	            ];
 		    };
 	        multivac = nixpkgs.lib.nixosSystem {
                 specialArgs = { inherit system; };
 	            modules = [ 
-	                ./hosts/multivac/configuration.nix 
+	                ./system/hosts/multivac/configuration.nix 
 	            ];
 		    };
 	    };
@@ -38,7 +38,7 @@
                 ajlow = home-manager.lib.homeManagerConfiguration {
                     inherit pkgs;
                     modules = [ 
-                        ./users/ajlow.nix 
+                        ./userspace/users/ajlow.nix 
                         nix-index-database.hmModules.nix-index
                     ];
                     extraSpecialArgs = {
