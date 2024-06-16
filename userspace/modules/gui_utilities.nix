@@ -5,7 +5,8 @@
         krita
         gimp
         inkscape
-        discord
         wireshark
+        discord
+        spotify
     ]);
 }
