@@ -1,13 +1,14 @@
-{ config, pkgs, inputs, ... }:
-let inherit (inputs) toolbox;
-in {
-    home.username = "ajlow";
-    home.homeDirectory = "/home/ajlow";
+{ config, pkgs, inputs, ... }: {
+    nixpkgs.config.allowUnfreePredicate = _: true;
 
     imports = [
-        ../archetype/personal_user.nix
+        ../modules/pde.nix
+        ../modules/env.nix
+        ../modules/gui_utilities.nix
+        ../modules/personal.nix
+        ../modules/de.nix
     ];
-    
+
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
     # introduces backwards incompatible changes.

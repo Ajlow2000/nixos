@@ -1,11 +1,13 @@
 { config, pkgs, inputs, ... }:
 let inherit (inputs) toolbox;
 in {
-    home.username = "ajlow";
-    home.homeDirectory = "/home/ajlow";
+    home.username = "alowry";
+    home.homeDirectory = "/home/alowry";
+
+    nixpkgs.config.allowUnfreePredicate = _: true;
 
     imports = [
-        ../archetype/personal_user.nix
+        ../archetype/work_user.nix
     ];
     
     # This value determines the Home Manager release that your configuration is
