@@ -14,6 +14,7 @@ in {
         };
     };
 
+
     home.packages = with pkgs; ([
         ### PDE
         neovim
@@ -58,6 +59,7 @@ in {
         qmk
         eza
         usbutils
+        pciutils
         bottom
         fd
         hyperfine
@@ -86,6 +88,7 @@ in {
         discord
         wireshark
         grim
+        discord
     ] ++ [
         toolbox.packages.${system}.default
     ]);
