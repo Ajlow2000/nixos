@@ -33,6 +33,12 @@
 	                ./system/hosts/multivac/configuration.nix 
 	            ];
 		    };
+	        wsl = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit system; };
+	            modules = [ 
+	                ./hosts/wsl/configuration.nix 
+	            ];
+		    };
 	    };
             homeConfigurations = {
                 ajlow = home-manager.lib.homeManagerConfiguration {
