@@ -33,6 +33,12 @@
 	                    ./system/hosts/multivac/configuration.nix 
 	                ];
 		        };
+	            microvac = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+	                modules = [ 
+	                    ./system/hosts/microvac/configuration.nix 
+	                ];
+		        };
 	            wsl = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
