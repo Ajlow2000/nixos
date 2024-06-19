@@ -24,6 +24,16 @@
   networking.hostName = "hal9000"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  hardware.opengl = {
+    ## radv: an open-source Vulkan driver from freedesktop
+    driSupport = true;
+    driSupport32Bit = true;
+
+    ## amdvlk: an open-source Vulkan driver from AMD
+    extraPackages = [ pkgs.amdvlk ];
+    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+  };
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
