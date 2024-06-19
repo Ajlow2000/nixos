@@ -3,7 +3,7 @@
 {
     imports =
         [
-        ./hardware-configuration.nix
+        ./hardware-multivac.nix
         ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -57,7 +57,7 @@
 
     services.xserver.displayManager = {
         sddm.enable = true;
-        sddm.theme = "${import ./sddm/sddm-theme.nix { inherit pkgs; }}";
+        sddm.theme = "${import ./sddm-multivac/sddm-theme.nix { inherit pkgs; }}";
     };
 
     # hyprland

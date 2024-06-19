@@ -1,12 +1,10 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+{ config, pkgs, ... }: {
 
-{ config, pkgs, ... }:
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-{
   imports = [
-      ./hardware-configuration.nix
+      ./hardware-hal9000.nix
       ../../modules/create_users.nix
       ../../modules/gc.nix
       ../../modules/locale.nix
@@ -17,14 +15,24 @@
       ../../modules/steam.nix
   ];
 
+
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/nvme0n1";
+  boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "microvac"; # Define your hostname.
+  networking.hostName = "hal9000"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  hardware.opengl = {
+    ## radv: an open-source Vulkan driver from freedesktop
+    driSupport = true;
+    driSupport32Bit = true;
+
+    ## amdvlk: an open-source Vulkan driver from AMD
+    extraPackages = [ pkgs.amdvlk ];
+    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -77,6 +85,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 
 }
