@@ -24,25 +24,19 @@
 	            hal9000 = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
-	                    ./system/hosts/hal9000/configuration.nix 
+	                    ./system/hosts/hal9000.nix 
 	                ];
 		        };
 	            multivac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
-	                    ./system/hosts/multivac/configuration.nix 
+	                    ./system/hosts/multivac.nix 
 	                ];
 		        };
 	            microvac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
-	                    ./system/hosts/microvac/configuration.nix 
-	                ];
-		        };
-	            wsl = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
-	                modules = [ 
-	                    ./hosts/wsl/configuration.nix 
+	                    ./system/hosts/microvac.nix 
 	                ];
 		        };
 	        };
