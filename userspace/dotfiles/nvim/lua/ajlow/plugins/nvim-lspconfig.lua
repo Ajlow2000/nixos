@@ -64,7 +64,7 @@ return {
         end
 
         -- Setup language servers.
-        lspconfig.nixd.setup { capabilities = capabilities }
+        lspconfig.nil_ls.setup { capabilities = capabilities }
         lspconfig.bashls.setup { capabilities = capabilities }
         lspconfig.gopls.setup { capabilities = capabilities }
         lspconfig.templ.setup { capabilities = capabilities }

@@ -1,121 +1,130 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let inherit (inputs) toolbox;
 in {
-    programs = {
-        direnv = {
-            enable = true;
-            enableZshIntegration = true;
-            nix-direnv.enable = true;
+    options = {
+        my.pde.enable = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
         };
     };
 
-    home.packages = with pkgs; ([
-        ### PDE
-        neovim
-        tmux
-        zellij
-        zsh
-        delta
-        zoxide
-        kitty
-        hack-font
-        lf
-        gh
-        ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
+    config = {
+        my.pde.enable = true;
+        programs = {
+            direnv = {
+                enable = true;
+                enableZshIntegration = true;
+                nix-direnv.enable = true;
+            };
+        };
 
-        jq
-        gnumake
-        just
-        bat
-        git
-        fzf
-        ripgrep
-        gnugrep
-        mercurial
-        darcs
-        subversion
-        xclip
-        unixtools.xxd
-        gum
-        glow
-        openssh
-        fd
-        sd
-        htop
-        qmk
-        eza
+        home.packages = with pkgs; ([
+            ### PDE
+            neovim
+            tmux
+            zellij
+            zsh
+            delta
+            zoxide
+            kitty
+            hack-font
+            lf
+            gh
+            ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
 
-        unzip
-        util-linux
-        lsb-release
-        usbutils
-        pciutils
-        rsync
-        interception-tools
-        gnupatch
-        bzip2
+            jq
+            gnumake
+            just
+            bat
+            git
+            fzf
+            ripgrep
+            gnugrep
+            mercurial
+            darcs
+            subversion
+            xclip
+            unixtools.xxd
+            gum
+            glow
+            openssh
+            fd
+            sd
+            htop
+            qmk
+            eza
 
-        bottom
-        hyperfine
-        nmap
-        tokei
+            unzip
+            util-linux
+            lsb-release
+            usbutils
+            pciutils
+            rsync
+            interception-tools
+            gnupatch
+            bzip2
 
-        ### Global Language Support
-        nixd
-        asm-lsp
-        lua-language-server
-        nodePackages_latest.bash-language-server
-        gcc
-        llvmPackages_9.clang-unwrapped
-    ] ++ [
-        toolbox.packages.${system}.default
-    ]);
+            bottom
+            hyperfine
+            nmap
+            tokei
 
-    home.file = {
-        neovim = {
-            recursive = true;
-            source = ../dotfiles/nvim;
-            target = "./.config/nvim";
-        };
-        kitty = {
-            recursive = true;
-            source = ../dotfiles/kitty;
-            target = "./.config/kitty";
-        };
-        tmux = {
-            source = ../dotfiles/tmux/tmux.conf;
-            target = "./.tmux.conf";
-        };
-        zellij = {
-            recursive = true;
-            source = ../dotfiles/zellij;
-            target = "./.config/zellij";
-        };
-        git = {
-            recursive = true;
-            source = ../dotfiles/git;
-            target = "./.config/git";
-        };
-        zsh = {
-            recursive = false;
-            source = ../dotfiles/zsh/zshrc;
-            target = "./.zshrc";
-        };
-        scripts = {
-            recursive = false;
-            source = ../dotfiles/scripts;
-            target = "./.local/bin";
-        };
-    };
+            ### Global Language Support
+            asm-lsp
+            lua-language-server
+            nodePackages_latest.bash-language-server
+            gcc
+            llvmPackages_9.clang-unwrapped
+        ] ++ [
+            toolbox.packages.${system}.default
+        ]);
 
-    xdg.desktopEntries = {
-        kitty-tmux = {
-            name = "Kitty (Tmux)";
-            genericName = "Terminal Emulator";
-            exec = "kitty tmux-session-manager";
-            terminal = false;
-            categories = [ "System" "TerminalEmulator" ];
-            icon = "kitty";
+        home.file = {
+            neovim = {
+                recursive = true;
+                source = ../dotfiles/nvim;
+                target = "./.config/nvim";
+            };
+            kitty = {
+                recursive = true;
+                source = ../dotfiles/kitty;
+                target = "./.config/kitty";
+            };
+            tmux = {
+                source = ../dotfiles/tmux/tmux.conf;
+                target = "./.tmux.conf";
+            };
+            zellij = {
+                recursive = true;
+                source = ../dotfiles/zellij;
+                target = "./.config/zellij";
+            };
+            git = {
+                recursive = true;
+                source = ../dotfiles/git;
+                target = "./.config/git";
+            };
+            zsh = {
+                recursive = false;
+                source = ../dotfiles/zsh/zshrc;
+                target = "./.zshrc";
+            };
+            scripts = {
+                recursive = false;
+                source = ../dotfiles/scripts;
+                target = "./.local/bin";
+            };
+        };
+
+        xdg.desktopEntries = {
+            kitty-tmux = {
+                name = "Kitty (Tmux)";
+                genericName = "Terminal Emulator";
+                exec = "kitty tmux-session-manager";
+                terminal = false;
+                categories = [ "System" "TerminalEmulator" ];
+                icon = "kitty";
+            };
         };
     };
 }
