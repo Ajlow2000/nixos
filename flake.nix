@@ -20,26 +20,26 @@
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
         in {
-	    nixosConfigurations = {
-	        hal9000 = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit system; };
-	            modules = [ 
-	                ./system/hosts/hal9000/configuration.nix 
-	            ];
-		    };
-	        multivac = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit system; };
-	            modules = [ 
-	                ./system/hosts/multivac/configuration.nix 
-	            ];
-		    };
-	        wsl = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit system; };
-	            modules = [ 
-	                ./hosts/wsl/configuration.nix 
-	            ];
-		    };
-	    };
+	        nixosConfigurations = {
+	            hal9000 = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+	                modules = [ 
+	                    ./system/hosts/hal9000/configuration.nix 
+	                ];
+		        };
+	            multivac = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+	                modules = [ 
+	                    ./system/hosts/multivac/configuration.nix 
+	                ];
+		        };
+	            wsl = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+	                modules = [ 
+	                    ./hosts/wsl/configuration.nix 
+	                ];
+		        };
+	        };
             homeConfigurations = {
                 ajlow = home-manager.lib.homeManagerConfiguration {
                     inherit pkgs;
@@ -52,6 +52,11 @@
                         inherit system;
                     };
                 };
+            };
+            devShells.${system}.default = pkgs.mkShell {
+                packages = with pkgs; [
+                    nil
+                ];
             };
         };
 }
