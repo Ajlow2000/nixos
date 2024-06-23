@@ -15,6 +15,8 @@
 
   networking.hostName = "microvac"; # Define your hostname.
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   #networking.firewall.allowedTCPPorts = [ ... ];
   #networking.firewall.allowedUDPPorts = [ ... ];
 

@@ -74,7 +74,7 @@ in {
             lua-language-server
             nodePackages_latest.bash-language-server
             gcc
-            llvmPackages_9.clang-unwrapped
+            # llvmPackages_9.clang-unwrapped
         ] ++ [
             toolbox.packages.${system}.default
         ]);
