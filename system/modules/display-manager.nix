@@ -35,6 +35,7 @@ in {
 
     config = lib.mkIf cfg.enable {
         services.displayManager.sddm.enable = true;
+        services.displayManager.sddm.wayland.enable = true;
         services.displayManager.sddm.theme = "${sddmTheme}";
         # services.displayManager.sddm.wayland.enable = true;
 

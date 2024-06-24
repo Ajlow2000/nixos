@@ -10,10 +10,7 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
-        home.packages = with pkgs; ([
             wl-clipboard
-        ]);
-
         home.file = {
             hyprland = {
                 recursive = true;

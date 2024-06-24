@@ -4,6 +4,7 @@ let
 in {
     imports = [
         ./my_gnome.nix
+        ./my_hypr.nix
     ];
 
     options = {
@@ -14,6 +15,6 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
-        my_gnome.enable = true;
+        my_hypr.enable = true;
     };
 }
