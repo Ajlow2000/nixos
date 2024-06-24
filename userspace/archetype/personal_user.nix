@@ -1,5 +1,7 @@
-{ config, pkgs, inputs, ... }: {
-    nixpkgs.config.allowUnfreePredicate = _: true;
+{config, lib, ... }:
+let 
+    cfg = config.personal_user;
+in {
 
     imports = [
         ../modules/pde.nix
@@ -9,15 +11,32 @@
         ../modules/de.nix
     ];
 
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    home.stateVersion = "22.11"; # Please read the comment before changing.
+    options = {
+        personal_user.enable = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+        };
+    };
 
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
+    config = lib.mkIf cfg.enable {
+        nixpkgs.config.allowUnfreePredicate = _: true;
+
+        pde.enable = true;
+        env.enable = true;
+        gui_utilities.enable = true;
+        personal.enable = true;
+        de.enable = true;
+
+        # This value determines the Home Manager release that your configuration is
+        # compatible with. This helps avoid breakage when a new Home Manager release
+        # introduces backwards incompatible changes.
+        #
+        # You should not change this value, even if you update Home Manager. If you do
+        # want to update the value, then make sure to first check the Home Manager
+        # release notes.
+        home.stateVersion = "22.11"; # Please read the comment before changing.
+
+        # Let Home Manager install and manage itself.
+        programs.home-manager.enable = true;
+    };
 }

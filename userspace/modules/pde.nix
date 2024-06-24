@@ -1,15 +1,16 @@
 { config, lib, pkgs, inputs, ... }:
-let inherit (inputs) toolbox;
+let 
+    inherit (inputs) toolbox;
+    cfg = config.pde;
 in {
     options = {
-        my.pde.enable = lib.mkOption {
+        pde.enable = lib.mkOption {
             type = lib.types.bool;
             default = false;
         };
     };
 
-    config = {
-        my.pde.enable = true;
+    config = lib.mkIf cfg.enable {
         programs = {
             direnv = {
                 enable = true;
