@@ -18,12 +18,11 @@ in {
             swww
             feh
             wofi
+            light
         ];
 
         programs.hyprland = {
-            # Install the packages from nixpkgs
             enable = true;
-            # Whether to enable XWayland
             xwayland.enable = true;
         };
     };
