@@ -13,13 +13,29 @@ in {
         environment.systemPackages = with pkgs; [
             wayland-protocols
             wayland-utils
-            waybar
             wl-clipboard
+            (waybar.overrideAttrs (oldAttrs: {
+                mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+                })
+            )
             swww
+            mako
+            libnotify
             feh
             wofi
+            rofi-wayland
             light
         ];
+
+        environment.sessionVariables = {
+            WLR_NO_HARDWARE_CURSORS = "1";
+            NIXOS_OZONE_WL = "1";
+        };
+
+        hardware = {
+            opengl.enable = true;
+            nvidia.modesetting.enable = true;
+        };
 
         programs.hyprland = {
             enable = true;

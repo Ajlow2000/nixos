@@ -10,17 +10,5 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
-        # home.file = {
-        #     hyprland = {
-        #         recursive = true;
-        #         source = ../dotfiles/hypr;
-        #         target = "./.config/hypr";
-        #     };
-        #     waybar = {
-        #         recursive = true;
-        #         source = ../dotfiles/waybar;
-        #         target = "./.config/waybar";
-        #     };
-        # };
     };
 }
