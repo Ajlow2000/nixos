@@ -12,7 +12,7 @@
       ../../modules/utils.nix
       ../../modules/greeter.nix
       ../../modules/de.nix
-      ../../modules/steam.nix
+      ../../modules/gaming.nix
   ];
 
 
