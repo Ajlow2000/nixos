@@ -6,9 +6,12 @@
     imports = [
         ./hardware-hal9000.nix
         ../archetype/personal.nix
+        ../modules/star_citizen.nix
     ];
 
     personal.enable = true;
+
+    star_citizen.enable = true;
 
     # Bootloader.
     boot.loader.grub.enable = true;
@@ -18,10 +21,10 @@
     networking.hostName = "hal9000"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-    hardware.opengl = {
+    hardware.graphics = {
         ## radv: an open-source Vulkan driver from freedesktop
         #driSupport = true;
-        driSupport32Bit = true;
+        #driSupport32Bit = true;
 
         ## amdvlk: an open-source Vulkan driver from AMD
         extraPackages = [ pkgs.amdvlk ];

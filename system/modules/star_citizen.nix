@@ -20,6 +20,7 @@ in {
             enable = true;
             # Additional commands before the game starts
             preCommands = ''
+                export AMD_VULKAN_ICD = "RADV";
                 export DXVK_HUD=compiler;
                 export MANGO_HUD=1;
             '';
@@ -32,7 +33,7 @@ in {
             # #Set `fs.file-max` default to `524288` (sysctl(8))
             # #Also sets `security.pam.loginLimits` to increase hard (limits.conf(5))
             # # Changes outlined in  https://github.com/starcitizen-lug/knowledge-base/wiki/Manual-Installation#prerequisites
-            # setLimits = false;
+            setLimits = true;
         };
     };
 }
