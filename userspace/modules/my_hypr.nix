@@ -19,7 +19,7 @@ in {
                     "waybar"
                 ];
 
-                monitor=,preferred,auto,1
+                monitor= ", preferred, auto, 1"
 
                 "$mod" = "SUPER";
                 bind = [
