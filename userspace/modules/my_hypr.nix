@@ -50,6 +50,12 @@ in {
                 "$mod SHIFT, 9, movetoworkspace, 9"
                 "$mod SHIFT, 0, movetoworkspace, 10"
 
+                "$mod, mouse:272, movewindow"   # mod + LMB
+                "$mod, mouse:273, resizew"      # mod + RMB
+
+                # Scroll through workspaces with mod + scroll
+                "$mod, mouse_down, workspace, m+1"
+                "$mod, mouse_up, workspace, m-1"
 
                 "$mod,              m,          togglefloating, "
                 "$mod,              P,          pseudo, "
@@ -58,6 +64,9 @@ in {
                 "$mod,              SPACE,      exec,           wofi --show drun"
                 ",                  Print,      exec,           grimblast copy area"
             ];
+            gestures = {
+                workspace_swipe = "on";
+            };
         };
     };
 }
