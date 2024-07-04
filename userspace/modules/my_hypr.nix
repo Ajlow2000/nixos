@@ -29,6 +29,9 @@ in {
                     "$mod, k, movefocus, u"
                     "$mod, j, movefocus, d"
 
+                    "$mod       , Tab, Workspace, m+1, "
+                    "$mod SHIFT , Tab, Workspace, m-1, "
+
                     "$mod, 1, workspace, 1"
                     "$mod, 2, workspace, 2"
                     "$mod, 3, workspace, 3"
@@ -60,8 +63,8 @@ in {
                     "$mod, down, layoutmsg, orientationbottom"
                     "$mod, right, layoutmsg, orientationright"
 
-                    "$mod, mouse:272, movewindow"   # mod + LMB
-                    "$mod, mouse:273, resizewindowpixel"      # mod + RMB
+                    "$mod, mouse:272, movewindow"           # mod + LMB
+                    "$mod, mouse:273, resizewindowpixel"    # mod + RMB
 
                     # Scroll through workspaces with mod + scroll
                     "$mod, mouse_down, workspace, m+1"
