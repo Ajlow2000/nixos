@@ -51,7 +51,10 @@ in {
                     "$mod SHIFT, 9, movetoworkspace, 9"
                     "$mod SHIFT, 0, movetoworkspace, 10"
 
+                    # Master Layout binds
                     "$mod, m, layoutmsg, swapwithmaster master"
+                    "$mod, n, layoutmsg, rollnext"
+                    "$mod, b, layoutmsg, rollprev"
 
                     "$mod, mouse:272, movewindow"   # mod + LMB
                     "$mod, mouse:273, resizewindowpixel"      # mod + RMB
