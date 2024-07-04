@@ -51,6 +51,8 @@ in {
                     "$mod SHIFT, 9, movetoworkspace, 9"
                     "$mod SHIFT, 0, movetoworkspace, 10"
 
+                    "$mod, m, swapwithmaster"
+
                     "$mod, mouse:272, movewindow"   # mod + LMB
                     "$mod, mouse:273, resizewindowpixel"      # mod + RMB
 
@@ -72,12 +74,6 @@ in {
                     gaps_in = 5;
                     gaps_out = 5;
                     border_size = 2;
-                };
-
-                config = {
-                    master = {
-                        new_status = "slave";
-                    };
                 };
 
                 decoration = {
