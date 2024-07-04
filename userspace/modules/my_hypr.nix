@@ -14,8 +14,10 @@ in {
             enable = true;
 
             settings = {
-                "exec-once" = "swww init";
-                "exec-once" = "waybar";
+                "exec-once" = [
+                    "swww init"
+                    "waybar"
+                ];
 
                 "$mod" = "SUPER";
                 bind = [
