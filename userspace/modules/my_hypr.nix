@@ -18,7 +18,7 @@ in {
                 "$mod SHIFT,    RETURN,     exec,           firefox"
                 "$mod,          q,          exit, "
                 "$mod SHIFT,    c,          killactive, "
-                "$mod,          f,          fullscreen"
+                "$mod,          f,          fullscreen, 1"
 
                 "$mod,          m,          togglefloating, "
                 "$mod,          P,          pseudo, "
