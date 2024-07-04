@@ -76,10 +76,11 @@ in {
 
                 decoration = {
                     rounding = 5;
-                    animations = {
-                        enabled = true;
-                        first_launch_animation = true;
-                    };
+                };
+
+                animations = {
+                    enabled = true;
+                    first_launch_animation = true;
                 };
 
                 input = {
