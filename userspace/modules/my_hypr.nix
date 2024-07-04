@@ -77,7 +77,7 @@ in {
                 decoration = {
                     rounding = 5;
                     animations = {
-                        enable = true;
+                        enabled = true;
                         first_launch_animation = true;
                     };
                 };
