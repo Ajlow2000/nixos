@@ -76,7 +76,7 @@ in {
                 };
 
                 decoration = {
-                    rounding = 2;
+                    rounding = 5;
                 };
 
                 input = {
