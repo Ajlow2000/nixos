@@ -51,7 +51,7 @@ in {
                     "$mod SHIFT, 9, movetoworkspace, 9"
                     "$mod SHIFT, 0, movetoworkspace, 10"
 
-                    "$mod, m, swapwithmaster"
+                    "$mod, m, layoutmsg, swapwithmaster"
 
                     "$mod, mouse:272, movewindow"   # mod + LMB
                     "$mod, mouse:273, resizewindowpixel"      # mod + RMB
