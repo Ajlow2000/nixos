@@ -75,6 +75,10 @@ in {
                     rounding = 2;
                 };
 
+                decoration = {
+                    rounding = 2;
+                };
+
                 input = {
                     kb_layout = "us";
                     kb_options = "ctrl:nocaps";
