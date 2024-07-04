@@ -55,8 +55,10 @@ in {
                     "$mod, m, layoutmsg, swapwithmaster master"
                     "$mod, n, layoutmsg, rollnext"
                     "$mod, b, layoutmsg, rollprev"
+                    "$mod, left, layoutmsg, orientationleft"
                     "$mod, up, layoutmsg, orientationtop"
                     "$mod, down, layoutmsg, orientationbottom"
+                    "$mod, right, layoutmsg, orientationright"
 
                     "$mod, mouse:272, movewindow"   # mod + LMB
                     "$mod, mouse:273, resizewindowpixel"      # mod + RMB
