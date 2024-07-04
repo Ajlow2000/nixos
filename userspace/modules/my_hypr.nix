@@ -72,7 +72,6 @@ in {
                     gaps_in = 5;
                     gaps_out = 5;
                     border_size = 2;
-                    rounding = 2;
                 };
 
                 decoration = {
