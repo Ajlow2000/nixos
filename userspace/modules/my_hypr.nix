@@ -10,6 +10,7 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
+        wayland.windowManager.hyprland.enable = true;
         wayland.windowManager.hyprland.settings = {
             "$mod" = "SUPER";
             bind = [
