@@ -19,10 +19,12 @@ in {
                     "waybar"
                 ];
 
+                monitor=,preferred,auto,1
+
                 "$mod" = "SUPER";
                 bind = [
-                    "$mod,              RETURN,     exec,           kitty tmux-session-manager"
-                    "$mod SHIFT,        RETURN,     exec,           firefox"
+                    "$mod,              RETURN,     exec,       kitty tmux-session-manager"
+                    "$mod SHIFT,        RETURN,     exec,       firefox"
                     "$mod,              q,          exit, "
                     "$mod SHIFT,        c,          killactive, "
                     "$mod,              f,          fullscreen, 1"
