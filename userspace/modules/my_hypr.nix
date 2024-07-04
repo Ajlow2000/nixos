@@ -67,7 +67,7 @@ in {
                 ];
 
                 general = {
-                    layout = "dwindle"; # dwindle | master
+                    layout = "master"; # dwindle | master
 
                     gaps_in = 5;
                     gaps_out = 5;
