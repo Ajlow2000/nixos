@@ -51,7 +51,7 @@ in {
                 "$mod SHIFT, 0, movetoworkspace, 10"
 
                 "$mod, mouse:272, movewindow"   # mod + LMB
-                "$mod, mouse:273, resizew"      # mod + RMB
+                "$mod, mouse:273, resizewindowpixel"      # mod + RMB
 
                 # Scroll through workspaces with mod + scroll
                 "$mod, mouse_down, workspace, m+1"
