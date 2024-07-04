@@ -9,13 +9,14 @@
         };
         nix-index-database.url = "github:Mic92/nix-index-database";
         nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+        stylix.url = "github:danth/stylix";
         toolbox = {
             url = "github:Ajlow2000/toolbox";
             flake = true;
         };
     };
 
-    outputs = { nixpkgs, home-manager, nix-index-database, ... }@inputs:
+    outputs = { nixpkgs, home-manager, nix-index-database, stylix, ... }@inputs:
         let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -24,18 +25,21 @@
 	            hal9000 = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
+                        stylix.nixosModules.stylix
 	                    ./system/hosts/hal9000.nix 
 	                ];
 		        };
 	            multivac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
+                        stylix.nixosModules.stylix
 	                    ./system/hosts/multivac.nix 
 	                ];
 		        };
 	            microvac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
+                        stylix.nixosModules.stylix
 	                    ./system/hosts/microvac.nix 
 	                ];
 		        };
