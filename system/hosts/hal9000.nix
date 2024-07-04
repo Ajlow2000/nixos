@@ -18,10 +18,10 @@
     networking.hostName = "hal9000"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-    hardware.opengl = {
+    hardware.graphics = {
         ## radv: an open-source Vulkan driver from freedesktop
         #driSupport = true;
-        driSupport32Bit = true;
+        #driSupport32Bit = true;
 
         ## amdvlk: an open-source Vulkan driver from AMD
         extraPackages = [ pkgs.amdvlk ];
