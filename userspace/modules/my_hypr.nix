@@ -74,6 +74,10 @@ in {
                     border_size = 2;
                 };
 
+                master = {
+                    new_status = "slave";
+                };
+
                 decoration = {
                     rounding = 5;
                 };
