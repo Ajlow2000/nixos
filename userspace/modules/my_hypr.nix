@@ -14,7 +14,7 @@ in {
             enable = true;
 
             settings = {
-                "exec-once" = "waybar"
+                "exec-once" = "waybar";
 
                 "$mod" = "SUPER";
                 bind = [
