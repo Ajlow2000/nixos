@@ -29,8 +29,8 @@ in {
                     "$mod, k, movefocus, u"
                     "$mod, j, movefocus, d"
 
-                    "$mod SHIFT, left, workspace, m-1, "
-                    "$mod SHIFT, right, workspace, m+1, "
+                    "$mod, Tab, workspace, m-1, "
+                    "$mod SHIFT, Tab, workspace, m+1, "
 
                     "$mod, 1, workspace, 1"
                     "$mod, 2, workspace, 2"
