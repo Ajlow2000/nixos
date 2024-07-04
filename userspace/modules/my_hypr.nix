@@ -72,10 +72,6 @@ in {
                     gaps_in = 5;
                     gaps_out = 5;
                     border_size = 2;
-                    col = {
-                        active_border = "rgba(d3c6aaff)";
-                        # col.inactive_border = "rgba(1e2326)";
-                    };
                 };
 
                 input = {
