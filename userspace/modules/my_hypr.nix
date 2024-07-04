@@ -19,6 +19,8 @@ in {
                 "$mod,          q,          exit, "
                 "$mod SHIFT,    c,          killactive, "
                 "$mod,          f,          fullscreen, 1"
+                "$mod SHIFT,    f,          fullscreen, 0"
+                "$mod CONTROL SHIFT,    f,          fullscreen, 0"
 
                 "$mod,          m,          togglefloating, "
                 "$mod,          P,          pseudo, "
