@@ -12,7 +12,10 @@ in {
     config = lib.mkIf cfg.enable {
         wayland.windowManager.hyprland = {
             enable = true;
+
             settings = {
+                "exec-once" = "waybar"
+
                 "$mod" = "SUPER";
                 bind = [
                     "$mod,              RETURN,     exec,           kitty tmux-session-manager"
@@ -70,10 +73,12 @@ in {
                     "$mod, mouse_down, workspace, m+1"
                     "$mod, mouse_up, workspace, m-1"
 
-                    "$mod,              F12,          togglefloating, "
+                    "$mod,  F12,    togglefloating, "
 
-                    "$mod,              SPACE,      exec,           wofi --show drun"
-                    ",                  Print,      exec,           grimblast copy area"
+                    "$mod,          SPACE,  exec,   wofi --show drun"
+                    "$mod,          p,      exec,   grimblast copy area"
+                    "$mod SHIFT,    s,      exec,   grimblast copy area"
+                    ",              Print,  exec,   grimblast copy area"
                 ];
 
                 general = {
