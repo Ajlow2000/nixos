@@ -14,15 +14,18 @@ in {
         wayland.windowManager.hyprland.settings = {
             "$mod" = "SUPER";
             bind = [
-                ",              Print,      exec,           grimblast copy area"
                 "$mod,          RETURN,     exec,           kitty tmux-session-manager"
                 "$mod SHIFT,    RETURN,     exec,           firefox"
-                "$mod,          BACKSPACE,  exit, "
-                "$mod SHIFT,    BACKSPACE,  killactive, "
-                "$mod,          M,          togglefloating, "
-                "$mod,          SPACE,      exec,           wofi --show drun"
+                "$mod,          q,          exit, "
+                "$mod SHIFT,    c,          killactive, "
+                "$mod,          f,          fullscreen"
+
+                "$mod,          m,          togglefloating, "
                 "$mod,          P,          pseudo, "
                 "$mod,          J,          togglesplit, "
+
+                "$mod,          SPACE,      exec,           wofi --show drun"
+                ",              Print,      exec,           grimblast copy area"
             ];
         };
     };
