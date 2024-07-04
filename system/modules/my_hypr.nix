@@ -25,6 +25,7 @@ in {
             wofi
             rofi-wayland
             light
+            kitty
         ];
 
         environment.sessionVariables = {
