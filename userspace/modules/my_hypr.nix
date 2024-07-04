@@ -78,6 +78,11 @@ in {
                     rounding = 5;
                 };
 
+                animations = {
+                    enable = true;
+                    first_launch_animation = true;
+                };
+
                 input = {
                     kb_layout = "us";
                     kb_options = "ctrl:nocaps";
