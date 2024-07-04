@@ -67,9 +67,7 @@ in {
                     "$mod, mouse_down, workspace, m+1"
                     "$mod, mouse_up, workspace, m-1"
 
-                    "$mod,              m,          togglefloating, "
-                    "$mod,              P,          pseudo, "
-                    "$mod,              J,          togglesplit, "
+                    "$mod,              F12,          togglefloating, "
 
                     "$mod,              SPACE,      exec,           wofi --show drun"
                     ",                  Print,      exec,           grimblast copy area"
