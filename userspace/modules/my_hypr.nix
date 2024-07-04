@@ -20,6 +20,7 @@ in {
                 "$mod SHIFT,        c,          killactive, "
                 "$mod,              f,          fullscreen, 1"
                 "$mod SHIFT,        f,          fullscreen, 0"
+                ",                  f11,        fullscreen, 0"
                 "$mod CONTROL SHIFT,f,          fullscreen, 2"
 
                 "$mod,              m,          togglefloating, "
