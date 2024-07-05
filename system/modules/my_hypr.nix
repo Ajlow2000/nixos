@@ -22,7 +22,6 @@ in {
             mako
             libnotify
             feh
-            wofi
             rofi-wayland
             light
             kitty
@@ -34,7 +33,7 @@ in {
         };
 
         hardware = {
-            opengl.enable = true;
+            graphics.enable = true;
             nvidia.modesetting.enable = true;
         };
 
