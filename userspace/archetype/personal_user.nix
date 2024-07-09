@@ -9,6 +9,7 @@ in {
         ../modules/gui_utilities.nix
         ../modules/personal.nix
         ../modules/de.nix
+        ../modules/minecraft.nix
     ];
 
     options = {
@@ -21,11 +22,13 @@ in {
     config = lib.mkIf cfg.enable {
         nixpkgs.config.allowUnfreePredicate = _: true;
 
+
         pde.enable = true;
         env.enable = true;
         gui_utilities.enable = true;
         personal.enable = true;
         de.enable = true;
+        minecraft.enable = true;
 
         # This value determines the Home Manager release that your configuration is
         # compatible with. This helps avoid breakage when a new Home Manager release
