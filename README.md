@@ -53,3 +53,6 @@ thus all packages I download and install are the same across
 all machines I use. To upgrade all system packages, I run the
 command ```nix flake update```, rebuild home manager, and then 
 commit my new lockfile.
+
+### WSL
+[https://github.com/nix-community/NixOS-WSL]
