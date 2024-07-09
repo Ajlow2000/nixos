@@ -53,7 +53,7 @@
                     };
                 };
             };
-            devShell.x86_64-linux = pkgs.mkShell {
+            devShell.${system} = pkgs.mkShell {
                 buildInputs = with pkgs; [
                     nil
                 ];
