@@ -1,5 +1,5 @@
 {
-    description = "Home Manager configuration of ajlow";
+    description = "My NixOS and Home Manager configurations";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -53,8 +53,8 @@
                     };
                 };
             };
-            devShells.${system}.default = pkgs.mkShell {
-                packages = with pkgs; [
+            devShell.x86_64-linux = pkgs.mkShell {
+                buildInputs = with pkgs; [
                     nil
                 ];
             };
