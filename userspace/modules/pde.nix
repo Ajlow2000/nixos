@@ -35,7 +35,6 @@ in {
 
             jq
             gnumake
-            just
             bat
             git
             fzf
@@ -48,13 +47,12 @@ in {
             unixtools.xxd
             gum
             glow
-            openssh
             fd
             sd
             htop
-            qmk
             eza
 
+            openssh
             unzip
             util-linux
             lsb-release
