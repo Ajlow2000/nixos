@@ -56,6 +56,10 @@
             devShell.${system} = pkgs.mkShell {
                 buildInputs = with pkgs; [
                     nil
+                    just
+                    neovim
+                    git
+                    coreutils
                 ];
             };
         };
