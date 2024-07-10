@@ -3,13 +3,18 @@
 {
     imports = [
         ./hardware-multivac.nix
+        "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+        ./disko-multivac.nix
         ../archetype/personal.nix
     ];
 
     personal.enable = true;
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+    disko.devices.disk.main.device = "/dev/sda";
+
+    boot.loader.grub.enable = true;
+    boot.loader.grub.efiSupport = true;
+    boot.loader.grub.efiInstallAsRemovable = true;
 
     networking.hostName = "multivac";
 
