@@ -2,7 +2,7 @@
 
 {
     imports = [
-        ./hardware-microvac.nix
+        ./hardware-multivac.nix
         ../archetype/personal.nix
     ];
 
