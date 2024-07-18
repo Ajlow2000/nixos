@@ -4,3 +4,7 @@
 
 # nvim
 .nvim.shada
+
+# Ziglang specific
+$HOME/repos/ziglang_zig/flake.nix
+$HOME/repos/ziglang_zig/flake.lock
