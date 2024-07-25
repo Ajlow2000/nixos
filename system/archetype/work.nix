@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let 
     cfg = config.work;
 in {
@@ -19,6 +19,9 @@ in {
         server.enable = true;
         display-manager.enable = true;
         desktop-environment.enable = true;
+
+
+        programs.noisetorch.enable = true;
 
         # Configure keymap in X11
         services.xserver.xkb = {
