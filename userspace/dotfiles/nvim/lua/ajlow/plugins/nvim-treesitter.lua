@@ -41,6 +41,7 @@ return {
                     "vim",
                     "dockerfile",
                     "gitignore",
+                    "kdl",
                 },
                 incremental_selection = {
                     enable = true,
