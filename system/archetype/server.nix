@@ -30,6 +30,8 @@ in {
             curl
             firefox
             home-manager
+            coreutils
+            inetutils
         ];
 
         environment.sessionVariables = rec {
