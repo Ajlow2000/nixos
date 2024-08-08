@@ -62,7 +62,9 @@ in {
             interception-tools
             gnupatch
             bzip2
+            gnupg
 
+            bitwarden-cli
             bottom
             hyperfine
             nmap
