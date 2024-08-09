@@ -1,10 +1,19 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
     imports = [
         ./hardware-microvac.nix
         ../archetype/personal.nix
+        ../modules/display-manager.nix
+        ../modules/desktop-environment.nix
     ];
 
     personal.enable = true;
+
+    
+    display-manager.enable = lib.mkForce false;
+    # desktop-environment.enable = lib.mkForce false;
+
+    services.desktopManager.cosmic.enable = true;
+    services.displayManager.cosmic-greeter.enable = true;
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;

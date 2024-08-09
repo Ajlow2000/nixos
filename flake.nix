@@ -13,9 +13,13 @@
             url = "github:Ajlow2000/toolbox";
             flake = true;
         };
+        nixos-cosmic = {
+            url = "github:lilyinstarlight/nixos-cosmic";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = { nixpkgs, home-manager, nix-index-database, ... }@inputs:
+    outputs = { nixpkgs, home-manager, nix-index-database, nixos-cosmic, ... }@inputs:
         let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -36,6 +40,13 @@
 	            microvac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
+                        {
+                            nix.settings = {
+                                substituters = [ "https://cosmic.cachix.org/" ];
+                                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+                            };
+                        }
+                        nixos-cosmic.nixosModules.default
 	                    ./system/hosts/microvac.nix 
 	                ];
 		        };
