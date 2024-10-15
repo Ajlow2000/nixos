@@ -13,7 +13,7 @@ in {
         users.users.ajlow = {
             isNormalUser = true;
             description = "Alec Lowry";
-            extraGroups = [ "networkmanager" "wheel" ];
+            extraGroups = [ "networkmanager" "wheel" "wireshark" ];
             shell = pkgs.zsh;
         };
     };
