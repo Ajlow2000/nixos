@@ -34,6 +34,8 @@ in {
             inetutils
         ];
 
+        # telnet towel.blinkenlights.nl
+
         environment.sessionVariables = rec {
             EDITOR = "nvim";
 
