@@ -15,10 +15,6 @@ alias tsm="tmux-session-manager"
 alias gcm="conventional-commit"
 alias kitty-tmux="kitty tmux-session-manager home"
 
-alias path="toolbox misc print-path"
-alias audit="toolbox git audit-dir --ignore-dirs $HOME/.local"
-alias add-repo="toolbox git add-repo --path $HOME/repos --url " # add-repo [url]
-
 _fix_cursor() {
    echo -ne '\e[5 q'
 }

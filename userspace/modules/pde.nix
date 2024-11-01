@@ -77,7 +77,9 @@ in {
             gcc
             # llvmPackages_9.clang-unwrapped
         ] ++ [
-            toolbox.packages.${system}.default
+            toolbox.packages.${system}.print-path
+            toolbox.packages.${system}.audit-dir
+            toolbox.packages.${system}.add-repo
         ]);
 
         home.file = {
