@@ -80,6 +80,7 @@ in {
             toolbox.packages.${system}.print-path
             toolbox.packages.${system}.audit-dir
             toolbox.packages.${system}.add-repo
+            toolbox.packages.${system}.conventional-commit
         ]);
 
         home.file = {

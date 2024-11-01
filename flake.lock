@@ -40,6 +40,24 @@
         "type": "github"
       }
     },
+    "conventionalCommit": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1730442232,
+        "narHash": "sha256-5w3362oV5sPJJg24F0sL2MzvDd7Sk/hCXx9xMvi5HaQ=",
+        "owner": "Ajlow2000",
+        "repo": "conventional-commit",
+        "rev": "187665b422cc278713d863ea85928c17265f2229",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ajlow2000",
+        "repo": "conventional-commit",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -275,11 +293,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1722813957,
-        "narHash": "sha256-IAoYyYnED7P8zrBFMnmp7ydaJfwTnwcnqxUElC1I26Y=",
+        "lastModified": 1730200266,
+        "narHash": "sha256-l253w0XMT8nWHGXuXqyiIC/bMvh1VRszGXgdpQlfhvU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cb9a96f23c491c081b38eab96d22fa958043c9fa",
+        "rev": "807e9154dcb16384b1b765ebe9cd2bba2ac287fd",
         "type": "github"
       },
       "original": {
@@ -305,9 +323,25 @@
         "type": "github"
       }
     },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1722813957,
+        "narHash": "sha256-IAoYyYnED7P8zrBFMnmp7ydaJfwTnwcnqxUElC1I26Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "cb9a96f23c491c081b38eab96d22fa958043c9fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "printPath": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1722966238,
@@ -387,15 +421,16 @@
       "inputs": {
         "addRepo": "addRepo",
         "auditDir": "auditDir",
-        "nixpkgs": "nixpkgs_4",
+        "conventionalCommit": "conventionalCommit",
+        "nixpkgs": "nixpkgs_5",
         "printPath": "printPath"
       },
       "locked": {
-        "lastModified": 1730430231,
-        "narHash": "sha256-1UNAsZF+5QoukLIoK6ZQLncjFrYVjXVGZIglCdOVCj0=",
+        "lastModified": 1730443214,
+        "narHash": "sha256-urzfwxATyC1Yyztzx0fEnWbsVnMmN1mlQIXTZCkYSlU=",
         "owner": "Ajlow2000",
         "repo": "toolbox",
-        "rev": "4787daaf95491a0ce74d66c19c8daa313ab07c96",
+        "rev": "e300c8bff739b9f9405f7e16542c28458b0c33b3",
         "type": "github"
       },
       "original": {
