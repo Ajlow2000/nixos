@@ -68,6 +68,7 @@ in {
             bottom
             hyperfine
             nmap
+            arp-scan
             tokei
 
             ### Global Language Support
