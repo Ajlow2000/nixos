@@ -6,7 +6,7 @@
   <h1 align="center">NixOS and Home Manager</h1>
 
   <p align="center">
-    My NixOS and Home Manager deployed as a flake.
+    My NixOS and Home Manager Configurations deployed as a flake.
     <br />
     <a href="https://nixos.org/">Homepage</a>
     ·
@@ -36,23 +36,6 @@ experimental-features = nix-command flakes
 [Nix Flakes documentation](https://nixos.wiki/wiki/Flakes) if
 needed.
 
-### Rebuilding and Updating
-To rebuild home manager, run the command `home-manager switch
---flake /path/to/flake/#<flake_profile>` where `flake_profile` is
-whatever gets set in flake.nix.  I define the following
-alias for convenience:
-```
-home.shellAliases = {
-    hms = "home-manager switch --flake $XDG_CONFIG_HOME/home-manager/#$USER";
-}
-```
-
-One advantage of home manager as a flake is pinned dependencies for reproducibility (flake.lock).
-In practice, this means the nix channel I follow gets pinned and
-thus all packages I download and install are the same across
-all machines I use. To upgrade all system packages, I run the
-command ```nix flake update```, rebuild home manager, and then 
-commit my new lockfile.
 
 ### WSL
 [https://github.com/nix-community/NixOS-WSL]
