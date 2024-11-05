@@ -80,7 +80,7 @@ in {
         ] ++ [
             toolbox.packages.${system}.print-path
             toolbox.packages.${system}.audit-dir
-            toolbox.packages.${system}.add-repo
+            toolbox.packages.${system}.repo-manager
             toolbox.packages.${system}.conventional-commit
             toolbox.packages.${system}.tmux-session-manager
         ]);
@@ -114,6 +114,11 @@ in {
                 recursive = false;
                 source = ../dotfiles/zsh/zshrc;
                 target = "./.zshrc";
+            };
+            repo-manager = {
+                recursive = true;
+                source = ../dotfiles/repo-manager;
+                target = "./.config/repo-manager";
             };
             scripts = {
                 recursive = false;

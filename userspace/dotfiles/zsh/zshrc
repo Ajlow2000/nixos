@@ -13,6 +13,7 @@ alias ltr="ls --tree"
 alias grep="grep --color=auto"
 alias tsm="tmux-session-manager"
 alias gcm="conventional-commit"
+alias rmgr="repo-manager"
 alias kitty-tmux="kitty tmux-session-manager home"
 
 _fix_cursor() {
