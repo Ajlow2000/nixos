@@ -82,6 +82,7 @@ in {
             toolbox.packages.${system}.audit-dir
             toolbox.packages.${system}.add-repo
             toolbox.packages.${system}.conventional-commit
+            toolbox.packages.${system}.tmux-session-manager
         ]);
 
         home.file = {
