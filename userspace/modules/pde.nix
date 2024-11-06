@@ -51,6 +51,7 @@ in {
             sd
             htop
             eza
+            tealdeer
 
             openssh
             unzip
