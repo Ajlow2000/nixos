@@ -11,6 +11,8 @@ alias gs="git status"
 alias ls="eza --group-directories-first"
 alias ltr="ls --tree"
 alias grep="grep --color=auto"
+alias gcl="nvim $(git log -1 --name-only --relative --pretty= .)"
+# alias gco="nvim $(git show --name-only --pretty=format: $1)" doesnt work
 alias tsm="tmux-session-manager"
 alias gcm="conventional-commit"
 alias rmgr="repo-manager"
