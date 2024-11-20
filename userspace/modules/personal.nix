@@ -13,6 +13,10 @@ in {
         home.packages = with pkgs; ([
             discord
             webcord
+            yt-dlp
+            tone
+            ffmpeg_6
+            vlc
         ]);
     };
 }
