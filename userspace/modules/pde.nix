@@ -54,6 +54,7 @@ in {
             tealdeer
 
             openssh
+            zip
             unzip
             util-linux
             lsb-release

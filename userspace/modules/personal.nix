@@ -17,6 +17,7 @@ in {
             tone
             ffmpeg_6
             vlc
+            asunder
         ]);
     };
 }
