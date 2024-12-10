@@ -23,6 +23,10 @@ in {
 
         programs.noisetorch.enable = true;
 
+        environment.systemPackages = with pkgs; [
+            wineWowPackages.stable
+        ];
+
         # Configure keymap in X11
         services.xserver.xkb = {
             layout = "us";
