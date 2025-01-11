@@ -31,7 +31,8 @@ in {
             hack-font
             lf
             gh
-            ( nerdfonts.override { fonts = [ "FiraCode" "Meslo"]; } )
+            nerd-fonts.fira-code
+            nerd-fonts.meslo-lg
 
             jq
             gnumake
