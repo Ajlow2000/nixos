@@ -125,6 +125,11 @@ in {
                 source = ../dotfiles/repo-manager;
                 target = "./.config/repo-manager";
             };
+            containers = {
+                recursive = true;
+                source = ../dotfiles/containers;
+                target = "./.config/containers";
+            };
             scripts = {
                 recursive = false;
                 source = ../dotfiles/scripts;
