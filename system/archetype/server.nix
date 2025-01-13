@@ -28,7 +28,6 @@ in {
             git
             wget
             curl
-            firefox
             home-manager
             coreutils
             inetutils

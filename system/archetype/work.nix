@@ -25,6 +25,7 @@ in {
 
         environment.systemPackages = with pkgs; [
             wineWowPackages.stable
+            firefox
         ];
 
         # Configure keymap in X11
