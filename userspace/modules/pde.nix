@@ -73,8 +73,6 @@ in {
             nmap
             arp-scan
             tokei
-            podman
-            podman-compose
 
             ### Global Language Support
             asm-lsp
