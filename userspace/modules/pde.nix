@@ -30,6 +30,7 @@ in {
             kitty
             hack-font
             lf
+            xplr
             gh
             nerd-fonts.fira-code
             nerd-fonts.meslo-lg

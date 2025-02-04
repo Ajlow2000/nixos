@@ -1,0 +1,9 @@
+layout {
+    tab name="WORKING" {
+        pane
+        pane split_direction="vertical" {
+            pane command="nvim"
+            pane
+        }
+    }
+}

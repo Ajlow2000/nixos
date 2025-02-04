@@ -4,6 +4,8 @@ precmd() {
     }
 }
 
+source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+
 path+=($XDG_BIN_HOME)
 
 # ~~~ Aliases ~~~
