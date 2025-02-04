@@ -1,0 +1,4 @@
+urls-source "freshrss"
+freshrss-url "https://rss.aleclowry.com/api/greader.php"
+freshrss-login "myusername"
+freshrss-password "mypassword"

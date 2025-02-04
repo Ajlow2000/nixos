@@ -18,6 +18,7 @@ in {
             ffmpeg_6
             vlc
             asunder
+            newsboat
         ]);
     };
 }
