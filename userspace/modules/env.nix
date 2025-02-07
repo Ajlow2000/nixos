@@ -20,6 +20,8 @@ in {
             XDG_BIN_HOME = "$HOME/.local/bin"; 	# Not technically in the official xdg specification
             XDG_DESKTOP_DIR="$HOME/desktop";
             XDG_DOWNLOAD_DIR="$HOME/downloads";
+
+            MOZ_ENABLE_WAYLAND="1";
         };
 
         home.sessionPath = [
