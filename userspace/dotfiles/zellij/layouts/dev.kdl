@@ -1,12 +1,12 @@
 layout {
+    cwd "$AJLOW_REPO_DIR"
+
     tab_template name="dev_tab" {
         // the default zellij tab-bar and status bar plugins
         pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
         }
-        pane split_direction="vertical" {
-            children
-        }
+        children
         pane size=2 borderless=true {
             plugin location="zellij:status-bar"
         }
@@ -14,18 +14,50 @@ layout {
 
     //-----------------------------------------
 
-    dev_tab name="MAIN"
-    dev_tab name="WORK" focus=true {
-        pane {
-            name "editor"
-            command "$FILE_BROWSER"
-            focus true
-        }
-        pane {
-            name "misc"
+    dev_tab name="MAIN" {
+        pane split_direction="vertical" {
+            cwd "main"
+            pane {
+                name "editor"
+                focus true
+            }
+            pane {
+                name "misc"
+            }
         }
     }
-    tab name="REVIEW"
-    tab name="SCRATCH"
+    dev_tab name="WORK" cwd="work" focus=true {
+        pane split_direction="vertical" {
+            pane {
+                name "editor"
+                focus true
+            }
+            pane {
+                name "misc"
+            }
+        }
+    }
+    dev_tab name="REVIEW" cwd="review" {
+        pane split_direction="vertical" {
+            pane {
+                name "editor"
+                focus true
+            }
+            pane {
+                name "misc"
+            }
+        }
+    }
+    dev_tab name="SCRATCH" cwd="scratch" {
+        pane split_direction="vertical" {
+            pane {
+                name "editor"
+                focus true
+            }
+            pane {
+                name "misc"
+            }
+        }
+    }
 }
 

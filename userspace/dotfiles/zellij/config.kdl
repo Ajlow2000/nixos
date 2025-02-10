@@ -1,6 +1,19 @@
 keybinds clear-defaults=true {
     normal {
         //bind "Ctrl C" { Copy; }
+        bind "Alt f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+        bind "Alt 0" { GoToTab 0; }
+        bind "Alt >" { Resize "Increase"; }
+        bind "Alt <" { Resize "Decrease"; }
     }
     locked {
         bind "Alt L" { SwitchToMode "Normal"; }
@@ -19,7 +32,7 @@ keybinds clear-defaults=true {
         bind "-" { Resize "Decrease"; }
     }
     pane {
-        bind "Alt s" { SwitchToMode "Normal"; }
+        bind "Alt p" { SwitchToMode "Normal"; }
         bind "h" { MoveFocus "Left"; }
         bind "l" { MoveFocus "Right"; }
         bind "j" { MoveFocus "Down"; }
@@ -45,7 +58,7 @@ keybinds clear-defaults=true {
         bind "l" "Right" { MovePane "Right"; }
     }
     tab {
-        bind "Alt d" { SwitchToMode "Normal"; }
+        bind "Alt t" { SwitchToMode "Normal"; }
         bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "h" "Left" "Up" "k" { GoToPreviousTab; }
         bind "l" "Right" "Down" "j" { GoToNextTab; }
@@ -95,15 +108,15 @@ keybinds clear-defaults=true {
         bind "Enter" { SwitchToMode "Search"; }
     }
     renametab {
-        bind "Alt d" { SwitchToMode "Normal"; }
+        bind "Alt t" { SwitchToMode "Normal"; }
         bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
     }
     renamepane {
-        bind "Alt s" { SwitchToMode "Normal"; }
+        bind "Alt p" { SwitchToMode "Normal"; }
         bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
     }
     session {
-        bind "Alt f" { SwitchToMode "Normal"; }
+        bind "Alt s" { SwitchToMode "Normal"; }
         bind "Alt /" { SwitchToMode "Scroll"; }
         bind "d" { Detach; }
         bind "w" {
@@ -114,29 +127,6 @@ keybinds clear-defaults=true {
             SwitchToMode "Normal"
         }
     }
-    tmux {
-        bind "[" { SwitchToMode "Scroll"; }
-        bind "Ctrl b" { Write 2; SwitchToMode "Normal"; }
-        bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
-        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
-        bind "c" { NewTab; SwitchToMode "Normal"; }
-        bind "," { SwitchToMode "RenameTab"; }
-        bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }
-        bind "n" { GoToNextTab; SwitchToMode "Normal"; }
-        bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
-        bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
-        bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
-        bind "Up" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "h" { MoveFocus "Left"; SwitchToMode "Normal"; }
-        bind "l" { MoveFocus "Right"; SwitchToMode "Normal"; }
-        bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
-        bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "o" { FocusNextPane; }
-        bind "d" { Detach; }
-        bind "Space" { NextSwapLayout; }
-        bind "x" { CloseFocus; SwitchToMode "Normal"; }
-    }
     shared_except "locked" {
         bind "Alt L" { SwitchToMode "Locked"; }
         bind "Alt Q" { Quit; }
@@ -146,16 +136,12 @@ keybinds clear-defaults=true {
         bind "Alt l" { MoveFocusOrTab "Right"; }
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
-        bind "Alt i" { Resize "Increase"; }
-        bind "Alt u" { Resize "Decrease"; }
-        bind "Alt v" { PreviousSwapLayout; }
-        bind "Alt c" { NextSwapLayout; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
     }
     shared_except "pane" "locked" {
-        bind "Alt s" { SwitchToMode "Pane"; }
+        bind "Alt p" { SwitchToMode "Pane"; }
     }
     shared_except "resize" "locked" {
         bind "Alt r" { SwitchToMode "Resize"; }
@@ -164,16 +150,13 @@ keybinds clear-defaults=true {
         bind "Alt /" { SwitchToMode "Scroll"; }
     }
     shared_except "session" "locked" {
-        bind "Alt f" { SwitchToMode "Session"; }
+        bind "Alt s" { SwitchToMode "Session"; }
     }
     shared_except "tab" "locked" {
-        bind "Alt d" { SwitchToMode "Tab"; }
+        bind "Alt t" { SwitchToMode "Tab"; }
     }
     shared_except "move" "locked" {
         bind "Alt m" { SwitchToMode "Move"; }
-    }
-    shared_except "tmux" "locked" {
-        bind "Alt b" { SwitchToMode "Tmux"; }
     }
 }
 
