@@ -24,6 +24,7 @@ in {
             neovim
             tmux
             zellij
+            nvr
             zsh
             delta
             zoxide
