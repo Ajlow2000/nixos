@@ -29,6 +29,7 @@ in {
             delta
             zoxide
             kitty
+            ghostty
             hack-font
             lf
             xplr
