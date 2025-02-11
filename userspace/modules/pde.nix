@@ -54,6 +54,7 @@ in {
             htop
             eza
             tealdeer
+            gh-dash
 
             openssh
             zip
