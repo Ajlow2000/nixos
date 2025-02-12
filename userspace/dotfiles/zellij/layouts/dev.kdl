@@ -14,23 +14,21 @@ layout {
 
     //-----------------------------------------
 
-    dev_tab name="MAIN" {
+    dev_tab name="MAIN" cwd="main" {
         pane split_direction="vertical" {
-            cwd "main"
             pane {
                 name "editor"
-                focus true
             }
             pane {
                 name "misc"
             }
         }
     }
-    dev_tab name="WORK" cwd="work" focus=true {
+    dev_tab name="WORK" cwd="work" {
         pane split_direction="vertical" {
+            focus true
             pane {
                 name "editor"
-                focus true
             }
             pane {
                 name "misc"
@@ -41,7 +39,6 @@ layout {
         pane split_direction="vertical" {
             pane {
                 name "editor"
-                focus true
             }
             pane {
                 name "misc"
@@ -50,13 +47,6 @@ layout {
     }
     dev_tab name="SCRATCH" cwd="scratch" {
         pane split_direction="vertical" {
-            pane {
-                name "editor"
-                focus true
-            }
-            pane {
-                name "misc"
-            }
         }
     }
 }
