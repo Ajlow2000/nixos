@@ -133,16 +133,5 @@ in {
                 target = "./.local/bin";
             };
         };
-
-        xdg.desktopEntries = {
-            kitty-tmux = {
-                name = "Kitty (Tmux)";
-                genericName = "Terminal Emulator";
-                exec = "kitty tmux-session-manager";
-                terminal = false;
-                categories = [ "System" "TerminalEmulator" ];
-                icon = "kitty";
-            };
-        };
     };
 }

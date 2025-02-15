@@ -20,7 +20,6 @@ alias zsm="zellij-session-manager"
 alias sm="zellij-session-manager"
 alias gcm="conventional-commit"
 alias rmgr="repo-manager"
-alias kitty-tmux="kitty tmux-session-manager home"
 
 _fix_cursor() {
    echo -ne '\e[5 q'
@@ -73,3 +72,20 @@ _generate_prompt () {
 }
 precmd_functions+=(_generate_prompt)
 
+# Set autolaunch flag for specific terminals
+if [[ $TERM == "xterm-kitty" ]]; then
+    # exec kitty zellij attach -c home options --default-layout home --default-cwd $HOME
+    ZELLIJ_AUTO_ATTACH="true"
+    ZELLIJ_AUTO_EXIT="true"
+fi
+
+# Connect to default session
+if [[ -z "$ZELLIJ" ]]; then
+    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+        zellij attach -c home options --default-layout home --default-cwd $HOME
+    fi
+
+    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+        exit
+    fi
+fi

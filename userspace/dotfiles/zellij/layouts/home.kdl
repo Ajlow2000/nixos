@@ -1,5 +1,5 @@
 layout {
-    cwd $HOME
+    cwd "$HOME"
     tab_template name="my_tab" {
         // the default zellij tab-bar and status bar plugins
         pane size=1 borderless=true {
