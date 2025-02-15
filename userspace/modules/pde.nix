@@ -90,6 +90,7 @@ in {
             toolbox.packages.${system}.repo-manager
             toolbox.packages.${system}.conventional-commit
             toolbox.packages.${system}.tmux-session-manager
+            toolbox.packages.${system}.zellij-session-manager
         ]);
 
         home.file = {
