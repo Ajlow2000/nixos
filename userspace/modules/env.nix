@@ -21,6 +21,9 @@ in {
             XDG_DESKTOP_DIR="$HOME/desktop";
             XDG_DOWNLOAD_DIR="$HOME/downloads";
 
+            AJLOW_MANAGED_SESSIONS="$XDG_DATA_HOME/managed-sessions.toml";
+            AJLOW_REPO_HOME="$HOME/repos";
+
             MOZ_ENABLE_WAYLAND="1";
         };
 

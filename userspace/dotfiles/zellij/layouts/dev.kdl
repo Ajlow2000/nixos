@@ -1,6 +1,4 @@
 layout {
-    cwd "$AJLOW_REPO_DIR"
-
     tab_template name="dev_tab" {
         // the default zellij tab-bar and status bar plugins
         pane size=1 borderless=true {

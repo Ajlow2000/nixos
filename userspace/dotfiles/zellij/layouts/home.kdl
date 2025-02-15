@@ -1,4 +1,5 @@
 layout {
+    cwd $HOME
     tab_template name="my_tab" {
         // the default zellij tab-bar and status bar plugins
         pane size=1 borderless=true {
@@ -12,7 +13,18 @@ layout {
 
     //-----------------------------------------
 
-    my_tab {
+    my_tab name="Nixos" cwd="$AJLOW_REPO_HOME/ajlow2000_nixos" {
+        pane split_direction="vertical" {
+            pane {
+                name "editor"
+            }
+            pane {
+                name "misc"
+            }
+        }
+    }
+
+    my_tab name="General" {
         pane split_direction="vertical" {
             pane
         }

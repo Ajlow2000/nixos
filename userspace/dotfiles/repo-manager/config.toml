@@ -1,2 +1,2 @@
 urlPrefix = "git@github.com:Ajlow2000"
-managedDir = "$HOME/repos"
+managedDir = "$AJLOW_REPO_HOME"
