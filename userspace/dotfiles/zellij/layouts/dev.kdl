@@ -8,6 +8,12 @@ layout {
         pane size=2 borderless=true {
             plugin location="zellij:status-bar"
         }
+        floating_panes {
+            pane {
+                name "Session Manager"
+                cmd "zellij-session-manager"
+            }
+        }
     }
 
     //-----------------------------------------
