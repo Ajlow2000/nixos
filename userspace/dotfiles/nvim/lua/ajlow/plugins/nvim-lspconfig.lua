@@ -75,6 +75,7 @@ return {
         lspconfig.rust_analyzer.setup { capabilities = capabilities }
         lspconfig.pyright.setup { capabilities = capabilities }
         lspconfig.clangd.setup { capabilities = capabilities }
+        lspconfig.marksman.setup { capabilities = capabilities }
         lspconfig.asm_lsp.setup { capabilities = capabilities }
         lspconfig.lua_ls.setup({
             settings = {
