@@ -71,6 +71,7 @@
                     neovim
                     git
                     coreutils
+                    marksman
                 ];
             };
         };
