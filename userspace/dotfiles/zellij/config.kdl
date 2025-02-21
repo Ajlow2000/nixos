@@ -14,7 +14,13 @@ keybinds clear-defaults=true {
         bind "Alt 0" { GoToTab 0; }
         bind "Alt >" { Resize "Increase"; }
         bind "Alt <" { Resize "Decrease"; }
-        bind "Alt Space" { ToggleFloatingPanes; }
+        bind "Alt Space" {
+            LaunchOrFocusPlugin "zellij:session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
     }
     locked {
         bind "Alt L" { SwitchToMode "Normal"; }
@@ -119,7 +125,7 @@ keybinds clear-defaults=true {
         bind "Alt s" { SwitchToMode "Normal"; }
         bind "Alt /" { SwitchToMode "Scroll"; }
         bind "d" { Detach; }
-        bind "w" {
+        bind "m" {
             LaunchOrFocusPlugin "zellij:session-manager" {
                 floating true
                 move_to_focused_tab true
