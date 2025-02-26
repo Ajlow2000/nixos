@@ -25,11 +25,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1730442232,
-        "narHash": "sha256-5w3362oV5sPJJg24F0sL2MzvDd7Sk/hCXx9xMvi5HaQ=",
+        "lastModified": 1740613402,
+        "narHash": "sha256-ZCZHGyQbKbUe67TONEFIEOJfxGvMiFVWoIGPtOcEXy0=",
         "owner": "Ajlow2000",
         "repo": "conventional-commit",
-        "rev": "187665b422cc278713d863ea85928c17265f2229",
+        "rev": "ce96e3c476b26b06ff47a6c6df7d46d2551ae2e6",
         "type": "github"
       },
       "original": {
@@ -353,11 +353,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1739446958,
-        "narHash": "sha256-+/bYK3DbPxMIvSL4zArkMX0LQvS7rzBKXnDXLfKyRVc=",
+        "lastModified": 1740367490,
+        "narHash": "sha256-WGaHVAjcrv+Cun7zPlI41SerRtfknGQap281+AakSAw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2ff53fe64443980e139eaa286017f53f88336dd0",
+        "rev": "0196c0175e9191c474c26ab5548db27ef5d34b05",
         "type": "github"
       },
       "original": {
@@ -553,11 +553,11 @@
         "zellijSessionManager": "zellijSessionManager"
       },
       "locked": {
-        "lastModified": 1739597459,
-        "narHash": "sha256-wRpcqc5HJjW03JPZlMUya0XkTOIlKoURSQDuOivvL5E=",
+        "lastModified": 1740613574,
+        "narHash": "sha256-FXDCGVvjX4BAmvOtu+U3Iw9EQxZdz+SGhI3A9q7p584=",
         "owner": "Ajlow2000",
         "repo": "toolbox",
-        "rev": "d027dada42c737e42cb497adbac440cd56aad6a6",
+        "rev": "5178bc35b7eebb92459f6e702d0bc91bac79ca11",
         "type": "github"
       },
       "original": {
