@@ -9,7 +9,6 @@ source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 path+=($XDG_BIN_HOME)
 
 # ~~~ Aliases ~~~
-alias gs="git status"
 alias ls="eza --group-directories-first"
 alias ltr="ls --tree"
 alias grep="grep --color=auto"
@@ -20,6 +19,49 @@ alias zsm="zellij-session-manager"
 alias sm="zellij-session-manager"
 alias gcm="conventional-commit"
 alias rmgr="repo-manager"
+alias gs="git status"
+
+function gb () {
+    git_branches="git branch --all --color \
+      --format=$'%(HEAD) %(color:yellow)%(refname:short)\t%(color:green)%(committerdate:short)\t%(color:blue)%(subject)' \
+      | column --table --separator=$'\t'" \
+    && eval "$git_branches" \
+    | fzf \
+      --ansi \
+      --reverse \
+      --no-sort \
+      --preview-label '[ Commits ]' \
+      --preview 'git log $(echo {} \
+        | sed "s/^[* ]*//" | \
+        awk "{print \$1}") \
+        --graph --color  \
+        --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d"' \
+      --bind 'ctrl-f:change-preview-label([ Diff ])' \
+      --bind 'ctrl-f:+change-preview(
+        git diff --color \
+        $(git branch --show-current)..$(echo {} \
+          | sed "s/^[* ]*//" \
+          | awk "{print \$1}")
+        )' \
+      --bind 'ctrl-i:change-preview-label([ Commits ])' \
+      --bind 'ctrl-i:+change-preview(
+        git log $(echo {} \
+        | sed "s/^[* ]*//" \
+        | awk "{print \$1}") \
+        --graph --color \
+        --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d")' \
+      --bind 'enter:execute(
+        git checkout $(echo {} \
+        | sed "s/^[* ]*//" \
+        | awk "{print \$1}")
+        )' \
+      --bind "enter:+reload($git_branches)" \
+      --header-first \
+      --header '
+      > CTRL-F to preview with diff | CTRL-I to preview with logs
+      > ENTER to checkout the branch
+      '
+}
 
 _fix_cursor() {
    echo -ne '\e[5 q'
