@@ -26,6 +26,7 @@ in {
         environment.systemPackages = with pkgs; [
             wineWowPackages.stable
             firefox
+            virtiofsd
         ];
 
         # Configure keymap in X11
@@ -37,6 +38,10 @@ in {
         services.printing.enable = true;
 
         programs.firefox.enable = true;
+
+        programs.virt-manager.enable = true;
+        users.groups.libvirtd.members = ["ajlow"];
+        virtualisation.libvirtd.enable = true;
 
         # Enable sound with pipewire.
         services.pulseaudio.enable = false;

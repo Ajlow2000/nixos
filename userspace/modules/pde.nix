@@ -134,5 +134,14 @@ in {
                 target = "./.local/bin";
             };
         };
+
+        xdg.desktopEntries = {
+            win11 = {
+                name = "Windows11 VM";
+                genericName = "VM";
+                exec = "virt-manager --connect qemu:///system --show-domain-console win11";
+                categories = [ "System" ];
+            };
+        };
     };
 }
