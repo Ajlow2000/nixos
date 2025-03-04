@@ -19,6 +19,7 @@ in {
             wireshark
             discord
             spotify
+            teams-for-linux
         ]);
     };
 }
