@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let 
     cfg = config.gui_utilities;
 in {
@@ -20,6 +20,8 @@ in {
             discord
             spotify
             teams-for-linux
+        ] ++ [
+           inputs.zen-browser.packages.${system}.default
         ]);
     };
 }
