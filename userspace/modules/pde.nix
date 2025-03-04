@@ -82,6 +82,9 @@ in {
             asm-lsp
             lua-language-server
             nodePackages_latest.bash-language-server
+            rust-analyzer
+            nil
+            marksman
             gcc
             # llvmPackages_9.clang-unwrapped
         ] ++ [
