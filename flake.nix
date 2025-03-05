@@ -51,6 +51,19 @@
 	                    ./system/hosts/microvac.nix 
 	                ];
 		        };
+	            marvin = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+	                modules = [ 
+                        {
+                            nix.settings = {
+                                substituters = [ "https://cosmic.cachix.org/" ];
+                                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+                            };
+                        }
+                        nixos-cosmic.nixosModules.default
+	                    ./system/hosts/marvin.nix 
+	                ];
+		        };
 	        };
             homeConfigurations = {
                 ajlow = home-manager.lib.homeManagerConfiguration {
