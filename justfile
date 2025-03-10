@@ -4,7 +4,7 @@ user := `whoami`
 update-toolbox:
     nix flake lock --update-input toolbox
 
-nixos:
+os:
     sudo nixos-rebuild switch --flake ./#{{hostname}}
 
 hm:
