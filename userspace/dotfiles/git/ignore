@@ -7,3 +7,7 @@
 
 # ajlow
 .commit-scopes
+
+target
+build
+out

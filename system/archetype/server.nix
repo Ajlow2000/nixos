@@ -33,6 +33,24 @@ in {
             inetutils
         ];
 
+        # Enable nix ld
+        programs.nix-ld.enable = true;
+
+        # Sets up all the libraries to load
+        programs.nix-ld.libraries = with pkgs; [
+            gcc
+            stdenv.cc.cc
+            vdso
+            zlib
+            fuse3
+            icu
+            nss
+            openssl
+            curl
+            expat
+            # ...
+        ];
+
         # telnet towel.blinkenlights.nl
 
         environment.sessionVariables = rec {
