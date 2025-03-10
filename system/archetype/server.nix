@@ -40,7 +40,6 @@ in {
         programs.nix-ld.libraries = with pkgs; [
             gcc
             stdenv.cc.cc
-            vdso
             zlib
             fuse3
             icu
