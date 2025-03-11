@@ -69,7 +69,7 @@ return {
         lspconfig.gopls.setup { capabilities = capabilities }
         lspconfig.templ.setup { capabilities = capabilities }
         -- lspconfig.htmx.setup { capabilities = capabilities }
-        -- lspconfig.html.setup { capabilities = capabilities }
+        lspconfig.html.setup { capabilities = capabilities }
         lspconfig.ocamllsp.setup { capabilities = capabilities }
         lspconfig.zls.setup { capabilities = capabilities }
         lspconfig.rust_analyzer.setup { capabilities = capabilities }
