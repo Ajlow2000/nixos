@@ -31,6 +31,7 @@ in {
             home-manager
             coreutils
             inetutils
+            docker-compose
         ];
 
         # Enable nix ld

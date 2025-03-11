@@ -35,6 +35,13 @@ in {
             variant = "";
         };
 
+        virtualisation.docker = {
+            enable = true;
+            # rootless.enable = true;
+            # rootless.setSocketVariable = true;
+            daemon.settings.data-root = "$XDG_DATA_HOME/docker";
+        };
+
         services.printing.enable = true;
 
         programs.firefox.enable = true;
