@@ -1,7 +1,18 @@
 return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    config = true,
+    config = function ()
+        require("gitsigns").setup {
+            on_attach = function(bufnr)
+                local gitsigns = require('gitsigns')
+
+                vim.keymap.set("n", "B", function() gitsigns.blame_line({ full = true }) end, { desc = "[Git] - Blame Line"})
+                vim.keymap.set("n", "<leader>tgb", ":Gitsigns toggle_current_line_blame<cr>",
+                    { silent = true, desc = "[Git] - Toggle current line blame ghost text" })
+            end
+        }
+        return true
+    end,
     opts = {
 
         signs = {
@@ -40,5 +51,6 @@ return {
             row = 0,
             col = 1
         },
-    }
+
+    },
 }
