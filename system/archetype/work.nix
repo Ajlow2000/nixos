@@ -20,7 +20,6 @@ in {
         display-manager.enable = true;
         desktop-environment.enable = true;
 
-
         programs.noisetorch.enable = true;
 
         environment.systemPackages = with pkgs; [
