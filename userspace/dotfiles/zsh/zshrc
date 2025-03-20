@@ -28,6 +28,10 @@ function gl () {
     git show $commitHash
 }
 
+function hist () {
+      print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+}
+
 function gb () {
     git_branches="git branch --all --color \
       --format=$'%(HEAD) %(color:yellow)%(refname:short)\t%(color:green)%(committerdate:short)\t%(color:blue)%(subject)' \
