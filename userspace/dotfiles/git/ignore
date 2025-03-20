@@ -6,7 +6,8 @@
 .nvim.shada
 
 # ajlow
-.commit-scopes
+.commit-scopes # legacy
+.conventional-commit.toml
 
 target
 build
