@@ -20,6 +20,13 @@ alias sm="zellij-session-manager"
 alias gcm="conventional-commit"
 alias rmgr="repo-manager"
 alias gs="git status"
+function gl () {
+    commitHash=$(git log --color --pretty=format:'%Cgreen(%cs) %Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit \
+        | fzf --ansi \
+        | awk '{print \$2}'
+    )
+    git show $commitHash
+}
 
 function gb () {
     git_branches="git branch --all --color \
