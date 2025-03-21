@@ -23,7 +23,7 @@ alias gs="git status"
 function gl () {
     commitHash=$(git log --color --pretty=format:'%Cgreen(%cs) %Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit \
         | fzf --ansi \
-        | awk '{print \$2}'
+        | awk '{print $2}'
     )
     git show $commitHash
 }
