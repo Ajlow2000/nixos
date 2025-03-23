@@ -3,12 +3,15 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nix-index-database.url = "github:Mic92/nix-index-database";
-        nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+        nix-index-database = {
+            url = "github:Mic92/nix-index-database";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         toolbox = {
             url = "github:Ajlow2000/toolbox";
             flake = true;
@@ -17,27 +20,30 @@
             url = "github:lilyinstarlight/nixos-cosmic";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        zen-browser.url = "github:0xc000022070/zen-browser-flake";
+        zen-browser = {
+            url = "github:0xc000022070/zen-browser-flake";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = { nixpkgs, home-manager, nix-index-database, nixos-cosmic, ... }@inputs:
+    outputs = { nixpkgs, nixpkgs-stable, home-manager, ... }@inputs:
         let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
         in {
 	        nixosConfigurations = {
-	            hal9000 = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
-	                modules = [ 
-	                    ./system/hosts/hal9000.nix 
-	                ];
-		        };
-	            multivac = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
-	                modules = [ 
-	                    ./system/hosts/multivac.nix 
-	                ];
-		        };
+	         #    hal9000 = nixpkgs.lib.nixosSystem {
+             #        specialArgs = { inherit system; };
+	         #        modules = [ 
+	         #            ./nixos/hosts/hal9000.nix 
+	         #        ];
+		     #    };
+	         #    multivac = nixpkgs.lib.nixosSystem {
+             #        specialArgs = { inherit system; };
+	         #        modules = [ 
+	         #            ./nixos/hosts/multivac.nix 
+	         #        ];
+		     #   };
 	            microvac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
@@ -47,8 +53,8 @@
                                 trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
                             };
                         }
-                        nixos-cosmic.nixosModules.default
-	                    ./system/hosts/microvac.nix 
+                        inputs.nixos-cosmic.nixosModules.default
+	                    ./nixos/hosts/microvac.nix 
 	                ];
 		        };
 	            marvin = nixpkgs.lib.nixosSystem {
@@ -60,8 +66,8 @@
                                 trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
                             };
                         }
-                        nixos-cosmic.nixosModules.default
-	                    ./system/hosts/marvin.nix 
+                        inputs.nixos-cosmic.nixosModules.default
+	                    ./nixos/hosts/marvin.nix 
 	                ];
 		        };
 	        };
@@ -70,7 +76,7 @@
                     inherit pkgs;
                     modules = [ 
                         ./userspace/users/ajlow.nix 
-                        nix-index-database.hmModules.nix-index
+                        inputs.nix-index-database.hmModules.nix-index
                     ];
                     extraSpecialArgs = {
                         inherit inputs;
@@ -78,7 +84,7 @@
                     };
                 };
             };
-            devShell.${system} = pkgs.mkShell {
+            devShells.${system}.default = pkgs.mkShell {
                 buildInputs = with pkgs; [
                     nil
                     just
