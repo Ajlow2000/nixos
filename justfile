@@ -4,8 +4,9 @@ user := `whoami`
 update-toolbox:
     nix flake lock --update-input toolbox
 
+# impure required for marvin build
 os:
-    sudo nixos-rebuild switch --flake ./#{{hostname}}
+    sudo nixos-rebuild switch --flake ./#{{hostname}} --impure 
 
 hm:
     home-manager switch --flake ./#{{user}}

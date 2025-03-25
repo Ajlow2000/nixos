@@ -18,9 +18,10 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
+        sentinelone.url = "github:devusb/sentinelone-nix";
     };
 
-    outputs = { nixpkgs, home-manager, nix-index-database, nixos-cosmic, ... }@inputs:
+    outputs = { nixpkgs, home-manager, nix-index-database, nixos-cosmic, sentinelone, ... }@inputs:
         let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -60,6 +61,7 @@
                                 trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
                             };
                         }
+                        inputs.sentinelone.nixosModules.sentinelone
                         nixos-cosmic.nixosModules.default
 	                    ./system/hosts/marvin.nix 
 	                ];

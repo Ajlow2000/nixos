@@ -1,5 +1,6 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }@inputs: {
     imports = [
+        # inputs.sentinelone.nixosModules.sentinelone
         ./hardware-marvin.nix
         ../archetype/personal.nix
         ../modules/display-manager.nix
@@ -17,13 +18,24 @@
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
 
+    services.sentinelone = {
+        enable = true;
+        sentinelOneManagementTokenPath = /etc/nixos/sentinelOne.token;
+        email = "alowry@sram.com";
+        serialNumber = "DPR8SQ3";
+        package = pkgs.sentinelone.overrideAttrs (old: {
+            version = "sentinelone.package.version"; 
+            src = /etc/nixos/SentinelAgent_linux_x86_64_v24_3_3_6.deb;
+        });
+    };
+
     services.postgresql = {
         enable = true;
         ensureDatabases = [ "mydatabase" ];
         authentication = pkgs.lib.mkOverride 10 ''
             #type database  DBuser  auth-method
             local all       all     trust
-        '';
+        ''; 
     };
 
     boot.loader.systemd-boot.enable = true;
