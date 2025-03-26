@@ -71,6 +71,7 @@ in {
             bzip2
             gnupg
 
+            gdb
             bitwarden-cli
             bottom
             hyperfine
