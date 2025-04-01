@@ -94,7 +94,7 @@ in {
             toolbox.packages.${system}.print-path
             toolbox.packages.${system}.audit-dir
             toolbox.packages.${system}.repo-manager
-            # toolbox.packages.${system}.conventional-commit ## TODO - fix bug in nix build
+            toolbox.packages.${system}.conventional-commit
             toolbox.packages.${system}.tmux-session-manager
             toolbox.packages.${system}.zellij-session-manager
         ]);
