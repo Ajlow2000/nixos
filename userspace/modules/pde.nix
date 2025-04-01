@@ -78,6 +78,7 @@ in {
             nmap
             arp-scan
             tokei
+            binwalk
 
             ### Global Language Support
             asm-lsp
