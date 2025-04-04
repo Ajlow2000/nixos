@@ -41,14 +41,7 @@ in {
         programs.nix-ld.libraries = with pkgs; [
             gcc
             stdenv.cc.cc
-            zlib
-            fuse3
-            icu
-            nss
-            openssl
-            curl
-            expat
-            # ...
+            clang
         ];
 
         # telnet towel.blinkenlights.nl
