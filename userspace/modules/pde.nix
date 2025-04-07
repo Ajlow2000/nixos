@@ -41,6 +41,7 @@ in {
             gnumake
             bat
             git
+            pijul
             fzf
             ripgrep
             gnugrep
