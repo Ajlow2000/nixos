@@ -18,6 +18,12 @@
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
 
+    services.macos-ventura = {
+        enable = true;
+        openFirewall = true;
+        vncListenAddr = "0.0.0.0";
+    };
+
     services.sentinelone = {
         enable = true;
         sentinelOneManagementTokenPath = /etc/nixos/sentinelOne.token;
