@@ -1,7 +1,8 @@
-[user]
-	name = Alec Lowry
-	email = accounts@aleclowry.com
-	username = Ajlow2000
+[includeIf "gitdir:~/repos/personal/"]
+    path = ~/.config/git/config-personal
+
+[includeIf "gitdir:~/repos/work/"]
+    path = ~/.config/git/config-work
 
 [core]
     pager = delta
