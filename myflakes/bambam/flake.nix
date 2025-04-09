@@ -22,6 +22,7 @@
             developerTooling = with pkgs; [
                 nil             # Nix LSP
                 marksman        # MD LSP
+                pyright
             ];
 
             envVars = ''
@@ -31,6 +32,7 @@
               packages = buildDependencies ++ runtimeDependencies ++ developerTooling;
               shellHook = envVars;
               SRAM_BAMBAM_ROOT = "/home/ajlow/repos/sram_bambam";
+              FIRMWARE_VERSION = "2.52.2";
           };
         }
     );
