@@ -17,6 +17,7 @@ in {
             gimp
             inkscape
             wireshark
+            ghidra
             discord
             spotify
             teams-for-linux
