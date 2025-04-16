@@ -93,6 +93,8 @@ setopt inc_append_history_time
 # opam configuration
 [[ ! -r /home/ajlow/.opam/opam-init/init.zsh ]] || source /home/ajlow/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
+eval "$(atuin init zsh)"
+
 # ~~~~~ Direnv ~~~~~
 eval "$(direnv hook zsh)"
 # Tone down verbosity of loading output

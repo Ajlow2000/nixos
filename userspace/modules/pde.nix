@@ -33,6 +33,7 @@ in {
             hack-font
             lf
             xplr
+            yazi
             gh
             nerd-fonts.fira-code
             nerd-fonts.meslo-lg
@@ -81,6 +82,11 @@ in {
             arp-scan
             tokei
             binwalk
+            bottom
+            bandwhich
+            atuin
+            csvlens
+            dua
 
             ### Global Language Support
             asm-lsp
@@ -112,6 +118,10 @@ in {
                 recursive = true;
                 source = ../dotfiles/kitty;
                 target = "./.config/kitty";
+            };
+            atuin = {
+                source = ../dotfiles/atuin;
+                target = "./.config/atuin";
             };
             tmux = {
                 source = ../dotfiles/tmux/tmux.conf;
