@@ -18,6 +18,8 @@
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
 
+    powerManagement.cpuFreqGovernor = "powersave";
+
     services.macos-ventura = {
         enable = true;
         openFirewall = true;
