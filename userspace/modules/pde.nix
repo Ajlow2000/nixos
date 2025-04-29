@@ -87,6 +87,7 @@ in {
             atuin
             csvlens
             dua
+            bottom
 
             ### Global Language Support
             asm-lsp
