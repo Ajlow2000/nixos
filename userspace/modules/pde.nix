@@ -73,6 +73,8 @@ in {
             gnupatch
             bzip2
             gnupg
+            dig
+            whois
 
             gdb
             bitwarden-cli
