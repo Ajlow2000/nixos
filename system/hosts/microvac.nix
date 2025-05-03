@@ -12,6 +12,8 @@
     display-manager.enable = lib.mkForce false;
     # desktop-environment.enable = lib.mkForce false;
 
+    powerManagement.cpuFreqGovernor = "powersave";
+
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
 
