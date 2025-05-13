@@ -1,0 +1,10 @@
+### Expected commit types
+# feat: 
+# fix: 
+# docs: 
+# ci: 
+# wip: 
+
+### Default Messages
+# chore(flake): update flake inputs to latest
+# wip: progress save
