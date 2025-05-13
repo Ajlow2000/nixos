@@ -20,7 +20,7 @@
 
 [status]
     branch = true
-    short = true
+    short = false
     showStash = true
     showUntrackedFiles = all  # show individual untracked files
 
