@@ -18,8 +18,10 @@ alias tsm="tmux-session-manager"
 alias zsm="zellij-session-manager"
 alias sm="zellij-session-manager"
 alias gcm="conventional-commit"
+alias gc="git commit -p"
+alias ga="git add --patch"
 alias rmgr="repo-manager"
-alias gs="git status"
+alias gs="git status --short --branch"
 function gl () {
     commitHash=$(git log --color --pretty=format:'%Cgreen(%cs) %Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit \
         | fzf --ansi \
