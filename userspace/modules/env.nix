@@ -29,6 +29,7 @@ in {
 
         home.sessionPath = [
             "$XDG_BIN_HOME"
+            "$HOME/.cargo/bin"
         ];
     };
 }
