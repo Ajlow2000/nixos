@@ -409,15 +409,15 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nixpkgs-stable": "nixpkgs-stable",
-        "rust-overlay": "rust-overlay"
+       "nixpkgs-stable": "nixpkgs-stable",
+       "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1748862567,
-        "narHash": "sha256-tRJfGSRM7VEkTkM0l6n5bwPKjIrs/+OuQDjt4s83iXI=",
+        "lastModified": 1747048878,
+        "narHash": "sha256-YSGK+etuuFrMo0PSMWdiIHSuEDybrgCIuyOq0V7Hmt8=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "7a665f77eb85b55495d0027dc20701818fd7aa53",
+        "rev": "f430a256db90c7d6035f2d738e2e8acd5c633f16",
         "type": "github"
       },
       "original": {
