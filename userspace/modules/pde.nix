@@ -90,6 +90,8 @@ in {
             csvlens
             dua
             bottom
+            ollama
+            claude-code
 
             ### Global Language Support
             asm-lsp
