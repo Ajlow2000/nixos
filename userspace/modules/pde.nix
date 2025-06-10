@@ -78,19 +78,17 @@ in {
 
             gdb
             bitwarden-cli
-            bottom
             hyperfine
             nmap
             arp-scan
             tokei
             binwalk
-            bottom
             bandwhich
             atuin
             csvlens
             dua
-            bottom
             claude-code
+            bottom
 
             ### Global Language Support
             asm-lsp
@@ -100,7 +98,6 @@ in {
             nil
             marksman
             gcc
-            # llvmPackages_9.clang-unwrapped
 
             moreutils # only necessary to provide vipe until nix build of conventional-commit is working
         ] ++ [
