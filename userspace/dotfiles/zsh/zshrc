@@ -9,6 +9,8 @@ source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 path+=($XDG_BIN_HOME)
 
 # ~~~ Aliases ~~~
+alias rg="rg --vimgrep"
+alias rgl="command rg"
 alias ls="eza --group-directories-first"
 alias ltr="ls --tree"
 alias grep="grep --color=auto"
