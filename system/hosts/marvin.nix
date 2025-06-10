@@ -20,12 +20,6 @@
 
     powerManagement.cpuFreqGovernor = "powersave";
 
-    services.macos-ventura = {
-        enable = true;
-        openFirewall = true;
-        vncListenAddr = "0.0.0.0";
-    };
-
     services.sentinelone = {
         enable = true;
         sentinelOneManagementTokenPath = /etc/nixos/sentinelOne.token;

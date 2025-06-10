@@ -19,7 +19,6 @@
         };
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
         sentinelone.url = "github:devusb/sentinelone-nix";
-        nixtheplanet.url = "github:matthewcroughan/NixThePlanet";
     };
 
     outputs = { nixpkgs, home-manager, nix-index-database, nixos-cosmic, sentinelone, ... }@inputs:
@@ -62,7 +61,6 @@
                                 trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
                             };
                         }
-                        inputs.nixtheplanet.nixosModules.macos-ventura
                         inputs.sentinelone.nixosModules.sentinelone
                         nixos-cosmic.nixosModules.default
 	                    ./system/hosts/marvin.nix 
