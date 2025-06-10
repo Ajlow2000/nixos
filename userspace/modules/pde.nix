@@ -90,6 +90,7 @@ in {
             csvlens
             dua
             bottom
+            claude-code
 
             ### Global Language Support
             asm-lsp
