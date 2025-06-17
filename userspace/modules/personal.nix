@@ -19,6 +19,7 @@ in {
             vlc
             asunder
             newsboat
+            obs-studio
         ]);
     };
 }
