@@ -14,7 +14,7 @@
             flake = true;
         };
         nixos-cosmic = {
-            url = "github:lilyinstarlight/nixos-cosmic/f430a256db90c7d6035f2d738e2e8acd5c633f16";
+            url = "github:lilyinstarlight/nixos-cosmic";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
