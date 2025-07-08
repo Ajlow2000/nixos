@@ -16,6 +16,12 @@
 
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
+    services.desktopManager.cosmic.xwayland.enable = true;
+
+    environment.systemPackages = with pkgs; [
+        cosmic-bg
+        cosmic-ext-ctl
+    ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;

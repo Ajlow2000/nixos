@@ -13,14 +13,10 @@
             url = "github:Ajlow2000/toolbox";
             flake = true;
         };
-        nixos-cosmic = {
-            url = "github:lilyinstarlight/nixos-cosmic";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         sentinelone.url = "github:devusb/sentinelone-nix";
     };
 
-    outputs = { nixpkgs, home-manager, nix-index-database, nixos-cosmic, sentinelone, ... }@inputs:
+    outputs = { nixpkgs, home-manager, nix-index-database, sentinelone, ... }@inputs:
         let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -41,27 +37,13 @@
 	            microvac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
-                        {
-                            nix.settings = {
-                                substituters = [ "https://cosmic.cachix.org/" ];
-                                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-                            };
-                        }
-                        nixos-cosmic.nixosModules.default
 	                    ./system/hosts/microvac.nix 
 	                ];
 		        };
 	            marvin = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
-                        {
-                            nix.settings = {
-                                substituters = [ "https://cosmic.cachix.org/" ];
-                                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-                            };
-                        }
                         inputs.sentinelone.nixosModules.sentinelone
-                        nixos-cosmic.nixosModules.default
 	                    ./system/hosts/marvin.nix 
 	                ];
 		        };
