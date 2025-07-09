@@ -26,6 +26,8 @@ in {
             wineWowPackages.stable
             firefox
             virtiofsd
+            virt-manager
+            win-virtio
         ];
 
         # Configure keymap in X11
@@ -46,8 +48,21 @@ in {
         programs.firefox.enable = true;
 
         programs.virt-manager.enable = true;
-        users.groups.libvirtd.members = ["ajlow"];
-        virtualisation.libvirtd.enable = true;
+
+        users.users.ajlow = {
+            extraGroups = [ "libvirtd" "kvm" "qemu-libvirtd" ];
+        };
+
+        environment.sessionVariables.LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
+
+        virtualisation = {
+              libvirtd = {
+                enable = true;
+                qemu.ovmf.enable = true;
+                qemu.swtpm.enable = true;
+                # qemuOvmfPackage = pkgs.OVMFFull;
+            };
+        };
 
         # Enable sound with pipewire.
         services.pulseaudio.enable = false;
