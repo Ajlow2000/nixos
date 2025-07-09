@@ -36,6 +36,10 @@ experimental-features = nix-command flakes
 [Nix Flakes documentation](https://nixos.wiki/wiki/Flakes) if
 needed.
 
+### Post garbage collection fix for win11 vm
+https://crescentro.se/posts/windows-vm-nixos/
+`nix eval nixpkgs#qemu.outPath`
+`virsh edit win11`
 
 ### WSL
 [https://github.com/nix-community/NixOS-WSL]
