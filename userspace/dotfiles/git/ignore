@@ -13,4 +13,4 @@ target
 build
 out
 
-.claude/settings.local.json
+.claude/
