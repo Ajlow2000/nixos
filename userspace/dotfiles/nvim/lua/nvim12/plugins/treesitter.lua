@@ -1,0 +1,53 @@
+vim.pack.add({
+    {
+        src = "https://github.com/nvim-treesitter/nvim-treesitter",
+        version = "main", -- currently the default branch is master, but this will eventually be changed to main
+    },
+})
+
+require("nvim-treesitter").setup({
+    highlight = {
+        enable = true,
+    },
+    indent = { enable = true },
+    ensure_installed = {
+        "c",
+        "cpp",
+        "rust",
+        "zig",
+        "haskell",
+        "go",
+        "templ",
+        "ocaml",
+        "python",
+        "nix",
+        "norg",
+        "csv",
+        "json",
+        "yaml",
+        "html",
+        "css",
+        "markdown",
+        "markdown_inline",
+        "bash",
+        "vim",
+        "dockerfile",
+        "gitignore",
+        "gitcommit",
+        "kdl",
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<c-space>',
+            node_incremental = '<c-space>',
+            scope_incremental = '<c-s>',
+            node_decremental = '<c-backspace>',
+        },
+    },
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+    },
+    auto_install = true,
+})

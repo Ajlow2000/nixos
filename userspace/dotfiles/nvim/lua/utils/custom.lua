@@ -28,3 +28,14 @@ function stb(str)
 
     return lookup_table[string.lower(str)]
 end
+
+local function require_all_in_directory(directory)
+    local files = vim.fn.glob(directory .. "/*.lua", false, true)
+    for _, file in ipairs(files) do
+        local filename = file:match("([^/]+)%.lua$")
+        if filename ~= "init" then
+            local module = file:gsub("%.lua$", ""):gsub("/", ".")
+            print(module)
+        end
+    end
+end
