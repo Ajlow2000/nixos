@@ -67,17 +67,17 @@ return {
 
         -- <><><> set keymaps <><><>
 
-        -- Searching
-        vim.keymap.set("n", "<leader>sf", ":Telescope find_files<cr>", { desc = "[Telescope] - Search for files (fuzzyfind)"})
-        vim.keymap.set("n", "<leader>sg", ":Telescope git_files<cr>", { desc = "[Telescope] - Search for git files (fuzzyfind)"})
-        vim.keymap.set("n", "<leader>rg", ":Telescope live_grep<cr>", { desc = "[Telescope] - Search for text (ripgrep / live_grep)"})
-        vim.keymap.set("n", "<leader>sb", ":Telescope buffers<cr>", { desc = "[Telescope] - Search Open Buffers"})
-        vim.keymap.set("n", "<leader>sk", ":Telescope keymaps<cr>", { desc = "[Telescope] - Search Keymaps"})
-        vim.keymap.set("n", "<leader>sc", ":Telescope commands<cr>", { desc = "[Telescope] - Search Vim Commands"})
-        vim.keymap.set("n", "<leader>sr", ":Telescope registers<cr>", { desc = "[Telescope] - Search Registers"})
-        vim.keymap.set("n", "<leader>sh", ":Telescope help_tags<cr>", { desc = "[Telescope] - Search Help Tags"})
-        vim.keymap.set("n", "<leader>su", ":Telescope undo theme=dropdown<cr>", { desc = "[Telescope] - Undo History"})
-        vim.keymap.set("n", "<leader>sm", ":Telescope marks<cr>", { desc = "[Telescope] - Search Marks"})
+        -- Searching -- TODO - deprecated in favor of fzf
+        -- vim.keymap.set("n", "<leader>sf", ":Telescope find_files<cr>", { desc = "[Telescope] - Search for files (fuzzyfind)"})
+        -- vim.keymap.set("n", "<leader>sg", ":Telescope git_files<cr>", { desc = "[Telescope] - Search for git files (fuzzyfind)"})
+        -- vim.keymap.set("n", "<leader>rg", ":Telescope live_grep<cr>", { desc = "[Telescope] - Search for text (ripgrep / live_grep)"})
+        -- vim.keymap.set("n", "<leader>sb", ":Telescope buffers<cr>", { desc = "[Telescope] - Search Open Buffers"})
+        -- vim.keymap.set("n", "<leader>sk", ":Telescope keymaps<cr>", { desc = "[Telescope] - Search Keymaps"})
+        -- vim.keymap.set("n", "<leader>sc", ":Telescope commands<cr>", { desc = "[Telescope] - Search Vim Commands"})
+        -- vim.keymap.set("n", "<leader>sr", ":Telescope registers<cr>", { desc = "[Telescope] - Search Registers"})
+        -- vim.keymap.set("n", "<leader>sh", ":Telescope help_tags<cr>", { desc = "[Telescope] - Search Help Tags"})
+        -- vim.keymap.set("n", "<leader>su", ":Telescope undo theme=dropdown<cr>", { desc = "[Telescope] - Undo History"})
+        -- vim.keymap.set("n", "<leader>sm", ":Telescope marks<cr>", { desc = "[Telescope] - Search Marks"})
 
         -- Colorscheme TODO - add color preview like lvim
         vim.keymap.set("n", "<leader>scs", ":Telescope colorscheme<cr>", { desc = "[Telescope] - Browse Colorschemes"})
