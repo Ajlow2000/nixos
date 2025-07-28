@@ -14,9 +14,10 @@
             flake = true;
         };
         sentinelone.url = "github:devusb/sentinelone-nix";
+        neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     };
 
-    outputs = { nixpkgs, home-manager, nix-index-database, sentinelone, ... }@inputs:
+    outputs = { nixpkgs, home-manager, nix-index-database, sentinelone, neovim-nightly-overlay, ... }@inputs:
         let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};

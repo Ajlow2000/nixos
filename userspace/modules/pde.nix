@@ -22,6 +22,10 @@ in {
         home.packages = with pkgs; ([
             ### PDE
             neovim
+            (runCommand "nvim-nightly" {} ''
+                mkdir -p $out/bin
+                ln -s ${inputs.neovim-nightly-overlay.packages.${system}.default}/bin/nvim $out/bin/nvim-nightly
+            '')
             tmux
             zellij
             neovim-remote
