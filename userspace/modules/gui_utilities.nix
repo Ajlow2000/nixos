@@ -13,6 +13,7 @@ in {
         home.packages = with pkgs; ([
             firefox
             evince
+            zathura
             krita
             gimp
             inkscape
