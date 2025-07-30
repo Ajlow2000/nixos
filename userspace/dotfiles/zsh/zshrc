@@ -11,6 +11,7 @@ path+=($XDG_BIN_HOME)
 # ~~~ Aliases ~~~
 alias e="nvim"
 alias n="nvim-nightly"
+alias ng="PROFILE='nvim12' nvim-nightly"
 alias rg="rg --vimgrep"
 alias rgl="command rg"
 alias ls="eza --group-directories-first"
