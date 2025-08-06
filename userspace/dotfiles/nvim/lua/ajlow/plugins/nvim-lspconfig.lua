@@ -72,7 +72,16 @@ return {
         lspconfig.html.setup { capabilities = capabilities }
         lspconfig.ocamllsp.setup { capabilities = capabilities }
         lspconfig.zls.setup { capabilities = capabilities }
-        lspconfig.rust_analyzer.setup { capabilities = capabilities }
+        lspconfig.rust_analyzer.setup {
+            capabilities = capabilities,
+            settings = {
+                ['rust-analyzer'] = {
+                    diagnostics = {
+                        disabled = { 'inactive-code' }
+                    }
+                }
+            }
+        }
         lspconfig.pyright.setup { capabilities = capabilities }
         lspconfig.clangd.setup { capabilities = capabilities }
         lspconfig.hls.setup { capabilities = capabilities }
