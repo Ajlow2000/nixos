@@ -7,6 +7,7 @@ require(PROFILE .. ".std.options")
 require(PROFILE .. ".std.keymaps")
 require(PROFILE .. ".std.autocommands")
 require(PROFILE .. ".std.filetypes")
+require(PROFILE .. ".std.completion")
 require(PROFILE .. ".plugins")
 
 -- Conditionally add a playground file for local testing

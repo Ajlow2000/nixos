@@ -28,7 +28,7 @@ vim.opt.winborder = "rounded"
 vim.opt.fileencoding = "utf-8"
 vim.opt.conceallevel = 0
 vim.opt.pumheight = 10
-vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
+vim.opt.completeopt = { "fuzzy", "menuone", "noinsert", "noselect", "popup"}
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 400
 vim.opt.updatetime = 750
@@ -38,6 +38,4 @@ vim.opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
 vim.opt.undofile = true
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.whichwrap = "bs<>[]hl"                  -- which "horizontal" keys are allowed to travel to prev/next line
-vim.opt.shortmess:append "c"                    -- don't give |ins-completion-menu| messages
 vim.opt.iskeyword:append "-"                    -- hyphenated words recognized by searches
