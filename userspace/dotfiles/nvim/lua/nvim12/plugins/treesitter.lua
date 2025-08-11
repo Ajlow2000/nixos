@@ -1,9 +1,3 @@
-vim.pack.add({
-    {
-        src = "https://github.com/nvim-treesitter/nvim-treesitter",
-        version = "main", -- currently the default branch is master, but this will eventually be changed to main
-    },
-})
 
 require("nvim-treesitter").setup({
     highlight = {

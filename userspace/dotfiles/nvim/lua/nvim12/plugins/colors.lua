@@ -1,11 +1,3 @@
-vim.pack.add({
-    {src = "https://github.com/sainnhe/everforest"},
-    {src = "https://github.com/slugbyte/lackluster.nvim"},
-    {src = "https://github.com/sainnhe/gruvbox-material"},
-    {src = "https://github.com/catppuccin/nvim"},
-    {src = "https://github.com/folke/tokyonight.nvim"},
-    {src = "https://github.com/shaunsingh/nord.nvim"},
-})
 
 COLORSCHEME = vim.env.COLORSCHEME
 if COLORSCHEME == nil then COLORSCHEME = "gruvbox" end

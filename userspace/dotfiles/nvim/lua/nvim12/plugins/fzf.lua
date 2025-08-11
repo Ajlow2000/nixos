@@ -1,7 +1,5 @@
-vim.pack.add({
-    {src = "https://github.com/ibhagwan/fzf-lua"},
-})
 
+require('mini.icons').setup()
 require('fzf-lua').setup({'fzf-native'})
 
 vim.keymap.set(
