@@ -22,6 +22,9 @@ in {
 
         programs.noisetorch.enable = true;
 
+        hardware.opentabletdriver.enable = true;
+        hardware.opentabletdriver.daemon.enable = true;
+
         environment.systemPackages = with pkgs; [
             wineWowPackages.stable
             firefox
