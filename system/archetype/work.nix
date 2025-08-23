@@ -25,6 +25,24 @@ in {
         hardware.opentabletdriver.enable = true;
         hardware.opentabletdriver.daemon.enable = true;
 
+        services.mpd = {
+            enable = true;
+            user = "ajlow";
+            group = "users";
+            startWhenNeeded = true;
+            musicDirectory = "/home/ajlow/media";
+            extraConfig = ''
+                audio_output {
+                    type "pipewire"
+                    name "Pipewire Output"
+                }
+            '';
+        };
+
+        systemd.services.mpd.environment = {
+            XDG_RUNTIME_DIR = "/run/user/1000";
+        };
+
         environment.systemPackages = with pkgs; [
             wineWowPackages.stable
             firefox

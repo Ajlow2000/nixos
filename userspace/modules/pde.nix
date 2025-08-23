@@ -94,6 +94,7 @@ in {
             dua
             claude-code
             bottom
+            rmpc
 
             ### Global Language Support
             asm-lsp
