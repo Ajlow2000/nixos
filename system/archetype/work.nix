@@ -44,6 +44,9 @@ in {
         };
 
         environment.systemPackages = with pkgs; [
+            mpc
+            rmpc
+            libnotify
             wineWowPackages.stable
             firefox
             virtiofsd

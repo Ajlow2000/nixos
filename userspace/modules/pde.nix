@@ -94,7 +94,6 @@ in {
             dua
             claude-code
             bottom
-            rmpc
 
             ### Global Language Support
             asm-lsp
@@ -153,6 +152,11 @@ in {
                 recursive = true;
                 source = ../dotfiles/repo-manager;
                 target = "./.config/repo-manager";
+            };
+            rmpc = {
+                recursive = true;
+                source = ../dotfiles/rmpc;
+                target = "./.config/rmpc";
             };
             scripts = {
                 recursive = false;
