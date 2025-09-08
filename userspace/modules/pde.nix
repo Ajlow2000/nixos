@@ -81,6 +81,7 @@ in {
             dig
             whois
 
+            rr
             gdb
             bitwarden-cli
             hyperfine
@@ -100,6 +101,7 @@ in {
             lua-language-server
             nodePackages_latest.bash-language-server
             rust-analyzer
+            rustc
             nil
             marksman
             gcc
@@ -162,6 +164,11 @@ in {
                 recursive = false;
                 source = ../dotfiles/scripts;
                 target = "./.local/bin";
+            };
+            gdb = {
+                recursive = false;
+                source = ../dotfiles/gdb/gdbinit;
+                target = "./.gdbinit";
             };
         };
 
