@@ -31,6 +31,7 @@ in {
             group = "users";
             startWhenNeeded = true;
             musicDirectory = "/home/ajlow/media";
+            playlistDirectory = "/home/ajlow/media/playlists";
             extraConfig = ''
                 audio_output {
                     type "pipewire"

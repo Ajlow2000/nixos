@@ -1,3 +1,7 @@
+
+[includeIf "gitdir:~/media/"]
+    path = ~/.config/git/config-personal
+
 [includeIf "gitdir:~/repos/personal/"]
     path = ~/.config/git/config-personal
 
