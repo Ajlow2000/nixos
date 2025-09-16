@@ -80,6 +80,7 @@ in {
             gnupg
             dig
             whois
+            transmission_4
 
             rr
             gdb
