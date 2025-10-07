@@ -12,6 +12,7 @@ in {
     config = lib.mkIf cfg.enable {
         home.packages = with pkgs; ([
             microsoft-edge
+            zoom-us
             firefox
             evince
             zathura
