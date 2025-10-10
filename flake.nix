@@ -23,6 +23,12 @@
         pkgs = nixpkgs.legacyPackages.${system};
         in {
 	        nixosConfigurations = {
+		    mindgame = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+                        modules = [ 
+                            ./system/hosts/mindgame.nix 
+                        ];
+                        };
 	            hal9000 = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
 	                modules = [ 
