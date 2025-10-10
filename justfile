@@ -9,7 +9,7 @@ os:
     sudo nixos-rebuild switch --flake ./#{{hostname}} --impure 
 
 hm:
-    home-manager switch --flake ./#{{user}}
+    home-manager switch -b backup --flake ./#{{user}}
 
 lsip:
     echo "$(nix-store --query --requisites /run/current-system | cut -d- -f2-)\n$(home-manager packages)" | sort | uniq
