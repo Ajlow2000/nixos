@@ -34,7 +34,7 @@ function gl () {
     git show $commitHash
 }
 
-fpath=(~/.zsh/completion $fpath)
+fpath=(~/.zsh/completions $fpath)
 autoload -Uz compinit && compinit
 
 function hist () {
