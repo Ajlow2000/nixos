@@ -52,7 +52,7 @@ in {
             firefox
             virtiofsd
             virt-manager
-            win-virtio
+            virtio-win
         ];
 
         # Configure keymap in X11
