@@ -90,6 +90,7 @@ in {
             arp-scan
             tokei
             binwalk
+            ida-free
             bandwhich
             atuin
             csvlens
