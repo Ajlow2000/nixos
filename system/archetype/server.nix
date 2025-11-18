@@ -32,6 +32,7 @@ in {
             coreutils
             inetutils
             docker-compose
+            killall
         ];
 
         # Enable nix ld
