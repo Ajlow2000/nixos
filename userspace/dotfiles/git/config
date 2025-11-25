@@ -28,6 +28,11 @@
     showStash = true
     showUntrackedFiles = all  # show individual untracked files
 
+[fetch]
+    all = true
+    prune = true
+    tags = true
+
 [push]
     autoSetupRemote = true
 
