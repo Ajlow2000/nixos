@@ -26,6 +26,7 @@ alias gc="git commit"
 alias ga="git add --intent-to-add . && git add --patch"
 alias rmgr="repo-manager"
 alias gs="git status --short --branch"
+alias zadd="zoxide add $(pwd)"
 function gl () {
     commitHash=$(git log --color --pretty=format:'%Cgreen(%cs) %Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit \
         | fzf --ansi \
@@ -90,7 +91,7 @@ precmd_functions+=(_fix_cursor)
 
 function chpwd() {
     emulate -L zsh
-    zoxide add $(pwd)
+    # zoxide add $(pwd)
 }
 
 autoload -z edit-command-line
