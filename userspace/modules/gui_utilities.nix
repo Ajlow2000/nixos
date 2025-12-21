@@ -25,6 +25,7 @@ in {
             spotify
             teams-for-linux
             element-desktop
+            signal-desktop
         ]);
     };
 }

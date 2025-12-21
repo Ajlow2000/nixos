@@ -90,13 +90,13 @@ in {
             arp-scan
             tokei
             binwalk
-            ida-free
             bandwhich
             atuin
             csvlens
             dua
             claude-code
             bottom
+            signal-cli
 
             ### Global Language Support
             asm-lsp
