@@ -26,6 +26,7 @@ in {
             teams-for-linux
             element-desktop
             signal-desktop
+            anki
         ]);
     };
 }
