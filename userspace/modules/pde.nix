@@ -81,6 +81,7 @@ in {
             dig
             whois
             transmission_4
+            binsider
 
             rr
             gdb
