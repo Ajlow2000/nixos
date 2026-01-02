@@ -32,12 +32,12 @@ in {
             startWhenNeeded = true;
             musicDirectory = "/home/ajlow/media";
             playlistDirectory = "/home/ajlow/media/playlists";
-            extraConfig = ''
-                audio_output {
-                    type "pipewire"
-                    name "Pipewire Output"
-                }
-            '';
+            # extraConfig = ''
+            #     audio_output {
+            #         type "pipewire"
+            #         name "Pipewire Output"
+            #     }
+            # '';
         };
 
         systemd.services.mpd.environment = {

@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let 
+let
     cfg = config.personal;
 in {
     options = {
@@ -12,7 +12,6 @@ in {
     config = lib.mkIf cfg.enable {
         home.packages = with pkgs; ([
             discord
-            webcord
             yt-dlp
             tone
             ffmpeg_6
