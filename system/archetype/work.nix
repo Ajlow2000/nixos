@@ -6,6 +6,7 @@ in {
         ./server.nix
         ../modules/display-manager.nix
         ../modules/desktop-environment.nix
+        ../modules/mandarin.nix
     ];
 
     options = {
@@ -19,6 +20,7 @@ in {
         server.enable = true;
         display-manager.enable = true;
         desktop-environment.enable = true;
+        mandarin.enable = true;
 
         programs.noisetorch.enable = true;
 
