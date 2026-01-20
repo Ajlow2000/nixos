@@ -1,0 +1,43 @@
+# Everforest Light Theme (Medium)
+# A green-based color scheme with soft contrast
+
+background = #FDF6E3
+foreground = #5C6A72
+
+cursor-color = #5C6A72
+cursor-text = #FDF6E3
+
+selection-background = #E6E2CC
+selection-foreground = #5C6A72
+
+# Black
+palette = 0=#5C6A72
+palette = 8=#5C6A72
+
+# Red
+palette = 1=#F85552
+palette = 9=#F85552
+
+# Green
+palette = 2=#8DA101
+palette = 10=#8DA101
+
+# Yellow
+palette = 3=#DFA000
+palette = 11=#DFA000
+
+# Blue
+palette = 4=#3A94C5
+palette = 12=#3A94C5
+
+# Magenta
+palette = 5=#DF69BA
+palette = 13=#DF69BA
+
+# Cyan
+palette = 6=#35A77C
+palette = 14=#35A77C
+
+# White
+palette = 7=#A6B0A0
+palette = 15=#EFEBD4

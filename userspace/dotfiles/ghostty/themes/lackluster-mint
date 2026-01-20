@@ -1,0 +1,43 @@
+# Lackluster Mint Theme
+# A low-contrast green-focused colorscheme
+
+background = #101010
+foreground = #deeeed
+
+cursor-color = #789978
+cursor-text = #101010
+
+selection-background = #708090
+selection-foreground = #deeeed
+
+# Black
+palette = 0=#000000
+palette = 8=#555555
+
+# Red
+palette = 1=#D70000
+palette = 9=#ff5555
+
+# Green (mint accent)
+palette = 2=#789978
+palette = 10=#99b898
+
+# Yellow
+palette = 3=#abab77
+palette = 11=#cccc99
+
+# Blue
+palette = 4=#7788AA
+palette = 12=#99aabb
+
+# Magenta
+palette = 5=#708090
+palette = 13=#8899aa
+
+# Cyan
+palette = 6=#789999
+palette = 14=#99bbbb
+
+# White
+palette = 7=#aaaaaa
+palette = 15=#deeeed
