@@ -130,6 +130,11 @@ in {
                 source = ../dotfiles/kitty;
                 target = "./.config/kitty";
             };
+            ghostty = {
+                recursive = true;
+                source = ../dotfiles/ghostty;
+                target = "./.config/ghostty";
+            };
             atuin = {
                 source = ../dotfiles/atuin;
                 target = "./.config/atuin";

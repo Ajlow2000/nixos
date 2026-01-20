@@ -1,0 +1,7 @@
+# Ghostty Configuration
+
+# Font
+font-family = Hack
+
+# Disable font ligatures
+font-feature = -calt -liga -dlig
