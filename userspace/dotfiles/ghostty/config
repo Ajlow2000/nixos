@@ -8,3 +8,7 @@ font-feature = -calt -liga -dlig
 
 # Theme - lackluster-mint (active)
 theme = lackluster-mint
+
+# Window
+window-decoration = false
+confirm-close-surface = false
