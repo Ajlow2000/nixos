@@ -18,13 +18,13 @@ palette = 8=#555555
 palette = 1=#D70000
 palette = 9=#ff5555
 
-# Green (mint accent)
+# Green
 palette = 2=#789978
 palette = 10=#99b898
 
 # Yellow
-palette = 3=#abab77
-palette = 11=#cccc99
+palette = 3=#cbc84a
+palette = 11=#e7e569
 
 # Blue
 palette = 4=#7788AA
