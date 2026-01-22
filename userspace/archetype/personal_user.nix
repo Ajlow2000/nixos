@@ -10,6 +10,7 @@ in {
         ../modules/personal.nix
         ../modules/de.nix
         ../modules/minecraft.nix
+        ../modules/hytale.nix
     ];
 
     options = {
@@ -29,6 +30,7 @@ in {
         personal.enable = true;
         de.enable = true;
         minecraft.enable = true;
+        hytale.enable = true;
 
         dconf.settings = {
             "org/virt-manager/virt-manager/connections" = {

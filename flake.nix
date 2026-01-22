@@ -15,6 +15,7 @@
         };
         sentinelone.url = "github:devusb/sentinelone-nix";
         neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+        hytale-nix.url = "github:andreashgk/hytale-nix";
     };
 
     outputs = { nixpkgs, home-manager, nix-index-database, sentinelone, neovim-nightly-overlay, ... }@inputs:
