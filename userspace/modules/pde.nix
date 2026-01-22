@@ -54,7 +54,6 @@ in {
             mercurial
             darcs
             subversion
-            xclip
             unixtools.xxd
             gum
             glow
@@ -69,12 +68,7 @@ in {
             openssh
             zip
             unzip
-            util-linux
-            lsb-release
-            usbutils
-            pciutils
             rsync
-            interception-tools
             gnupatch
             bzip2
             gnupg
@@ -111,6 +105,14 @@ in {
             gcc
 
             moreutils # only necessary to provide vipe until nix build of conventional-commit is working
+        ] ++ lib.optionals stdenv.isLinux [
+            # Linux-only utilities
+            xclip
+            util-linux
+            lsb-release
+            usbutils
+            pciutils
+            interception-tools
         ] ++ [
             toolbox.packages.${system}.print-path
             toolbox.packages.${system}.audit-dir
@@ -181,7 +183,7 @@ in {
             };
         };
 
-        xdg.desktopEntries = {
+        xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
             win11 = {
                 name = "Windows11 VM";
                 genericName = "VM";

@@ -60,31 +60,43 @@
 	                ];
 		        };
 	        };
-            homeConfigurations = {
-                ajlow = home-manager.lib.homeManagerConfiguration {
-                    inherit pkgs;
-                    modules = [ 
-                        ./userspace/users/ajlow.nix 
-                        nix-index-database.hmModules.nix-index
-                    ];
-                    extraSpecialArgs = {
-                        inherit inputs;
-                        inherit system;
+            homeConfigurations =
+                let
+                    mkHomeConfig = system: user: home-manager.lib.homeManagerConfiguration {
+                        pkgs = nixpkgs.legacyPackages.${system};
+                        modules = [
+                            ./userspace/users/${user}.nix
+                            nix-index-database.hmModules.nix-index
+                        ];
+                        extraSpecialArgs = {
+                            inherit inputs system;
+                        };
                     };
-                };
-            };
+                in
+                    nixpkgs.lib.foldl' (acc: system:
+                        acc // {
+                            "ajlow@${system}" = mkHomeConfig system "ajlow";
+                            "alowry@${system}" = mkHomeConfig system "alowry";
+                        }
+                    ) {
+                        # Default configs use x86_64-linux for backwards compatibility
+                        ajlow = mkHomeConfig "x86_64-linux" "ajlow";
+                        alowry = mkHomeConfig "x86_64-linux" "alowry";
+                    } supportedSystems;
             devShells = forAllSystems (system:
                 let
                     pkgs = nixpkgs.legacyPackages.${system};
                 in {
                     default = pkgs.mkShell {
-                        buildInputs = with pkgs; [
+                        buildInputs = (with pkgs; [
                             nil
                             just
                             neovim
                             git
                             coreutils
                             marksman
+                        ]) ++ [
+                            home-manager.packages.${system}.default
                         ];
                     };
                 }

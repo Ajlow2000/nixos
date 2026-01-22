@@ -1,5 +1,5 @@
-{ config, lib, ... }:
-let 
+{ config, lib, pkgs, ... }:
+let
     cfg = config.env;
 in {
     options = {
@@ -23,7 +23,7 @@ in {
 
             AJLOW_MANAGED_SESSIONS="$XDG_DATA_HOME/managed-sessions.toml";
             AJLOW_REPO_HOME="$HOME/repos";
-
+        } // lib.optionalAttrs pkgs.stdenv.isLinux {
             MOZ_ENABLE_WAYLAND="1";
         };
 

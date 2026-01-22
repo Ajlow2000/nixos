@@ -2,7 +2,9 @@
 let inherit (inputs) toolbox;
 in {
     home.username = "alowry";
-    home.homeDirectory = "/home/alowry";
+    home.homeDirectory = if pkgs.stdenv.isDarwin
+        then "/Users/alowry"
+        else "/home/alowry";
 
     nixpkgs.config.allowUnfreePredicate = _: true;
 

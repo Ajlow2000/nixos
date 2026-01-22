@@ -1,5 +1,5 @@
-{config, lib, ... }:
-let 
+{config, lib, pkgs, ... }:
+let
     cfg = config.personal_user;
 in {
 
@@ -28,11 +28,11 @@ in {
         env.enable = true;
         gui_utilities.enable = true;
         personal.enable = true;
-        de.enable = true;
+        de.enable = pkgs.stdenv.isLinux;
         minecraft.enable = true;
         hytale.enable = true;
 
-        dconf.settings = {
+        dconf.settings = lib.mkIf pkgs.stdenv.isLinux {
             "org/virt-manager/virt-manager/connections" = {
                 autoconnect = ["qemu:///system"];
                 uris = ["qemu:///system"];

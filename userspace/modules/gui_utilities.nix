@@ -11,10 +11,8 @@ in {
 
     config = lib.mkIf cfg.enable {
         home.packages = with pkgs; ([
-            microsoft-edge
             zoom-us
             firefox
-            evince
             zathura
             krita
             gimp
@@ -23,10 +21,14 @@ in {
             ghidra
             discord
             spotify
-            teams-for-linux
             element-desktop
             signal-desktop
             anki
+        ] ++ lib.optionals stdenv.isLinux [
+            # Linux-only GUI apps
+            microsoft-edge
+            evince
+            teams-for-linux
         ]);
     };
 }

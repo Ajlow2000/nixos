@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, lib, ... }: {
     nixpkgs.config.allowUnfreePredicate = _: true;
 
     imports = [
@@ -8,6 +8,12 @@
         ../modules/work.nix
         ../modules/de.nix
     ];
+
+    # Enable modules (with de conditional on Linux)
+    pde.enable = true;
+    env.enable = true;
+    gui_utilities.enable = true;
+    de.enable = pkgs.stdenv.isLinux;
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
