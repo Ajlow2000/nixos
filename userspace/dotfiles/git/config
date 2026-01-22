@@ -9,7 +9,6 @@
     path = ~/.config/git/config-work
 
 [core]
-    pager = delta
 
 [commit]
     template = ~/.config/git/template
@@ -20,7 +19,6 @@
 [delta]
     navigate = true    # use n and N to move between diff sections
     light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-    side-by-side = true
 
 [status]
     branch = true
@@ -55,4 +53,6 @@
     plog = "log --graph --color --pretty=format:'%Cgreen(%cs) %Cred%h%Creset %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit";
     new = !sh -c 'git plog $1@{1}..$1@{0} "$@"'
     bclean = "!f() { git branch --merged ${1-main} | grep -v " ${1-main}$" | xargs -r git branch -d; }; f"
+    pdiff = !git -c core.pager=delta diff
+    sdiff = !git -c core.pager='delta -s' diff
 
