@@ -98,6 +98,7 @@ in {
             claude-code
             bottom
             signal-cli
+            zls
 
             ### Global Language Support
             asm-lsp
