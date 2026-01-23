@@ -33,7 +33,6 @@ in {
             delta
             zoxide
             kitty
-            ghostty
             hack-font
             lf
             xplr
@@ -77,12 +76,10 @@ in {
             transmission_4
             binsider
 
-            rr
             gdb
             bitwarden-cli
             hyperfine
             nmap
-            arp-scan
             tokei
             binwalk
             bandwhich
@@ -91,7 +88,6 @@ in {
             dua
             claude-code
             bottom
-            signal-cli
             zls
 
             ### Global Language Support
@@ -113,6 +109,10 @@ in {
             usbutils
             pciutils
             interception-tools
+            ghostty
+            rr
+            arp-scan
+            signal-cli
 
             # Toolbox packages (currently Linux-only)
             toolbox.packages.${system}.print-path
