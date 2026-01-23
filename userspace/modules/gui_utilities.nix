@@ -15,7 +15,6 @@ in {
             firefox
             inkscape
             wireshark
-            ghidra
             discord
             spotify
             element-desktop
@@ -23,6 +22,7 @@ in {
             anki
         ] ++ lib.optionals stdenv.isLinux [
             # Linux-only GUI apps
+            ghidra
             gimp
             krita
             zathura
