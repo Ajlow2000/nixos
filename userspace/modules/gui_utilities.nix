@@ -13,8 +13,6 @@ in {
         home.packages = with pkgs; ([
             zoom-us
             firefox
-            zathura
-            krita
             gimp
             inkscape
             wireshark
@@ -26,6 +24,8 @@ in {
             anki
         ] ++ lib.optionals stdenv.isLinux [
             # Linux-only GUI apps
+            krita
+            zathura
             microsoft-edge
             evince
             teams-for-linux
