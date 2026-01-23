@@ -1,0 +1,13 @@
+{ config, lib, pkgs, ... }:
+let
+    cfg = config.modules.hardware.tablet;
+in {
+    options.modules.hardware.tablet = {
+        enable = lib.mkEnableOption "OpenTabletDriver support for drawing tablets";
+    };
+
+    config = lib.mkIf cfg.enable {
+        hardware.opentabletdriver.enable = true;
+        hardware.opentabletdriver.daemon.enable = true;
+    };
+}

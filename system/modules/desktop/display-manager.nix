@@ -1,12 +1,9 @@
 { config, lib, ... }:
-let 
-    cfg = config.display-manager;
+let
+    cfg = config.modules.desktop.display-manager;
 in {
-    options = {
-        display-manager.enable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-        };
+    options.modules.desktop.display-manager = {
+        enable = lib.mkEnableOption "LightDM display manager with Slick greeter";
     };
 
     config = lib.mkIf cfg.enable {

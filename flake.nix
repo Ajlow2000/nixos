@@ -30,33 +30,33 @@
 	        nixosConfigurations = {
 		    mindgame = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
-                        modules = [ 
-                            ./system/hosts/mindgame.nix 
+                        modules = [
+                            ./system/hosts/mindgame
                         ];
                         };
 	            hal9000 = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
-	                modules = [ 
-	                    ./system/hosts/hal9000.nix 
+	                modules = [
+	                    ./system/hosts/hal9000
 	                ];
 		        };
 	            multivac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
-	                modules = [ 
-	                    ./system/hosts/multivac.nix 
+	                modules = [
+	                    ./system/hosts/multivac
 	                ];
 		        };
 	            microvac = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
-	                modules = [ 
-	                    ./system/hosts/microvac.nix 
+	                modules = [
+	                    ./system/hosts/microvac
 	                ];
 		        };
 	            marvin = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
-	                modules = [ 
+	                modules = [
                         inputs.sentinelone.nixosModules.sentinelone
-	                    ./system/hosts/marvin.nix 
+	                    ./system/hosts/marvin
 	                ];
 		        };
 	        };

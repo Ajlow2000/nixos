@@ -1,8 +1,7 @@
-{config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
-    cfg = config.personal_user;
+    cfg = config.profiles.user.personal;
 in {
-
     imports = [
         ../modules/pde.nix
         ../modules/env.nix
@@ -13,17 +12,14 @@ in {
         ../modules/hytale.nix
     ];
 
-    options = {
-        personal_user.enable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-        };
+    options.profiles.user.personal = {
+        enable = lib.mkEnableOption "personal user profile";
     };
 
     config = lib.mkIf cfg.enable {
         nixpkgs.config.allowUnfreePredicate = _: true;
 
-
+        # Enable all personal modules
         pde.enable = true;
         env.enable = true;
         gui_utilities.enable = true;
@@ -32,6 +28,7 @@ in {
         minecraft.enable = true;
         hytale.enable = true;
 
+        # Virt-manager dconf settings (Linux only)
         dconf.settings = lib.mkIf pkgs.stdenv.isLinux {
             "org/virt-manager/virt-manager/connections" = {
                 autoconnect = ["qemu:///system"];
@@ -39,16 +36,7 @@ in {
             };
         };
 
-        # This value determines the Home Manager release that your configuration is
-        # compatible with. This helps avoid breakage when a new Home Manager release
-        # introduces backwards incompatible changes.
-        #
-        # You should not change this value, even if you update Home Manager. If you do
-        # want to update the value, then make sure to first check the Home Manager
-        # release notes.
-        home.stateVersion = "22.11"; # Please read the comment before changing.
-
-        # Let Home Manager install and manage itself.
+        # Let Home Manager install and manage itself
         programs.home-manager.enable = true;
     };
 }
