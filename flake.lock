@@ -782,11 +782,11 @@
         "zellijSessionManager": "zellijSessionManager"
       },
       "locked": {
-        "lastModified": 1743538045,
-        "narHash": "sha256-xvgLmLfdvqjCv71tGqGVA4YY9b9ihQB06WEqJzVRFXs=",
+        "lastModified": 1769183181,
+        "narHash": "sha256-sXgdxHGBvY4HwSFhnH65TaE3eF+udo7tmHt1VIPckbc=",
         "owner": "Ajlow2000",
         "repo": "toolbox",
-        "rev": "1cc21f0be1f0d273e5100647caadd43918ff2a23",
+        "rev": "424cc7eeeda329e1bac6b5defa02411c6bf00260",
         "type": "github"
       },
       "original": {
