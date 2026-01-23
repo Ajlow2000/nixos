@@ -29,32 +29,37 @@
         in {
 	        nixosConfigurations = {
 		    mindgame = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
+                    specialArgs = { inherit system inputs; };
                         modules = [
+                            home-manager.nixosModules.home-manager
                             ./system/hosts/mindgame
                         ];
                         };
 	            hal9000 = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
+                    specialArgs = { inherit system inputs; };
 	                modules = [
+                            home-manager.nixosModules.home-manager
 	                    ./system/hosts/hal9000
 	                ];
 		        };
 	            multivac = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
+                    specialArgs = { inherit system inputs; };
 	                modules = [
+                            home-manager.nixosModules.home-manager
 	                    ./system/hosts/multivac
 	                ];
 		        };
 	            microvac = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
+                    specialArgs = { inherit system inputs; };
 	                modules = [
+                            home-manager.nixosModules.home-manager
 	                    ./system/hosts/microvac
 	                ];
 		        };
 	            marvin = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system; };
+                    specialArgs = { inherit system inputs; };
 	                modules = [
+                            home-manager.nixosModules.home-manager
                         inputs.sentinelone.nixosModules.sentinelone
 	                    ./system/hosts/marvin
 	                ];
@@ -66,7 +71,7 @@
                         pkgs = nixpkgs.legacyPackages.${system};
                         modules = [
                             ./userspace/users/${user}.nix
-                            nix-index-database.hmModules.nix-index
+                            nix-index-database.homeModules.nix-index
                         ];
                         extraSpecialArgs = {
                             inherit inputs system;

@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, osConfig ? null, ... }:
 let
     cfg = config.profiles.user.personal;
+    # Only set nixpkgs config when running standalone (not as NixOS module)
+    isStandalone = osConfig == null;
 in {
     imports = [
         ../modules/pde.nix
@@ -17,7 +19,10 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
-        nixpkgs.config.allowUnfreePredicate = _: true;
+        # Only set allowUnfree when running standalone (for non-NixOS systems)
+        nixpkgs.config = lib.mkIf isStandalone {
+            allowUnfreePredicate = _: true;
+        };
 
         # Enable all personal modules
         pde.enable = true;

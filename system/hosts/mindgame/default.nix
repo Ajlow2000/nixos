@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, inputs, ... }: {
     imports = [
         ./hardware.nix
         ../../profiles/desktop.nix

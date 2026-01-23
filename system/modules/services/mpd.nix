@@ -36,8 +36,10 @@ in {
             user = cfg.user;
             group = cfg.group;
             startWhenNeeded = true;
-            musicDirectory = cfg.musicDirectory;
-            playlistDirectory = cfg.playlistDirectory;
+            settings = {
+                music_directory = cfg.musicDirectory;
+                playlist_directory = cfg.playlistDirectory;
+            };
         };
 
         systemd.services.mpd.environment = {
