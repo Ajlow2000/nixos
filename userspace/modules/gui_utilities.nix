@@ -11,6 +11,8 @@ in {
 
     config = lib.mkIf cfg.enable {
         home.packages = with pkgs; ([
+        ] ++ lib.optionals stdenv.isLinux [
+            # Linux-only GUI apps
             zoom-us
             firefox
             inkscape
@@ -19,8 +21,6 @@ in {
             spotify
             element-desktop
             anki
-        ] ++ lib.optionals stdenv.isLinux [
-            # Linux-only GUI apps
             signal-desktop
             ghidra
             gimp
