@@ -113,7 +113,8 @@ in {
             usbutils
             pciutils
             interception-tools
-        ] ++ [
+
+            # Toolbox packages (currently Linux-only)
             toolbox.packages.${system}.print-path
             toolbox.packages.${system}.audit-dir
             toolbox.packages.${system}.repo-manager
