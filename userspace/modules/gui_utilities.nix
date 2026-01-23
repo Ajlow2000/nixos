@@ -13,7 +13,6 @@ in {
         home.packages = with pkgs; ([
             zoom-us
             firefox
-            gimp
             inkscape
             wireshark
             ghidra
@@ -24,6 +23,7 @@ in {
             anki
         ] ++ lib.optionals stdenv.isLinux [
             # Linux-only GUI apps
+            gimp
             krita
             zathura
             microsoft-edge
