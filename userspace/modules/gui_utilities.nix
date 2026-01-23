@@ -18,10 +18,10 @@ in {
             discord
             spotify
             element-desktop
-            signal-desktop
             anki
         ] ++ lib.optionals stdenv.isLinux [
             # Linux-only GUI apps
+            signal-desktop
             ghidra
             gimp
             krita
