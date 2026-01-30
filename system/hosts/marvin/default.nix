@@ -59,6 +59,9 @@
     # Personal networking (VPN)
     networking.firewall.checkReversePath = false;
 
+    # Disable nouveau drivers (blacklist GPU)
+    boot.blacklistedKernelModules = [ "nouveau" ];
+
     # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;

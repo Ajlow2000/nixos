@@ -31,7 +31,7 @@ in {
         personal.enable = true;
         de.enable = pkgs.stdenv.isLinux;
         minecraft.enable = true;
-        hytale.enable = true;
+        hytale.enable = false;
 
         # Virt-manager dconf settings (Linux only)
         dconf.settings = lib.mkIf pkgs.stdenv.isLinux {
