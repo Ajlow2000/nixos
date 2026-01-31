@@ -5,6 +5,7 @@
         ../../modules/desktop/cosmic.nix
         ../../modules/desktop/display-manager.nix
         ../../modules/services/gaming.nix
+        ../../modules/services/ollama.nix
         ../../modules/work/sram-udev.nix
         ../../modules/work/sentinelone.nix
         ../../modules/user-definitions.nix
@@ -17,6 +18,7 @@
     modules.desktop.display-manager.enable = lib.mkForce false;
 
     modules.services.gaming.enable = true;
+    modules.services.ollama.enable = true;
 
     user-definitions.ajlow.enable = true;
 
@@ -24,11 +26,11 @@
 
     modules.work.sram-udev.enable = true;
     modules.work.sentinelone = {
-        enable = true;
+        enable = false;
         email = "alowry@sram.com";
         serialNumber = "DPR8SQ3";
-        tokenPath = /etc/nixos/sentinelOne.token;
-        packageSource = /etc/nixos/SentinelAgent_linux_x86_64_v24_3_3_6.deb;
+        tokenPath = ./sentinelOne.token;
+        packageSource = ./SentinelAgent_linux_x86_64_v24_3_3_6.deb;
     };
 
     services.postgresql = {

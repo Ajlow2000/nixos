@@ -1,0 +1,46 @@
+{
+  "models": {
+    "local": {
+      "provider": "ollama",
+      "baseUrl": "http://localhost:11434",
+      "models": {
+        "primary": "gpt-oss:20b",
+        "fast": "llama3.2:3b",
+        "medium": "gemma3:4b",
+        "reasoning": "deepseek-r1:1.5b"
+      }
+    }
+  },
+  "ui": {
+    "theme": {
+      "name": "everforest",
+      "colors": {
+        "background": "#2d3142",
+        "surface": "#383c4e",
+        "primary": "#7fb4ca",
+        "secondary": "#a3be8c",
+        "accent": "#e67e80",
+        "text": "#d3c6aa",
+        "textSecondary": "#9da9a0",
+        "border": "#4a5064",
+        "success": "#a3be8c",
+        "warning": "#dbbc7f",
+        "error": "#e67e80"
+      }
+    }
+  },
+  "features": {
+    "codeCompletion": {
+      "enabled": true,
+      "model": "fast"
+    },
+    "codeReview": {
+      "enabled": true,
+      "model": "primary"
+    },
+    "debugging": {
+      "enabled": true,
+      "model": "reasoning"
+    }
+  }
+}

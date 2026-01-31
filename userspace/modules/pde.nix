@@ -87,6 +87,8 @@ in {
             csvlens
             dua
             claude-code
+            opencode
+            ollama-vulkan
             bottom
             zls
 
@@ -138,6 +140,11 @@ in {
                 recursive = true;
                 source = ../dotfiles/ghostty;
                 target = "./.config/ghostty";
+            };
+            opencode = {
+                recursive = true;
+                source = ../dotfiles/opencode;
+                target = "./.config/opencode";
             };
             atuin = {
                 source = ../dotfiles/atuin;

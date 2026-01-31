@@ -5,6 +5,7 @@
         ../../modules/desktop/cosmic.nix
         ../../modules/desktop/display-manager.nix
         ../../modules/services/gaming.nix
+        ../../modules/services/ollama.nix
         ../../modules/user-definitions.nix
     ];
 
@@ -15,6 +16,7 @@
     modules.desktop.display-manager.enable = lib.mkForce false;
 
     modules.services.gaming.enable = true;
+    modules.services.ollama.enable = true;
 
     user-definitions.ajlow.enable = true;
 

@@ -5,6 +5,7 @@
         ../../modules/desktop/gnome.nix
         ../../modules/desktop/display-manager.nix
         ../../modules/services/gaming.nix
+        ../../modules/services/ollama.nix
         ../../modules/user-definitions.nix
     ];
 
@@ -14,6 +15,7 @@
     modules.desktop.display-manager.enable = true;
 
     modules.services.gaming.enable = true;
+    modules.services.ollama.enable = true;
 
     user-definitions.ajlow.enable = true;
 
