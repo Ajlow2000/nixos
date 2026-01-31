@@ -12,10 +12,8 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
-        # Enable desktop profile (which also enables base)
         profiles.system.desktop.enable = true;
 
-        # Laptop-specific power management
         modules.hardware.power.enable = true;
     };
 }

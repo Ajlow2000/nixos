@@ -10,25 +10,18 @@
         ../../modules/user-definitions.nix
     ];
 
-    # Enable laptop profile (includes desktop and base)
     profiles.system.laptop.enable = true;
 
-    # Enable COSMIC desktop environment
     modules.desktop.cosmic.enable = true;
 
-    # Disable LightDM since COSMIC has its own greeter
     modules.desktop.display-manager.enable = lib.mkForce false;
 
-    # Enable gaming (Steam)
     modules.services.gaming.enable = true;
 
-    # Enable user definitions (work user)
     user-definitions.ajlow.enable = true;
 
-    # Enable virtualization for ajlow user
     modules.services.virtualization.users = [ "ajlow" ];
 
-    # Work-specific modules
     modules.work.sram-udev.enable = true;
     modules.work.sentinelone = {
         enable = true;
@@ -38,7 +31,6 @@
         packageSource = /etc/nixos/SentinelAgent_linux_x86_64_v24_3_3_6.deb;
     };
 
-    # PostgreSQL for work
     services.postgresql = {
         enable = true;
         ensureDatabases = [ "mydatabase" ];
@@ -48,7 +40,6 @@
         '';
     };
 
-    # COSMIC packages
     environment.systemPackages = with pkgs; [
         cosmic-bg
         cosmic-ext-ctl
@@ -56,17 +47,13 @@
         protonvpn-gui
     ];
 
-    # Personal networking (VPN)
     networking.firewall.checkReversePath = false;
 
-    # Disable nouveau drivers (blacklist GPU)
     boot.blacklistedKernelModules = [ "nouveau" ];
 
-    # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    # Host-specific settings
     networking.hostName = "marvin";
     system.stateVersion = "24.05";
 }

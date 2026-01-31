@@ -7,7 +7,6 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
-        # Core Nix settings
         nixpkgs.config.allowUnfree = true;
         nix.settings.experimental-features = [ "nix-command" "flakes" ];
         nix.settings.auto-optimise-store = true;
@@ -17,7 +16,6 @@ in {
             options = "--delete-older-than 30d";
         };
 
-        # Essential programs
         programs.zsh.enable = true;
         programs.nix-ld.enable = true;
         programs.nix-ld.libraries = with pkgs; [
@@ -26,7 +24,6 @@ in {
             clang
         ];
 
-        # Base packages
         environment.systemPackages = with pkgs; [
             neovim
             git
@@ -39,7 +36,6 @@ in {
             killall
         ];
 
-        # Environment variables
         environment.sessionVariables = rec {
             EDITOR = "nvim";
             XDG_CACHE_HOME = "$HOME/.cache";
@@ -50,7 +46,6 @@ in {
             PATH = [ "${XDG_BIN_HOME}" ];
         };
 
-        # Locale and time
         time.timeZone = "America/Denver";
         i18n.defaultLocale = "en_US.UTF-8";
         i18n.extraLocaleSettings = {
@@ -65,7 +60,6 @@ in {
             LC_TIME = "en_US.UTF-8";
         };
 
-        # Networking
         networking.networkmanager.enable = true;
         services.openssh.enable = true;
     };

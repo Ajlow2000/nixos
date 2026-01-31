@@ -18,10 +18,8 @@ in {
     };
 
     config = lib.mkIf cfg.enable {
-        # Enable base profile
         profiles.system.base.enable = true;
 
-        # Desktop-specific services (with sensible defaults, can be overridden)
         modules.services.audio.enable = lib.mkDefault true;
         modules.services.printing.enable = lib.mkDefault true;
         modules.services.docker.enable = lib.mkDefault true;
@@ -30,7 +28,6 @@ in {
         modules.hardware.tablet.enable = lib.mkDefault true;
         mandarin.enable = lib.mkDefault true;
 
-        # Desktop packages
         environment.systemPackages = with pkgs; [
             firefox
             libnotify
@@ -40,7 +37,6 @@ in {
         programs.firefox.enable = true;
         programs.noisetorch.enable = true;
 
-        # X11 keyboard configuration
         services.xserver.xkb = {
             layout = "us";
             variant = "";
