@@ -11,21 +11,21 @@ in {
 
     config = lib.mkIf cfg.enable {
         home.packages = with pkgs; ([
+        ] ++ lib.optionals stdenv.isLinux [
+            # Linux-only GUI apps
             zoom-us
             firefox
-            zathura
-            krita
-            gimp
             inkscape
             wireshark
-            ghidra
             discord
             spotify
             element-desktop
-            signal-desktop
             anki
-        ] ++ lib.optionals stdenv.isLinux [
-            # Linux-only GUI apps
+            signal-desktop
+            ghidra
+            gimp
+            krita
+            zathura
             microsoft-edge
             evince
             teams-for-linux

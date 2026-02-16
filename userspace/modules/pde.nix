@@ -33,7 +33,6 @@ in {
             delta
             zoxide
             kitty
-            ghostty
             hack-font
             lf
             xplr
@@ -77,12 +76,10 @@ in {
             transmission_4
             binsider
 
-            rr
             gdb
             bitwarden-cli
             hyperfine
             nmap
-            arp-scan
             tokei
             binwalk
             bandwhich
@@ -90,8 +87,9 @@ in {
             csvlens
             dua
             claude-code
+            opencode
+            ollama-vulkan
             bottom
-            signal-cli
             zls
 
             ### Global Language Support
@@ -113,7 +111,12 @@ in {
             usbutils
             pciutils
             interception-tools
-        ] ++ [
+            ghostty
+            rr
+            arp-scan
+            signal-cli
+
+            # Toolbox packages (currently Linux-only)
             toolbox.packages.${system}.print-path
             toolbox.packages.${system}.audit-dir
             toolbox.packages.${system}.repo-manager
@@ -137,6 +140,11 @@ in {
                 recursive = true;
                 source = ../dotfiles/ghostty;
                 target = "./.config/ghostty";
+            };
+            opencode = {
+                recursive = true;
+                source = ../dotfiles/opencode;
+                target = "./.config/opencode";
             };
             atuin = {
                 source = ../dotfiles/atuin;

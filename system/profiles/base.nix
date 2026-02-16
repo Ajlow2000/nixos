@@ -1,19 +1,14 @@
 { config, lib, pkgs, ... }:
-let 
-    cfg = config.server;
+let
+    cfg = config.profiles.system.base;
 in {
-    options = {
-        server.enable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-        };
+    options.profiles.system.base = {
+        enable = lib.mkEnableOption "base system configuration";
     };
 
     config = lib.mkIf cfg.enable {
         nixpkgs.config.allowUnfree = true;
-
         nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
         nix.settings.auto-optimise-store = true;
         nix.gc = {
             automatic = true;
@@ -22,6 +17,12 @@ in {
         };
 
         programs.zsh.enable = true;
+        programs.nix-ld.enable = true;
+        programs.nix-ld.libraries = with pkgs; [
+            gcc
+            stdenv.cc.cc
+            clang
+        ];
 
         environment.systemPackages = with pkgs; [
             neovim
@@ -35,34 +36,18 @@ in {
             killall
         ];
 
-        # Enable nix ld
-        programs.nix-ld.enable = true;
-
-        # Sets up all the libraries to load
-        programs.nix-ld.libraries = with pkgs; [
-            gcc
-            stdenv.cc.cc
-            clang
-        ];
-
-        # telnet towel.blinkenlights.nl
-
         environment.sessionVariables = rec {
             EDITOR = "nvim";
-
             XDG_CACHE_HOME = "$HOME/.cache";
             XDG_CONFIG_HOME = "$HOME/.config";
             XDG_DATA_HOME = "$HOME/.local/share";
             XDG_STATE_HOME = "$HOME/.local/state";
-            XDG_BIN_HOME = "$HOME/.local/bin"; 	# Not technically in the official xdg specification
-
+            XDG_BIN_HOME = "$HOME/.local/bin";
             PATH = [ "${XDG_BIN_HOME}" ];
         };
 
         time.timeZone = "America/Denver";
-
         i18n.defaultLocale = "en_US.UTF-8";
-
         i18n.extraLocaleSettings = {
             LC_ADDRESS = "en_US.UTF-8";
             LC_IDENTIFICATION = "en_US.UTF-8";
@@ -76,7 +61,6 @@ in {
         };
 
         networking.networkmanager.enable = true;
-
         services.openssh.enable = true;
     };
 }
