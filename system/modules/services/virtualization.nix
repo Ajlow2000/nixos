@@ -8,7 +8,7 @@ let
     pinnedNixpkgs = import (builtins.fetchTarball {
         url = "https://github.com/NixOS/nixpkgs/archive/3497aa5c9457a9d88d71fa93a4a8368816fbeeba.tar.gz";
         sha256 = "0v75c4iqyh7jvm9yci0vv0fz1aq72znzxx66jc0vlsdvir0ny63n";
-    }) { inherit (pkgs) system; };
+    }) { inherit (pkgs.stdenv.hostPlatform) system; };
 
     pinnedQemu = pinnedNixpkgs.qemu_kvm;
 in {

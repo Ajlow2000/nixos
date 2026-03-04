@@ -31,7 +31,7 @@ in {
         environment.systemPackages = with pkgs; [
             firefox
             libnotify
-            wineWowPackages.stable
+            wineWow64Packages.stable
         ];
 
         programs.firefox.enable = true;
