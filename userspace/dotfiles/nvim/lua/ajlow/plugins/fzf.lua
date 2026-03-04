@@ -15,6 +15,13 @@ return {
 
         vim.keymap.set(
             "n",
+            "<leader>rg",
+            ":FzfLua live_grep<cr>",
+            {desc = "[fzf] - Search for text"}
+        )
+
+        vim.keymap.set(
+            "n",
             "<leader>sb",
             ":FzfLua builtin<cr>",
             {desc = "[fzf] - Search builtin pickers"}
