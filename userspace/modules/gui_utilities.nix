@@ -29,6 +29,7 @@ in {
             microsoft-edge
             evince
             teams-for-linux
+            chromium
         ]);
     };
 }
