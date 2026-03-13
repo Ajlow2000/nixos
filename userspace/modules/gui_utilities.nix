@@ -31,6 +31,7 @@ in {
             evince
             teams-for-linux
             chromium
+            godot
         ]);
     };
 }
