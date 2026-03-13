@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, system, ... }:
 let 
     cfg = config.gui_utilities;
 in {
@@ -23,6 +23,7 @@ in {
             anki
             signal-desktop
             ghidra
+            inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland
             gimp
             krita
             zathura
