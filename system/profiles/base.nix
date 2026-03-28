@@ -60,6 +60,10 @@ in {
             LC_TIME = "en_US.UTF-8";
         };
 
+        services.udev.extraRules = ''
+            SUBSYSTEM=="usb", ATTR{idVendor}=="303a", MODE="0660", GROUP="dialout"
+        '';
+
         networking.networkmanager.enable = true;
         services.openssh.enable = true;
     };
