@@ -1,4 +1,3 @@
--- FIXME: Horizontal Scroll not working
 vim.keymap.set(
     "n",
     "<C-l>",
