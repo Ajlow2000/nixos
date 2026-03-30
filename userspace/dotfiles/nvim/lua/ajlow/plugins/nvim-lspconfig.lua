@@ -108,6 +108,10 @@ return {
                 }
             }
         })
+        lspconfig.omnisharp.setup {
+            capabilities = capabilities,
+            cmd = { "OmniSharp" },
+        }
         lspconfig.tinymist.setup{
             settings = {
                 exportPdf = "onType" -- Choose onType, onSave or never.
