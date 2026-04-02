@@ -7,9 +7,50 @@ let
         hash = "sha256-noAs75kk7lKUVLyP9jD8GbNOGsPe6q9V7CiqglORvHM=";
     };
 
-    better-f3 = pkgs.fetchurl {
-        url = "https://cdn.modrinth.com/data/8shC1gFX/versions/Qw1nhj7u/BetterF3-17.0.0-Fabric-1.21.11.jar";
-        hash = "sha256-Wv0zOhHAElktUY3mB80PjvqBUxbl2cViXHLvz/qrCUM=";
+    # TODO
+    # - better statistics screen 
+    # - book scroll ?
+    # - freecam
+    # - inventive inventory
+    # - mouse tweaks - OVERLAP WITH FO
+    # - Litematics -- create builds in creative and see blueprint in survival
+    # - no resource packs warnings 
+    # - preventer
+    # - renderscale
+    # - shulker box tooltip 
+    # - simple fog control
+    # - smooth swapping 
+    # - sounds
+    # - status effect bars
+    # - voxy
+    # - UI zoom worst client
+    # - xaeros minimap - OVERLAP WITH FO
+    # - 
+    # - 
+    # - 
+    mods = {
+        "BetterF3.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/8shC1gFX/versions/Qw1nhj7u/BetterF3-17.0.0-Fabric-1.21.11.jar";
+            hash = "sha256-Wv0zOhHAElktUY3mB80PjvqBUxbl2cViXHLvz/qrCUM=";
+        };
+        "xaeroworldmap.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/NcUtCpym/versions/CkZVhVE0/xaeroworldmap-fabric-1.21.11-1.40.11.jar";
+            hash = "sha256-916LgIsaT3F2HToVohaDfQkq7M6BTlvoneXRe2UNKPw=";
+        };
+    };
+
+    modsToFiles = ms: lib.mapAttrs' (name: src: {
+        name = "mods/${name}";
+        value = { source = src; method = "symlink"; };
+    }) ms;
+
+    configsToFiles = cs: lib.mapAttrs' (path: src: {
+        name = path;
+        value = { source = src; method = "symlink"; };
+    }) cs;
+
+    configs = {
+        "options.txt" = ./minecraft_configs/options.txt;
     };
 
 in {
@@ -61,10 +102,7 @@ in {
                             enable = true;
                             file = fabulously-optimized-mrpack;
                         };
-                        files."mods/BetterF3.jar" = {
-                            source = better-f3;
-                            method = "copy";
-                        };
+                        files = (modsToFiles mods) // (configsToFiles configs);
                     };
                 };
             };
