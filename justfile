@@ -20,3 +20,6 @@ ls-nixos-packages:
 
 ls-hm-packages:
     @home-manager packages | sort | uniq
+
+prefetch url:
+    @nix store prefetch-file --hash-type sha256 {{url}}

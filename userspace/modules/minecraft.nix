@@ -2,10 +2,16 @@
 let
     cfg = config.minecraft;
 
-    simply-optimized-mrpack = pkgs.fetchurl {
-        url = "https://cdn.modrinth.com/data/BYfVnHa7/versions/vZZwrcPm/Simply%20Optimized-1.21.1-5.0.mrpack";
-        hash = "sha256-n2BxHMmqpOEMsvDqRRYFfamcDCCT4ophUw7QAJQqXmg=";
+    fabulously-optimized-mrpack = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/1KVo5zza/versions/lwASzTsb/Fabulously.Optimized-v12.0.8.mrpack";
+        hash = "sha256-noAs75kk7lKUVLyP9jD8GbNOGsPe6q9V7CiqglORvHM=";
     };
+
+    # better-f3 = pkgs.fetchurl {
+    #     url = "https://cdn.modrinth.com/data/8shC1gFX/versions/HTssDOs8/BetterF3-17.0.0-NeoForge-1.21.11.jar";
+    #     hash = "";
+    # };
+
 in {
     imports = [
         inputs.nixcraft.homeModules.default
@@ -48,7 +54,7 @@ in {
                         };
                         mrpack = {
                             enable = true;
-                            file = simply-optimized-mrpack;
+                            file = fabulously-optimized-mrpack;
                         };
                     };
                 };
