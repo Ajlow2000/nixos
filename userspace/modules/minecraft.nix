@@ -113,6 +113,10 @@ in {
                         desktopEntry = {
                             enable = true;
                             name = "Minecraft Forever";
+                            extraConfig = {
+                                # TODO: nixcraft has a known bug where icons don't work
+                                icon = "${./minecraft_configs/grass-block.svg}";
+                            };
                         };
                         binEntry = {
                             enable = true;
