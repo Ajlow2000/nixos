@@ -8,10 +8,8 @@ let
     };
 
     # TODO
-    # - better statistics screen 
     # - book scroll ?
     # - freecam
-    # - mouse tweaks - OVERLAP WITH FO
     # - Litematics -- create builds in creative and see blueprint in survival
     # - no resource packs warnings 
     # - preventer
@@ -19,7 +17,6 @@ let
     # - shulker box tooltip 
     # - simple fog control
     # - smooth swapping 
-    # - sounds
     # - status effect bars
     # - voxy
     # - UI zoom worst client
@@ -39,6 +36,26 @@ let
         "inventive-inventory.jar" = pkgs.fetchurl {
             url = "https://cdn.modrinth.com/data/bUHfVbsa/versions/QoNjSI49/inventive-inventory-1.3.5.jar";
             hash = "sha256-LP5G9WrNpWQf3Eez7AU7FPAH+GBL458jPfnuBbNJoio=";
+        };
+        "betterstats.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/n6PXGAoM/versions/99mBkJp1/betterstats-5.1.0+fabric-1.21.11.jar";
+            hash = "sha256-24QXSN7BBm/qjibL9VnOG2oYd7IchiLv4QMfyUXqIB4=";
+        };
+        "tcdcommons.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/Eldc1g37/versions/X850L9UC/tcdcommons-5.1.0+fabric-1.21.11.jar";
+            hash = "sha256-oK0oOiikxsgjbMKIrRDJLnthZ+eEO6483EPIlgQkvSg=";
+        };
+        "mousetweaks.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/aC3cM3Vq/versions/i1duwnJl/MouseTweaks-fabric-mc1.21.11-2.30.jar";
+            hash = "sha256-5nGMbzX2Q1KUYyto748lH+aAvNUyT/tJQ9qkE5DBw8Y=";
+        };
+        "sounds.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/ZouiUX7t/versions/wvhDSvYI/sounds-2.4.23+edge+1.21.11-fabric.jar";
+            hash = "sha256-j6r7mEuJflcFHceA3zJKZe3bxU/9xw6CNgttnTsjUdg=";
+        };
+        "mru.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/SNVQ2c0g/versions/XXzIJdq5/mru-1.0.26+edge+1.21.11-fabric.jar";
+            hash = "sha256-pBzlbpkc85yR+XQ4YMq0vNajssEfioooaGwIhuR/YkQ=";
         };
     };
 
