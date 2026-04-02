@@ -11,7 +11,6 @@ let
     # - better statistics screen 
     # - book scroll ?
     # - freecam
-    # - inventive inventory
     # - mouse tweaks - OVERLAP WITH FO
     # - Litematics -- create builds in creative and see blueprint in survival
     # - no resource packs warnings 
@@ -36,6 +35,10 @@ let
         "xaeroworldmap.jar" = pkgs.fetchurl {
             url = "https://cdn.modrinth.com/data/NcUtCpym/versions/CkZVhVE0/xaeroworldmap-fabric-1.21.11-1.40.11.jar";
             hash = "sha256-916LgIsaT3F2HToVohaDfQkq7M6BTlvoneXRe2UNKPw=";
+        };
+        "inventive-inventory.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/bUHfVbsa/versions/QoNjSI49/inventive-inventory-1.3.5.jar";
+            hash = "sha256-LP5G9WrNpWQf3Eez7AU7FPAH+GBL458jPfnuBbNJoio=";
         };
     };
 
