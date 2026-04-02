@@ -7,10 +7,10 @@ let
         hash = "sha256-noAs75kk7lKUVLyP9jD8GbNOGsPe6q9V7CiqglORvHM=";
     };
 
-    # better-f3 = pkgs.fetchurl {
-    #     url = "https://cdn.modrinth.com/data/8shC1gFX/versions/HTssDOs8/BetterF3-17.0.0-NeoForge-1.21.11.jar";
-    #     hash = "";
-    # };
+    better-f3 = pkgs.fetchurl {
+        url = "https://cdn.modrinth.com/data/8shC1gFX/versions/Qw1nhj7u/BetterF3-17.0.0-Fabric-1.21.11.jar";
+        hash = "sha256-Wv0zOhHAElktUY3mB80PjvqBUxbl2cViXHLvz/qrCUM=";
+    };
 
 in {
     imports = [
@@ -51,10 +51,19 @@ in {
 
                         desktopEntry = {
                             enable = true;
+                            name = "Minecraft Forever";
+                        };
+                        binEntry = {
+                            enable = true;
+                            name = "minecraft-forever";
                         };
                         mrpack = {
                             enable = true;
                             file = fabulously-optimized-mrpack;
+                        };
+                        files."mods/BetterF3.jar" = {
+                            source = better-f3;
+                            method = "copy";
                         };
                     };
                 };
