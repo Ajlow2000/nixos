@@ -26,7 +26,7 @@
 
     environment.systemPackages = with pkgs; [
         wireguard-tools
-        proton-vpn
+        protonvpn-gui
     ];
 
     boot.loader.grub.enable = true;

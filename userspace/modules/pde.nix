@@ -95,7 +95,7 @@ in {
             ### Global Language Support
             asm-lsp
             lua-language-server
-            bash-language-server
+            nodePackages_latest.bash-language-server
             rust-analyzer
             rustc
             nil
