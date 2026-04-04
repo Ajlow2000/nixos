@@ -26,7 +26,7 @@
         cosmic-bg
         cosmic-ext-ctl
         wireguard-tools
-        protonvpn-gui
+        proton-vpn
     ];
 
     networking.firewall.checkReversePath = false;
