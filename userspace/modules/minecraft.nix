@@ -59,10 +59,22 @@ let
         };
     };
 
+    shaders = {
+        "ComplementaryUnbound_r5.7.1.zip" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/R6NEzAwj/versions/d8rcvDTp/ComplementaryUnbound_r5.7.1.zip";
+            hash = "sha256-XL9Nmbx85PDfXBWXTSduCUm/aXTUjYinfV4wewub6K8=";
+        };
+    };
+
     modsToFiles = ms: lib.mapAttrs' (name: src: {
         name = "mods/${name}";
         value = { source = src; method = "symlink"; };
     }) ms;
+
+    shadersToFiles = ss: lib.mapAttrs' (name: src: {
+        name = "shaderpacks/${name}";
+        value = { source = src; method = "symlink"; };
+    }) ss;
 
     configsToFiles = cs: lib.mapAttrs' (path: src: {
         name = path;
@@ -126,7 +138,7 @@ in {
                             enable = true;
                             file = fabulously-optimized-mrpack;
                         };
-                        files = (modsToFiles mods) // (configsToFiles configs);
+                        files = (modsToFiles mods) // (shadersToFiles shaders) // (configsToFiles configs);
                     };
                 };
             };
