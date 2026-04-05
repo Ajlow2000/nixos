@@ -29,10 +29,10 @@
     fsType = "ext4";
   };
 
-  # fileSystems."/mnt/ssd2" = {
-  #   device = "/dev/disk/by-label/ssd2";
-  #   fsType = "ext4";
-  # };
+  fileSystems."/mnt/ssd2" = {
+    device = "/dev/disk/by-label/ssd2";
+    fsType = "ext4";
+  };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/91f64139-a8bb-4ccf-a8f4-e345b799ca83"; }
