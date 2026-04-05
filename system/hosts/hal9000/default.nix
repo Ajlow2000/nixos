@@ -29,6 +29,11 @@
         protonvpn-gui
     ];
 
+    systemd.tmpfiles.rules = [
+        "d /mnt/ssd1 0755 ajlow users -"
+        "d /mnt/ssd2 0755 ajlow users -"
+    ];
+
     networking.firewall.checkReversePath = false;
 
     boot.loader.systemd-boot.enable = true;

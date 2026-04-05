@@ -34,6 +34,7 @@ in {
             inetutils
             docker-compose
             killall
+            parted
         ];
 
         environment.sessionVariables = rec {
