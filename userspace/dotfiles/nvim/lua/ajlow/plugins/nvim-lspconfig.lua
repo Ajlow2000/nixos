@@ -4,10 +4,7 @@ return {
         "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-        local lspconfig = require('lspconfig')
-
         -- Global mappings.
-        -- See `:help vim.diagnostic.*` for documentation on any of the below functions
         vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { silent = true, desc = "[LSP] - Open Floating Diag" })
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { silent = true, desc = "[LSP] - Go to prev" })
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { silent = true, desc = "[LSP] - Go to next" })
@@ -18,11 +15,6 @@ return {
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('UserLspConfig', {}),
             callback = function(ev)
-                -- Enable completion triggered by <c-x><c-o>
-                -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-                -- Buffer local mappings.
-                -- See `:help vim.lsp.*` for documentation on any of the below functions
                 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
                     { buffer = ev.buf, silent = true, desc = "[LSP] - Goto Declaration" })
                 vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
@@ -54,26 +46,19 @@ return {
         })
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
-        -- used to enable autocompletion (assign to every lsp server config)
 
         -- Change the Diagnostic symbols in the sign column (gutter)
-        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        -- Setup language servers.
-        lspconfig.nil_ls.setup { capabilities = capabilities }
-        lspconfig.bashls.setup { capabilities = capabilities }
-        lspconfig.gopls.setup { capabilities = capabilities }
-        lspconfig.templ.setup { capabilities = capabilities }
-        -- lspconfig.htmx.setup { capabilities = capabilities }
-        lspconfig.html.setup { capabilities = capabilities }
-        lspconfig.ocamllsp.setup { capabilities = capabilities }
-        lspconfig.zls.setup { capabilities = capabilities }
-        lspconfig.rust_analyzer.setup {
-            capabilities = capabilities,
+        -- Set capabilities globally for all servers
+        vim.lsp.config('*', { capabilities = capabilities })
+
+        -- Servers with custom settings
+        vim.lsp.config('rust_analyzer', {
             settings = {
                 ['rust-analyzer'] = {
                     diagnostics = {
@@ -81,25 +66,19 @@ return {
                     }
                 }
             }
-        }
-        lspconfig.pyright.setup { capabilities = capabilities }
-        lspconfig.clangd.setup { capabilities = capabilities }
-        lspconfig.hls.setup { capabilities = capabilities }
-        lspconfig.marksman.setup { capabilities = capabilities }
-        lspconfig.asm_lsp.setup { capabilities = capabilities }
-        lspconfig.lua_ls.setup({
+        })
+        vim.lsp.config('lua_ls', {
             settings = {
                 Lua = {
                     diagnostic = {
                         globals = { "vim" },
-                        undefined_global = false, -- remove this from diag!
+                        undefined_global = false,
                         missing_parameters = false,
                     },
                     completion = {
                         callSnippet = "Replace"
                     },
                     workspace = {
-                        -- make language server aware of runtime files
                         library = {
                             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                             [vim.fn.stdpath("config") .. "/lua"] = true,
@@ -108,15 +87,19 @@ return {
                 }
             }
         })
-        lspconfig.omnisharp.setup {
-            capabilities = capabilities,
-            cmd = { "OmniSharp" },
-        }
-        lspconfig.tinymist.setup{
+        vim.lsp.config('omnisharp', { cmd = { "OmniSharp" } })
+        vim.lsp.config('tinymist', {
             settings = {
-                exportPdf = "onType" -- Choose onType, onSave or never.
-                -- serverPath = "" -- Normally, there is no need to uncomment it.
+                exportPdf = "onType"
             }
-        }
+        })
+
+        -- Enable all servers
+        vim.lsp.enable({
+            'nil_ls', 'bashls', 'gopls', 'templ', 'html',
+            'ocamllsp', 'zls', 'rust_analyzer', 'pyright',
+            'clangd', 'hls', 'marksman', 'asm_lsp', 'lua_ls',
+            'omnisharp', 'tinymist',
+        })
     end
 }
