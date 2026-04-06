@@ -63,6 +63,7 @@ in {
 
         services.udev.extraRules = ''
             SUBSYSTEM=="usb", ATTR{idVendor}=="303a", MODE="0660", GROUP="dialout"
+            KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess"
         '';
 
         networking.networkmanager.enable = true;
