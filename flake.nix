@@ -14,6 +14,14 @@
             flake = true;
         };
         sentinelone.url = "github:devusb/sentinelone-nix";
+        nix-citizen = {
+            url = "github:LovingMelody/nix-citizen";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        nix-gaming = {
+            url = "github:fufexan/nix-gaming";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
         hytale-nix.url = "github:andreashgk/hytale-nix";
         nixcraft.url = "github:loystonpais/nixcraft";
@@ -41,6 +49,7 @@
                     specialArgs = { inherit system inputs; };
 	                modules = [
                             home-manager.nixosModules.home-manager
+                            inputs.nix-citizen.nixosModules.StarCitizen
 	                    ./system/hosts/hal9000
 	                ];
 		        };

@@ -6,6 +6,7 @@
         ../../modules/desktop/display-manager.nix
         ../../modules/services/gaming.nix
         ../../modules/services/ollama.nix
+        ../../modules/services/star-citizen.nix
         ../../modules/user-definitions.nix
     ];
 
@@ -17,6 +18,7 @@
 
     modules.services.gaming.enable = true;
     modules.services.ollama.enable = true;
+    modules.services.star-citizen.enable = true;
 
     user-definitions.ajlow.enable = true;
 
