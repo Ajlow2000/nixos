@@ -119,6 +119,53 @@ in {
                 };
 
                 instances = {
+                    mcsr = {
+                        enable = true;
+
+                        mrpack = {
+                            enable = true;
+                            file = pkgs.fetchurl {
+                                url = "https://cdn.modrinth.com/data/1uJaMUOm/versions/jIrVgBRv/SpeedrunPack-mc1.16.1-v5.3.0.mrpack";
+                                hash = "sha256-uH/fGFrqP2UpyCupyGjzFB87LRldkPkcab3MzjucyPQ=";
+                            };
+                        };
+
+                        java = {
+                            extraArguments = [
+                                "-XX:+UseZGC"
+                                "-XX:+AlwaysPreTouch"
+                                "-Dgraal.TuneInlinerExploration=1"
+                                "-XX:NmethodSweepActivity=1"
+                            ];
+                            package = pkgs.jdk17;
+                            maxMemory = 4000;
+                            minMemory = 4000;
+                        };
+
+                        saves = {
+                            "Practice Map" = pkgs.fetchzip {
+                                url = "https://github.com/Dibedy/The-MCSR-Practice-Map/releases/download/1.0.1/MCSR.Practice.v1.0.1.zip";
+                                stripRoot = false;
+                                hash = "sha256-ukedZCk6T+KyWqEtFNP1soAQSFSSzsbJKB3mU3kTbqA=";
+                            };
+                        };
+
+                        waywall.enable = true;
+
+                        binEntry = {
+                            enable = true;
+                            name = "minecraft-mcsr";
+                        };
+
+                        desktopEntry = {
+                            enable = true;
+                            name = "Minecraft MCSR";
+                            extraConfig = {
+                                terminal = true;
+                            };
+                        };
+                    };
+
                     forever = {
                         enable = true;
 
