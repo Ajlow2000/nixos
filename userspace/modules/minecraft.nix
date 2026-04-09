@@ -66,6 +66,35 @@ let
         };
     };
 
+    ninjabrain-bot = pkgs.stdenv.mkDerivation rec {
+        pname = "ninjabrain-bot";
+        version = "1.5.2";
+
+        src = pkgs.fetchurl {
+            url = "https://github.com/Ninjabrain1/Ninjabrain-Bot/releases/download/${version}/Ninjabrain-Bot-${version}.jar";
+            hash = "sha256-mAmfYyGpDUrOwTQA6G0F96+NYOVjnC84Qn6WjccUUP8=";
+        };
+
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+
+        dontUnpack = true;
+        dontConfigure = true;
+        dontBuild = true;
+
+        installPhase = ''
+            mkdir -p $out/lib/java $out/bin
+            install -D $src $out/lib/java/ninjabrain-bot.jar
+            makeWrapper ${pkgs.jre}/bin/java $out/bin/ninjabrain-bot \
+                --add-flags "-jar $out/lib/java/ninjabrain-bot.jar"
+        '';
+
+        meta = with pkgs.lib; {
+            description = "Accurate stronghold calculator for Minecraft speedrunning";
+            homepage = "https://github.com/Ninjabrain1/Ninjabrain-Bot";
+            mainProgram = "ninjabrain-bot";
+        };
+    };
+
     modsToFiles = ms: lib.mapAttrs' (name: src: {
         name = "mods/${name}";
         value = { source = src; method = "symlink"; };
@@ -100,6 +129,7 @@ in {
     config = lib.mkIf cfg.enable {
         home.packages = with pkgs; [
             prismlauncher
+            ninjabrain-bot
         ];
 
         nixcraft = {
