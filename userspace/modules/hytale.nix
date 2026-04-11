@@ -11,7 +11,7 @@ in {
 
     config = lib.mkIf cfg.enable {
         home.packages = [
-            inputs.hytale-nix.packages.${system}.hytale-launcher
+            inputs.hytale-launcher-nix.packages.${system}.hytale-launcher
         ];
     };
 }

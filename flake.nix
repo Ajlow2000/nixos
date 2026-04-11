@@ -23,7 +23,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-        hytale-nix.url = "github:andreashgk/hytale-nix";
+        hytale-launcher-nix.url = "github:JPyke3/hytale-launcher-nix";
         nixcraft.url = "github:loystonpais/nixcraft";
         nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
     };
