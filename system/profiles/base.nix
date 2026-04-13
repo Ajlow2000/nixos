@@ -2,11 +2,16 @@
 let
     cfg = config.profiles.system.base;
 in {
+    imports = [
+        ../modules/services/netbird-agent.nix
+    ];
+
     options.profiles.system.base = {
         enable = lib.mkEnableOption "base system configuration";
     };
 
     config = lib.mkIf cfg.enable {
+        modules.services.netbird-agent.enable = true;
         nixpkgs.config.allowUnfree = true;
         nix.settings.experimental-features = [ "nix-command" "flakes" ];
         nix.settings.auto-optimise-store = true;
