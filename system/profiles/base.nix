@@ -76,5 +76,7 @@ in {
 
         networking.networkmanager.enable = true;
         services.openssh.enable = true;
+
+        systemd.services.netbird.environment.PATH = lib.mkForce "/run/wrappers/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin";
     };
 }
