@@ -1,6 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
 let
     cfg = config.user-definitions;
+    keys = import ../keys.nix;
 in {
     options = {
         user-definitions.ajlow.enable = lib.mkOption {
@@ -21,6 +22,7 @@ in {
                 description = "Alec Lowry";
                 extraGroups = [ "networkmanager" "wheel" "wireshark" "docker" "dialout" ];
                 shell = pkgs.zsh;
+                openssh.authorizedKeys.keys = builtins.attrValues keys.ajlow;
             };
 
             # Home Manager integration
