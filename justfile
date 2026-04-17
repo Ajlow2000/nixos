@@ -23,3 +23,6 @@ ls-hm-packages:
 
 prefetch url:
     @nix store prefetch-file --hash-type sha256 {{url}}
+
+nb:
+    netbird up --allow-server-ssh --disable-ssh-auth
