@@ -14,6 +14,8 @@ in {
         # modules.services.netbird-agent.enable = true;
 
         services.netbird.enable = true; # for netbird service & CLI
+        systemd.services.${config.services.netbird.clients.default.service.name}.path = [ pkgs.shadow ]; # https://github.com/NixOS/nixpkgs/issues/505846
+        # systemd.services.netbird.environment.PATH = lib.mkForce "/run/wrappers/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin";
 
         nixpkgs.config.allowUnfree = true;
         nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -77,6 +79,14 @@ in {
         networking.networkmanager.enable = true;
         services.openssh.enable = true;
 
-        systemd.services.netbird.environment.PATH = lib.mkForce "/run/wrappers/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin";
+        # Redirect port 22 on the Netbird interface (wt0) to Netbird's built-in
+        # SSH server on port 22022, so `netbird ssh` works while system sshd
+        # continues to handle port 22 on all other interfaces normally.
+        networking.firewall.extraCommands = ''
+            iptables -t nat -A PREROUTING -i wt0 -p tcp --dport 22 -j REDIRECT --to-port 22022
+        '';
+        networking.firewall.extraStopCommands = ''
+            iptables -t nat -D PREROUTING -i wt0 -p tcp --dport 22 -j REDIRECT --to-port 22022 || true
+        '';
     };
 }
