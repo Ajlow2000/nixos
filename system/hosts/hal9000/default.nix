@@ -42,7 +42,7 @@
     cosmic-bg
     cosmic-ext-ctl
     wireguard-tools
-    protonvpn-gui
+    proton-vpn
   ];
 
   systemd.tmpfiles.rules = [

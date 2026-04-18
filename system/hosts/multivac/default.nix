@@ -38,7 +38,7 @@
 
   environment.systemPackages = with pkgs; [
     wireguard-tools
-    protonvpn-gui
+    proton-vpn
   ];
 
   boot.loader.systemd-boot.enable = true;
