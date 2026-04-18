@@ -1,6 +1,7 @@
 # hal9000
 
-> [!NOTE] hal9000 has additional drives (`/mnt/ssd1`, `/mnt/ssd2`) by label that are not
+> [!WARNING] 
+> hal9000 has additional drives (`/mnt/ssd1`, `/mnt/ssd2`) by label that are not
 > yet in its `disko.nix`. Those entries must remain in `hardware.nix` until the
 > disko config is updated with their device paths.
 
