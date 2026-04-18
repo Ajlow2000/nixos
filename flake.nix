@@ -37,51 +37,23 @@
         supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
         forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
         in {
-	        nixosConfigurations = {
-		    do-base-image = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system inputs; };
-                    modules = [
-                        ./system/hosts/do-base-image
-                    ];
-                };
-		    mindgame = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system inputs; };
-                        modules = [
-                            home-manager.nixosModules.home-manager
-                            ./system/hosts/mindgame
-                        ];
-                        };
-	            hal9000 = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system inputs; };
-	                modules = [
-                            home-manager.nixosModules.home-manager
-                            inputs.nix-citizen.nixosModules.StarCitizen
-	                    ./system/hosts/hal9000
-	                ];
-		        };
-	            multivac = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system inputs; };
-	                modules = [
-                            home-manager.nixosModules.home-manager
-	                    ./system/hosts/multivac
-	                ];
-		        };
-	            microvac = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system inputs; };
-	                modules = [
-                            home-manager.nixosModules.home-manager
-	                    ./system/hosts/microvac
-	                ];
-		        };
-	            marvin = nixpkgs.lib.nixosSystem {
-                    specialArgs = { inherit system inputs; };
-	                modules = [
-                            home-manager.nixosModules.home-manager
-                        inputs.sentinelone.nixosModules.sentinelone
-	                    ./system/hosts/marvin
-	                ];
-		        };
-	        };
+        nixosConfigurations =
+          let
+            hostsDir = ./system/hosts;
+            hostNames = builtins.attrNames (
+              nixpkgs.lib.filterAttrs
+                (name: type: type == "directory"
+                  && builtins.pathExists (hostsDir + "/${name}/default.nix"))
+                (builtins.readDir hostsDir)
+            );
+          in
+          builtins.listToAttrs (map (name: {
+            inherit name;
+            value = nixpkgs.lib.nixosSystem {
+              specialArgs = { inherit system inputs; };
+              modules = [ (hostsDir + "/${name}") ];
+            };
+          }) hostNames);
             packages.${system} = {
                 do-base-image = self.nixosConfigurations.do-base-image.config.system.build.digitalOceanImage;
             } // nixpkgs.lib.mapAttrs'

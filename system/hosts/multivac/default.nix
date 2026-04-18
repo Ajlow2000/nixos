@@ -1,5 +1,6 @@
 { pkgs, lib, inputs, ... }: {
     imports = [
+        inputs.home-manager.nixosModules.home-manager
         ./hardware.nix
         ../../profiles/desktop.nix
         ../../modules/desktop/gnome.nix

@@ -1,5 +1,7 @@
 { pkgs, lib, inputs, ... }: {
     imports = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.sentinelone.nixosModules.sentinelone
         ./hardware.nix
         ../../profiles/laptop.nix
         ../../modules/desktop/cosmic.nix
