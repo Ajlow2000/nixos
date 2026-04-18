@@ -17,6 +17,7 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     toolbox = {
       url = "github:Ajlow2000/toolbox";
       flake = true;
