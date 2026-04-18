@@ -1,63 +1,69 @@
-{ pkgs, lib, inputs, ... }: {
-    imports = [
-        inputs.home-manager.nixosModules.home-manager
-        inputs.sentinelone.nixosModules.sentinelone
-        ./hardware.nix
-        ../../profiles/laptop.nix
-        ../../modules/desktop/cosmic.nix
-        ../../modules/desktop/display-manager.nix
-        ../../modules/services/gaming.nix
-        ../../modules/services/ollama.nix
-        ../../modules/work/sram-udev.nix
-        ../../modules/work/sentinelone.nix
-        ../../modules/user-definitions.nix
-    ];
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    inputs.sentinelone.nixosModules.sentinelone
+    ./hardware.nix
+    ../../profiles/laptop.nix
+    ../../modules/desktop/cosmic.nix
+    ../../modules/desktop/display-manager.nix
+    ../../modules/services/gaming.nix
+    ../../modules/services/ollama.nix
+    ../../modules/work/sram-udev.nix
+    ../../modules/work/sentinelone.nix
+    ../../modules/user-definitions.nix
+  ];
 
-    profiles.system.laptop.enable = true;
+  profiles.system.laptop.enable = true;
 
-    modules.desktop.cosmic.enable = true;
+  modules.desktop.cosmic.enable = true;
 
-    modules.desktop.display-manager.enable = lib.mkForce false;
+  modules.desktop.display-manager.enable = lib.mkForce false;
 
-    modules.services.gaming.enable = true;
-    modules.services.ollama.enable = true;
+  modules.services.gaming.enable = true;
+  modules.services.ollama.enable = true;
 
-    user-definitions.ajlow.enable = true;
+  user-definitions.ajlow.enable = true;
 
-    modules.services.virtualization.users = [ "ajlow" ];
+  modules.services.virtualization.users = [ "ajlow" ];
 
-    modules.work.sram-udev.enable = true;
-    modules.work.sentinelone = {
-        enable = false;
-        email = "alowry@sram.com";
-        serialNumber = "DPR8SQ3";
-        tokenPath = ./sentinelOne.token;
-        packageSource = ./SentinelAgent_linux_x86_64_v24_3_3_6.deb;
-    };
+  modules.work.sram-udev.enable = true;
+  modules.work.sentinelone = {
+    enable = false;
+    email = "alowry@sram.com";
+    serialNumber = "DPR8SQ3";
+    tokenPath = ./sentinelOne.token;
+    packageSource = ./SentinelAgent_linux_x86_64_v24_3_3_6.deb;
+  };
 
-    services.postgresql = {
-        enable = true;
-        ensureDatabases = [ "mydatabase" ];
-        authentication = pkgs.lib.mkOverride 10 ''
-            #type database  DBuser  auth-method
-            local all       all     trust
-        '';
-    };
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "mydatabase" ];
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+    '';
+  };
 
-    environment.systemPackages = with pkgs; [
-        cosmic-bg
-        cosmic-ext-ctl
-        wireguard-tools
-        protonvpn-gui
-    ];
+  environment.systemPackages = with pkgs; [
+    cosmic-bg
+    cosmic-ext-ctl
+    wireguard-tools
+    protonvpn-gui
+  ];
 
-    networking.firewall.checkReversePath = false;
+  networking.firewall.checkReversePath = false;
 
-    boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    networking.hostName = "marvin";
-    system.stateVersion = "24.05";
+  networking.hostName = "marvin";
+  system.stateVersion = "24.05";
 }

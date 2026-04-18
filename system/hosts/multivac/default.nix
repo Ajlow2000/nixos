@@ -1,38 +1,44 @@
-{ pkgs, lib, inputs, ... }: {
-    imports = [
-        inputs.home-manager.nixosModules.home-manager
-        ./hardware.nix
-        ../../profiles/desktop.nix
-        ../../modules/desktop/gnome.nix
-        ../../modules/desktop/display-manager.nix
-        ../../modules/services/gaming.nix
-        ../../modules/services/ollama.nix
-        ../../modules/user-definitions.nix
-    ];
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    ./hardware.nix
+    ../../profiles/desktop.nix
+    ../../modules/desktop/gnome.nix
+    ../../modules/desktop/display-manager.nix
+    ../../modules/services/gaming.nix
+    ../../modules/services/ollama.nix
+    ../../modules/user-definitions.nix
+  ];
 
-    profiles.system.desktop.enable = true;
+  profiles.system.desktop.enable = true;
 
-    modules.desktop.gnome.enable = true;
-    modules.desktop.display-manager.enable = true;
+  modules.desktop.gnome.enable = true;
+  modules.desktop.display-manager.enable = true;
 
-    modules.services.gaming.enable = true;
-    modules.services.ollama.enable = true;
+  modules.services.gaming.enable = true;
+  modules.services.ollama.enable = true;
 
-    user-definitions.ajlow.enable = true;
+  user-definitions.ajlow.enable = true;
 
-    modules.services.virtualization.users = [ "ajlow" ];
+  modules.services.virtualization.users = [ "ajlow" ];
 
-    networking.firewall.checkReversePath = false;
-    networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.checkReversePath = false;
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
-    environment.systemPackages = with pkgs; [
-        wireguard-tools
-        protonvpn-gui
-    ];
+  environment.systemPackages = with pkgs; [
+    wireguard-tools
+    protonvpn-gui
+  ];
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    networking.hostName = "multivac";
-    system.stateVersion = "24.05";
+  networking.hostName = "multivac";
+  system.stateVersion = "24.05";
 }

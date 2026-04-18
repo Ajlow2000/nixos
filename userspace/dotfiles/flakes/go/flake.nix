@@ -5,14 +5,21 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       pkgsFor = system: nixpkgs.legacyPackages.${system};
     in
     {
-      packages = forAllSystems (system:
+      packages = forAllSystems (
+        system:
         let
           pkgs = pkgsFor system;
         in
@@ -22,16 +29,18 @@
             version = "0.1.0";
             src = ./.;
             vendorHash = null;
-            
+
             meta = with pkgs.lib; {
               description = "Go application";
               license = licenses.mit;
               maintainers = [ ];
             };
           };
-        });
+        }
+      );
 
-      checks = forAllSystems (system:
+      checks = forAllSystems (
+        system:
         let
           pkgs = pkgsFor system;
         in
@@ -48,9 +57,11 @@
               touch $out
             '';
           };
-        });
+        }
+      );
 
-      devShells = forAllSystems (system:
+      devShells = forAllSystems (
+        system:
         let
           pkgs = pkgsFor system;
         in
@@ -62,11 +73,12 @@
               gotools
               go-tools
             ];
-            
+
             shellHook = ''
               echo "Go development environment: $(go version)"
             '';
           };
-        });
+        }
+      );
     };
 }

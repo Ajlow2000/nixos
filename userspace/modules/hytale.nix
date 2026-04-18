@@ -1,17 +1,25 @@
-{ config, lib, pkgs, inputs, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 let
-    cfg = config.hytale;
-in {
-    options = {
-        hytale.enable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-        };
+  cfg = config.hytale;
+in
+{
+  options = {
+    hytale.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
     };
+  };
 
-    config = lib.mkIf cfg.enable {
-        home.packages = [
-            inputs.hytale-launcher-nix.packages.${system}.hytale-launcher
-        ];
-    };
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      inputs.hytale-launcher-nix.packages.${system}.hytale-launcher
+    ];
+  };
 }

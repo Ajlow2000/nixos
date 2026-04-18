@@ -1,24 +1,30 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-    cfg = config.personal;
-in {
-    options = {
-        personal.enable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-        };
+  cfg = config.personal;
+in
+{
+  options = {
+    personal.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
     };
+  };
 
-    config = lib.mkIf cfg.enable {
-        home.packages = with pkgs; ([
-            discord
-            yt-dlp
-            tone
-            ffmpeg_6
-            vlc
-            asunder
-            newsboat
-            obs-studio
-        ]);
-    };
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; ([
+      discord
+      yt-dlp
+      tone
+      ffmpeg_6
+      vlc
+      asunder
+      newsboat
+      obs-studio
+    ]);
+  };
 }

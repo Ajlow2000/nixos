@@ -2,6 +2,9 @@ hostname := `hostname`
 user := `whoami`
 system := `nix eval --impure --raw --expr 'builtins.currentSystem'`
 
+fmt:
+    find . -name '*.nix' -exec nixfmt {} +
+
 update-toolbox:
     nix flake lock --update-input toolbox
 

@@ -1,78 +1,87 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-    cfg = config.profiles.system.base;
-in {
-    imports = [
-        ../modules/services/netbird-agent.nix
+  cfg = config.profiles.system.base;
+in
+{
+  imports = [
+    ../modules/services/netbird-agent.nix
+  ];
+
+  options.profiles.system.base = {
+    enable = lib.mkEnableOption "base system configuration";
+  };
+
+  config = lib.mkIf cfg.enable {
+    modules.services.netbird-agent.enable = true;
+
+    nixpkgs.config.allowUnfree = true;
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    nix.settings.auto-optimise-store = true;
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+
+    programs.zsh.enable = true;
+    programs.nix-ld.enable = true;
+    programs.nix-ld.libraries = with pkgs; [
+      gcc
+      stdenv.cc.cc
+      clang
     ];
 
-    options.profiles.system.base = {
-        enable = lib.mkEnableOption "base system configuration";
+    environment.systemPackages = with pkgs; [
+      neovim
+      git
+      wget
+      curl
+      home-manager
+      coreutils
+      inetutils
+      docker-compose
+      killall
+      parted
+    ];
+
+    environment.sessionVariables = rec {
+      EDITOR = "nvim";
+      XDG_CACHE_HOME = "$HOME/.cache";
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_STATE_HOME = "$HOME/.local/state";
+      XDG_BIN_HOME = "$HOME/.local/bin";
+      PATH = [ "${XDG_BIN_HOME}" ];
     };
 
-    config = lib.mkIf cfg.enable {
-        modules.services.netbird-agent.enable = true;
-
-        nixpkgs.config.allowUnfree = true;
-        nix.settings.experimental-features = [ "nix-command" "flakes" ];
-        nix.settings.auto-optimise-store = true;
-        nix.gc = {
-            automatic = true;
-            dates = "weekly";
-            options = "--delete-older-than 30d";
-        };
-
-        programs.zsh.enable = true;
-        programs.nix-ld.enable = true;
-        programs.nix-ld.libraries = with pkgs; [
-            gcc
-            stdenv.cc.cc
-            clang
-        ];
-
-        environment.systemPackages = with pkgs; [
-            neovim
-            git
-            wget
-            curl
-            home-manager
-            coreutils
-            inetutils
-            docker-compose
-            killall
-            parted
-        ];
-
-        environment.sessionVariables = rec {
-            EDITOR = "nvim";
-            XDG_CACHE_HOME = "$HOME/.cache";
-            XDG_CONFIG_HOME = "$HOME/.config";
-            XDG_DATA_HOME = "$HOME/.local/share";
-            XDG_STATE_HOME = "$HOME/.local/state";
-            XDG_BIN_HOME = "$HOME/.local/bin";
-            PATH = [ "${XDG_BIN_HOME}" ];
-        };
-
-        time.timeZone = "America/Denver";
-        i18n.defaultLocale = "en_US.UTF-8";
-        i18n.extraLocaleSettings = {
-            LC_ADDRESS = "en_US.UTF-8";
-            LC_IDENTIFICATION = "en_US.UTF-8";
-            LC_MEASUREMENT = "en_US.UTF-8";
-            LC_MONETARY = "en_US.UTF-8";
-            LC_NAME = "en_US.UTF-8";
-            LC_NUMERIC = "en_US.UTF-8";
-            LC_PAPER = "en_US.UTF-8";
-            LC_TELEPHONE = "en_US.UTF-8";
-            LC_TIME = "en_US.UTF-8";
-        };
-
-        services.udev.extraRules = ''
-            SUBSYSTEM=="usb", ATTR{idVendor}=="303a", MODE="0660", GROUP="dialout"
-            KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess"
-        '';
-
-        networking.networkmanager.enable = true;
-        services.openssh.enable = true;
+    time.timeZone = "America/Denver";
+    i18n.defaultLocale = "en_US.UTF-8";
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
     };
+
+    services.udev.extraRules = ''
+      SUBSYSTEM=="usb", ATTR{idVendor}=="303a", MODE="0660", GROUP="dialout"
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess"
+    '';
+
+    networking.networkmanager.enable = true;
+    services.openssh.enable = true;
+  };
 }
