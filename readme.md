@@ -58,24 +58,12 @@ Modules use namespaced options for clarity:
 
 ### Adding a New Host
 
-1. Create directory: `system/hosts/newhostname/`
-2. Add `hardware.nix` (from nixos-generate-config)
-3. Create `default.nix` importing appropriate profile:
-   ```nix
-   { pkgs, lib, ... }: {
-     imports = [
-       ./hardware.nix
-       ../../profiles/desktop.nix  # or laptop.nix
-       # Add desktop environment and services
-     ];
-
-     profiles.system.desktop.enable = true;
-     # ... host-specific config
-   }
-   ```
-4. Add to `flake.nix` nixosConfigurations
+See [system/hosts/readme.md](system/hosts/readme.md) for instructions on adding a new host.
 
 ## Usage
+
+> [!WARNING]
+> This is stale and pending changes as Im exploring an in config installer
 
 ### Installation
 Official installation instructions can be found in the 
