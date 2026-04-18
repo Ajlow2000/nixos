@@ -67,10 +67,16 @@
                 self.nixosConfigurations;
             homeConfigurations =
                 let
+                    usersDir = ./userspace/users;
+                    userNames = map
+                        (name: nixpkgs.lib.removeSuffix ".nix" name)
+                        (builtins.attrNames (nixpkgs.lib.filterAttrs
+                            (name: type: type == "regular" && nixpkgs.lib.hasSuffix ".nix" name)
+                            (builtins.readDir usersDir)));
                     mkHomeConfig = system: user: home-manager.lib.homeManagerConfiguration {
                         pkgs = nixpkgs.legacyPackages.${system};
                         modules = [
-                            ./userspace/users/${user}.nix
+                            (usersDir + "/${user}.nix")
                             nix-index-database.homeModules.nix-index
                         ];
                         extraSpecialArgs = {
@@ -78,16 +84,15 @@
                         };
                     };
                 in
-                    nixpkgs.lib.foldl' (acc: system:
-                        acc // {
-                            "ajlow@${system}" = mkHomeConfig system "ajlow";
-                            "alowry@${system}" = mkHomeConfig system "alowry";
-                        }
-                    ) {
-                        # Default configs use x86_64-linux for backwards compatibility
-                        ajlow = mkHomeConfig "x86_64-linux" "ajlow";
-                        alowry = mkHomeConfig "x86_64-linux" "alowry";
-                    } supportedSystems;
+                nixpkgs.lib.foldl' (acc: system:
+                    acc // (builtins.listToAttrs (map (user: {
+                        name = "${user}@${system}";
+                        value = mkHomeConfig system user;
+                    }) userNames))
+                ) (builtins.listToAttrs (map (user: {
+                    name = user;
+                    value = mkHomeConfig "x86_64-linux" user;
+                }) userNames)) supportedSystems;
             devShells = forAllSystems (system:
                 let
                     pkgs = nixpkgs.legacyPackages.${system};
