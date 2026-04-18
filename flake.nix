@@ -28,7 +28,7 @@
         nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
     };
 
-    outputs = { nixpkgs, home-manager, nix-index-database, sentinelone, neovim-nightly-overlay, ... }@inputs:
+    outputs = { self, nixpkgs, home-manager, nix-index-database, sentinelone, neovim-nightly-overlay, ... }@inputs:
         let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -38,6 +38,12 @@
         forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
         in {
 	        nixosConfigurations = {
+		    do-prod-01 = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system inputs; };
+                    modules = [
+                        ./system/hosts/do-prod-01
+                    ];
+                };
 		    mindgame = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system inputs; };
                         modules = [
@@ -76,6 +82,9 @@
 	                ];
 		        };
 	        };
+            packages.${system} = {
+                do-prod-01 = self.nixosConfigurations.do-prod-01.config.system.build.digitalOceanImage;
+            };
             homeConfigurations =
                 let
                     mkHomeConfig = system: user: home-manager.lib.homeManagerConfiguration {
