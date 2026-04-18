@@ -87,11 +87,3 @@ system/hosts/<hostname>/
 ├── disko.nix        # optional — declarative disk layout
 └── readme.md        # optional — hardware specs & notes
 ```
-
-## Profile Hierarchy
-
-| Profile | Purpose |
-|---------|---------|
-| `base.nix` | Minimal — servers and headless machines |
-| `desktop.nix` | GUI workstation (imports `base`) |
-| `laptop.nix` | Portable machine (imports `desktop` + power management) |
