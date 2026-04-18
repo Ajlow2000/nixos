@@ -8,6 +8,7 @@
     # DO minimum custom image size is 20 GiB
     virtualisation.diskSize = 20 * 1024;
 
+    networking.hostName = "do-base-image";
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     system.stateVersion = "25.05";
 }

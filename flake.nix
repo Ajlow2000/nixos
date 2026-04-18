@@ -84,7 +84,15 @@
 	        };
             packages.${system} = {
                 do-base-image = self.nixosConfigurations.do-base-image.config.system.build.digitalOceanImage;
-            };
+            } // nixpkgs.lib.mapAttrs'
+                (name: cfg: nixpkgs.lib.nameValuePair "vm-${name}" cfg.config.system.build.vm)
+                self.nixosConfigurations;
+            apps.${system} = nixpkgs.lib.mapAttrs'
+                (name: cfg: nixpkgs.lib.nameValuePair "vm-${name}" {
+                    type = "app";
+                    program = "${cfg.config.system.build.vm}/bin/run-${name}-vm";
+                })
+                self.nixosConfigurations;
             homeConfigurations =
                 let
                     mkHomeConfig = system: user: home-manager.lib.homeManagerConfiguration {
