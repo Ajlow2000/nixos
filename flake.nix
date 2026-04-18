@@ -1,33 +1,61 @@
 {
   description = "My NixOS and Home Manager configurations";
 
+  # ---------------------------------------------------------------------------
+  # Inputs
+  # ---------------------------------------------------------------------------
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-index-database.url = "github:Mic92/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     toolbox = {
       url = "github:Ajlow2000/toolbox";
       flake = true;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    sentinelone.url = "github:devusb/sentinelone-nix";
+
+    sentinelone = {
+      url = "github:devusb/sentinelone-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-citizen = {
       url = "github:LovingMelody/nix-citizen";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    hytale-launcher-nix.url = "github:JPyke3/hytale-launcher-nix";
-    nixcraft.url = "github:loystonpais/nixcraft";
-    nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixcraft = {
+      url = "github:loystonpais/nixcraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-binary-ninja = {
+      url = "github:jchv/nix-binary-ninja";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
+  # ---------------------------------------------------------------------------
+  # Outputs
+  # ---------------------------------------------------------------------------
   outputs =
     {
       self,
@@ -42,7 +70,6 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
 
-      # Support for devShell on multiple platforms
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -52,6 +79,10 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     {
+      # -----------------------------------------------------------------------
+      # NixOS Configurations
+      # Auto-discovered from ./system/hosts/*/default.nix
+      # -----------------------------------------------------------------------
       nixosConfigurations =
         let
           hostsDir = ./system/hosts;
@@ -70,12 +101,18 @@
             };
           }) hostNames
         );
+
+      # -----------------------------------------------------------------------
+      # Packages & Apps
+      # Exposes the DO base image and per-host VM builds
+      # -----------------------------------------------------------------------
       packages.${system} = {
         do-base-image = self.nixosConfigurations.do-base-image.config.system.build.digitalOceanImage;
       }
       // nixpkgs.lib.mapAttrs' (
         name: cfg: nixpkgs.lib.nameValuePair "vm-${name}" cfg.config.system.build.vm
       ) self.nixosConfigurations;
+
       apps.${system} = nixpkgs.lib.mapAttrs' (
         name: cfg:
         nixpkgs.lib.nameValuePair "vm-${name}" {
@@ -83,6 +120,12 @@
           program = "${cfg.config.system.build.vm}/bin/run-${name}-vm";
         }
       ) self.nixosConfigurations;
+
+      # -----------------------------------------------------------------------
+      # Home Manager Configurations
+      # Auto-discovered from ./userspace/users/*.nix
+      # Produces both bare "<user>" (x86_64-linux default) and "<user>@<system>" entries
+      # -----------------------------------------------------------------------
       homeConfigurations =
         let
           usersDir = ./userspace/users;
@@ -124,6 +167,10 @@
             }) userNames
           ))
           supportedSystems;
+
+      # -----------------------------------------------------------------------
+      # Dev Shell
+      # -----------------------------------------------------------------------
       devShells = forAllSystems (
         system:
         let

@@ -18,7 +18,6 @@ in
     ../modules/personal.nix
     ../modules/de.nix
     ../modules/minecraft.nix
-    ../modules/hytale.nix
   ];
 
   options.profiles.user.personal = {
@@ -38,7 +37,6 @@ in
     personal.enable = true;
     de.enable = pkgs.stdenv.isLinux;
     minecraft.enable = true;
-    hytale.enable = true;
 
     # Virt-manager dconf settings (Linux only)
     dconf.settings = lib.mkIf pkgs.stdenv.isLinux {
