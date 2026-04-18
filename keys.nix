@@ -9,7 +9,6 @@
     keys.personal  ->  ajlow  user's authorized_keys
     keys.sram      ->  alowry user's authorized_keys
 
-
   DEVICE KEYS
   -----------
   Standard ed25519 keys tied to a specific machine. Generate once per trusted
@@ -23,7 +22,6 @@
 
   Store the private key in Bitwarden as an "SSH Key" item (label: "user@hostname
   device key") as a backup in case you need to recover or move it.
-
 
   YUBIKEY RESIDENT KEYS
   ----------------------
@@ -48,7 +46,6 @@
   Repeat with -O application=ssh:sram and a different -f path for the sram identity.
   Repeat the whole process for the second YubiKey (backup).
 
-
   RETRIEVING PUBLIC KEYS FROM A YUBIKEY
   ---------------------------------------
   If you have a new machine and need to get the public key off the YubiKey:
@@ -65,7 +62,6 @@
 
   List what credentials are currently stored on an inserted YubiKey:
     ykman fido credentials list
-
 
   USING A YUBIKEY ON AN UNMANAGED COMPUTER
   -----------------------------------------
@@ -106,7 +102,6 @@
 
   udev rules: some distros don't ship YubiKey udev rules. If ssh-add -K can't find
   the device, install yubikey-manager or the libu2f-udev package for your distro.
-
 
   AFTER ADDING A KEY HERE
   ------------------------
