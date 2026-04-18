@@ -8,6 +8,13 @@
 }:
 let
   cfg = config.gui_utilities;
+  # BN updates the zip at the same URL without bumping the version; override hash until upstream fixes it
+  binary-ninja-free = (inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland).overrideAttrs (old: {
+    src = pkgs.fetchurl {
+      url = "https://cdn.binary.ninja/installers/binaryninja_free_linux.zip";
+      hash = "sha256-knicC9Ph91saA9gOdOt+qNOpXhn3kVVXd0oK1AJnSSY=";
+    };
+  });
 in
 {
   options = {
@@ -35,7 +42,7 @@ in
           anki
           signal-desktop
           ghidra
-          inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland
+          binary-ninja-free
           gimp
           krita
           zathura
