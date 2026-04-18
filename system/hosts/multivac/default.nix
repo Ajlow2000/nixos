@@ -8,6 +8,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./hardware.nix
+    ./disko.nix
     ../../profiles/desktop.nix
     ../../modules/desktop/gnome.nix
     ../../modules/desktop/display-manager.nix
@@ -15,6 +16,10 @@
     ../../modules/services/ollama.nix
     ../../modules/user-definitions.nix
   ];
+
+  # Keep hardware.nix managing fileSystems until next reinstall.
+  # On reinstall: flip to true and remove fileSystems/swapDevices from hardware.nix.
+  disko.enableConfig = false;
 
   profiles.system.desktop.enable = true;
 

@@ -9,6 +9,7 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.sentinelone.nixosModules.sentinelone
     ./hardware.nix
+    ./disko.nix
     ../../profiles/laptop.nix
     ../../modules/desktop/cosmic.nix
     ../../modules/desktop/display-manager.nix
@@ -18,6 +19,10 @@
     ../../modules/work/sentinelone.nix
     ../../modules/user-definitions.nix
   ];
+
+  # Keep hardware.nix managing fileSystems until next reinstall.
+  # On reinstall: flip to true and remove fileSystems/swapDevices from hardware.nix.
+  disko.enableConfig = false;
 
   profiles.system.laptop.enable = true;
 

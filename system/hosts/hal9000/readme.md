@@ -1,5 +1,9 @@
 # hal9000
 
+> [!NOTE] hal9000 has additional drives (`/mnt/ssd1`, `/mnt/ssd2`) by label that are not
+> yet in its `disko.nix`. Those entries must remain in `hardware.nix` until the
+> disko config is updated with their device paths.
+
 > HAL 9000 (or simply HAL or Hal) is a fictional artificial 
 > intelligence character and the main antagonist in the Space 
 > Odyssey series. First appearing in the 1968 film 2001: A 

@@ -53,6 +53,11 @@
       url = "github:jchv/nix-binary-ninja";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # ---------------------------------------------------------------------------
@@ -103,7 +108,10 @@
                 inherit system inputs;
                 keys = import ./keys.nix;
               };
-              modules = [ (hostsDir + "/${name}") ];
+              modules = [
+                inputs.disko.nixosModules.disko
+                (hostsDir + "/${name}")
+              ];
             };
           }) hostNames
         );
@@ -114,6 +122,7 @@
       # -----------------------------------------------------------------------
       packages.${system} = {
         do-base-image = self.nixosConfigurations.do-base-image.config.system.build.digitalOceanImage;
+        installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
       }
       // nixpkgs.lib.mapAttrs' (
         name: cfg: nixpkgs.lib.nameValuePair "vm-${name}" cfg.config.system.build.vm
