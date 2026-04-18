@@ -38,10 +38,10 @@
         forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
         in {
 	        nixosConfigurations = {
-		    do-prod-01 = nixpkgs.lib.nixosSystem {
+		    do-base-image = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system inputs; };
                     modules = [
-                        ./system/hosts/do-prod-01
+                        ./system/hosts/do-base-image
                     ];
                 };
 		    mindgame = nixpkgs.lib.nixosSystem {
@@ -83,7 +83,7 @@
 		        };
 	        };
             packages.${system} = {
-                do-prod-01 = self.nixosConfigurations.do-prod-01.config.system.build.digitalOceanImage;
+                do-base-image = self.nixosConfigurations.do-base-image.config.system.build.digitalOceanImage;
             };
             homeConfigurations =
                 let

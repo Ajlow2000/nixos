@@ -26,3 +26,6 @@ prefetch url:
 
 nb:
     netbird up --allow-server-ssh --disable-ssh-auth
+
+# unzip:
+#     gunzip < result/nixos-image-*.qcow2.gz > nixos-do-prod-01.qcow2
