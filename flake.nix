@@ -99,7 +99,7 @@
           map (name: {
             inherit name;
             value = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit system inputs; };
+              specialArgs = { inherit system inputs; keys = import ./keys.nix; };
               modules = [ (hostsDir + "/${name}") ];
             };
           }) hostNames
@@ -149,6 +149,7 @@
               ];
               extraSpecialArgs = {
                 inherit inputs system;
+                keys = import ./keys.nix;
               };
             };
         in

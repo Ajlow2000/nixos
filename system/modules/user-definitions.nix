@@ -3,11 +3,11 @@
   lib,
   pkgs,
   inputs,
+  keys,
   ...
 }:
 let
   cfg = config.user-definitions;
-  keys = import ../keys.nix;
 in
 {
   options = {
@@ -35,7 +35,7 @@ in
           "dialout"
         ];
         shell = pkgs.zsh;
-        openssh.authorizedKeys.keys = builtins.attrValues keys.ajlow;
+        openssh.authorizedKeys.keys = builtins.attrValues keys.personal;
       };
 
       # Home Manager integration
@@ -43,7 +43,7 @@ in
         useGlobalPkgs = true;
         useUserPackages = true;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs keys;
           system = pkgs.stdenv.hostPlatform.system;
         };
         users.ajlow = import ../../userspace/users/ajlow.nix;
@@ -64,6 +64,7 @@ in
           "docker"
         ];
         shell = pkgs.zsh;
+        openssh.authorizedKeys.keys = builtins.attrValues keys.sram;
       };
 
       # Home Manager integration
@@ -71,7 +72,7 @@ in
         useGlobalPkgs = true;
         useUserPackages = true;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs keys;
           system = pkgs.stdenv.hostPlatform.system;
         };
         users.alowry = import ../../userspace/users/alowry.nix;

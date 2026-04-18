@@ -3,11 +3,11 @@
   pkgs,
   lib,
   modulesPath,
+  keys,
   ...
 }:
 let
   cfg = config.profiles.system.digital-ocean;
-  keys = import ../keys.nix;
 in
 {
   imports = [
@@ -39,7 +39,7 @@ in
       description = "Alec Lowry";
       extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = builtins.attrValues keys.ajlow;
+      openssh.authorizedKeys.keys = builtins.attrValues keys.personal;
     };
 
     security.sudo.wheelNeedsPassword = false;
