@@ -25,6 +25,13 @@ in
         package = pkgs.fabricServers.fabric-1_21_11;
         jvmOpts = "-Xms1G -Xmx4G";
         # UUID lookup: https://mcuuid.net
+        operators = {
+          "ajlow2000" = {
+            uuid = "64f3c545-5fae-4ef0-b275-d125cded7fd4";
+            level = 4; # https://minecraft.wiki/w/Permission_level
+            bypassesPlayerLimit = false;
+          };
+        };
         whitelist = {
           "ajlow2000" = "64f3c545-5fae-4ef0-b275-d125cded7fd4";
           "billthekrilll" = "14ede43a-ead8-467d-a54a-288db77067e7";
