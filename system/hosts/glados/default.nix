@@ -1,11 +1,17 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 {
   imports = [
-    ../../profiles/server.nix
+    inputs.home-manager.nixosModules.home-manager
     ./hardware.nix
+    ../../profiles/base.nix
+    ../../modules/user-definitions.nix
   ];
 
-  profiles.system.server.enable = true;
+  profiles.system.base.enable = true;
+
+  user-definitions.ajlow.enable = true;
+
+  security.sudo.wheelNeedsPassword = false;
 
   networking.hostName = "glados";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
