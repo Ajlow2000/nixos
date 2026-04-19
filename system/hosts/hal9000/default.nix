@@ -16,6 +16,7 @@
     ../../modules/services/gaming.nix
     ../../modules/services/ollama.nix
     ../../modules/services/star-citizen.nix
+    ../../modules/services/minecraft/1502adams.nix
     ../../modules/user-definitions.nix
   ];
 
@@ -33,6 +34,7 @@
   modules.services.gaming.enable = true;
   modules.services.ollama.enable = true;
   modules.services.star-citizen.enable = true;
+  modules.services.minecraft."1502adams".enable = true;
 
   user-definitions.ajlow.enable = true;
 

@@ -49,6 +49,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-binary-ninja = {
       url = "github:jchv/nix-binary-ninja";
       inputs.nixpkgs.follows = "nixpkgs";
