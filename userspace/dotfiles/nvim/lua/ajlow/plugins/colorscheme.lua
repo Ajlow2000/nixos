@@ -13,4 +13,15 @@ return {
     { "folke/tokyonight.nvim", priority = 1000  },
     { "Mofiqul/dracula.nvim", priority = 1000  },
     { "slugbyte/lackluster.nvim", priority = 1000  },
+    {
+        "folke/styler.nvim",
+        config = function()
+            require("styler").setup({
+                themes = {
+                    markdown = { colorscheme = "tokyonight" },
+                    help = { colorscheme = "tokyonight" },
+                },
+            })
+        end,
+    },
 }
