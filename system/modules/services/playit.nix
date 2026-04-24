@@ -13,7 +13,12 @@
 #        sudo systemctl restart playit
 #
 # Tunnel port mappings are configured on the playit.gg web dashboard.
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 let
   cfg = config.modules.services.playit;
 in

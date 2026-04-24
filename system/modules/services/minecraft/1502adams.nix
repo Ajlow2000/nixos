@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   cfg = config.modules.services.minecraft."1502adams";
   mods = import ./mods.nix { inherit pkgs; };
