@@ -4,6 +4,7 @@
 
 # nvim
 .nvim.shada
+*.add.spl
 
 # ajlow
 .commit-scopes # legacy
