@@ -40,8 +40,9 @@ in
         };
         whitelist = {
           "ajlow2000" = "64f3c545-5fae-4ef0-b275-d125cded7fd4";
-          "billthekrilll" = "14ede43a-ead8-467d-a54a-288db77067e7";
           "gwynnn__" = "765b296a-1d10-46a9-942f-decabc226d6e";
+          "billthekrilll" = "14ede43a-ead8-467d-a54a-288db77067e7";
+          "barbarian36__8"  = "7b46576c-6a35-4d88-b232-52380b71b943";
         };
         serverProperties = {
           server-port = 25550;
@@ -58,6 +59,8 @@ in
           "mods/balm.jar" = mods.balm;
           "mods/gravestones.jar" = mods.gravestones;
           "mods/waystones.jar" = mods.waystones;
+        };
+        files = {
           "config/waystones-common.toml" = ./config/waystones-common.toml;
         };
       };
