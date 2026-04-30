@@ -127,6 +127,8 @@ in
           rr
           arp-scan
           signal-cli
+          syft
+          grype
 
           # Toolbox packages (currently Linux-only)
           toolbox.packages.${system}.print-path
