@@ -43,6 +43,7 @@ in
           "gwynnn__" = "765b296a-1d10-46a9-942f-decabc226d6e";
           "billthekrilll" = "14ede43a-ead8-467d-a54a-288db77067e7";
           "barbarian36__8"  = "7b46576c-6a35-4d88-b232-52380b71b943";
+          "bububowser" = "02de7999-6653-46ea-88fd-43e23315ff42";
         };
         serverProperties = {
           server-port = 25550;
