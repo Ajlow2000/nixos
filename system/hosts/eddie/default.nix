@@ -34,6 +34,7 @@
   modules.services.ollama.enable = true;
 
   user-definitions.ajlow.enable = true;
+  user-definitions.ajlow.profile = "work";
 
   modules.services.virtualization.users = [ "ajlow" ];
 

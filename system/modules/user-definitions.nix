@@ -16,6 +16,16 @@ in
       default = false;
     };
 
+    user-definitions.ajlow.profile = lib.mkOption {
+      type = lib.types.enum [
+        "personal"
+        "work"
+        "server"
+      ];
+      default = "personal";
+      description = "Which home-manager profile to use for ajlow";
+    };
+
     user-definitions.alowry.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -46,7 +56,7 @@ in
           inherit inputs keys;
           system = pkgs.stdenv.hostPlatform.system;
         };
-        users.ajlow = import ../../userspace/users/ajlow.nix;
+        users.ajlow = import (../../userspace/users + "/ajlow-${cfg.ajlow.profile}.nix");
         sharedModules = [
           inputs.nix-index-database.homeModules.nix-index
         ];

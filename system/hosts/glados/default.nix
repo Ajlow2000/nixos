@@ -10,6 +10,7 @@
   profiles.system.base.enable = true;
 
   user-definitions.ajlow.enable = true;
+  user-definitions.ajlow.profile = "server";
 
   security.sudo.wheelNeedsPassword = false;
 

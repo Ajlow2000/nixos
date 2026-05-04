@@ -2,6 +2,15 @@ hostname := `hostname`
 user := `whoami`
 system := `nix eval --impure --raw --expr 'builtins.currentSystem'`
 
+# Hostname → ajlow home-manager profile mapping
+# Add new machines here (unknown hosts default to "work")
+_ajlow_profile := if hostname == "hal9000"  { "personal" } else \
+             if hostname == "mindgame" { "personal" } else \
+             if hostname == "eddie"    { "work"     } else \
+             if hostname == "marvin"   { "work"     } else \
+             if hostname == "glados"   { "server"   } else \
+                                       { "work"     }
+
 fmt:
     find . -name '*.nix' -exec nixfmt {} +
 
@@ -13,7 +22,7 @@ os:
     nh os switch --impure .
 
 hm:
-    nh home switch --backup-extension backup --flake ./#{{user}}@{{system}}
+    nh home switch --backup-extension backup -c ajlow-{{_ajlow_profile}} .
 
 lsip:
     echo "$(nix-store --query --requisites /run/current-system | cut -d- -f2-)\n$(home-manager packages)" | sort | uniq
