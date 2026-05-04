@@ -109,6 +109,8 @@ in
           rust-analyzer
           rustc
           nil
+          nh
+          nix-output-monitor
           marksman
           gcc
           scc

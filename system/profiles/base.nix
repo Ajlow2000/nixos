@@ -50,6 +50,8 @@ in
       docker-compose
       killall
       parted
+      nh
+      nix-output-monitor
     ];
 
     environment.sessionVariables = rec {

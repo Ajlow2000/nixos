@@ -10,10 +10,10 @@ update-toolbox:
 
 # impure required for marvin build
 os:
-    sudo nixos-rebuild switch --flake ./#{{hostname}} --impure
+    nh os switch --impure .
 
 hm:
-    home-manager switch -b backup --flake ./#{{user}}@{{system}}
+    nh home switch --backup-extension backup --flake ./#{{user}}@{{system}}
 
 lsip:
     echo "$(nix-store --query --requisites /run/current-system | cut -d- -f2-)\n$(home-manager packages)" | sort | uniq
