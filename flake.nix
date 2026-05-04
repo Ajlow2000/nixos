@@ -213,6 +213,8 @@
                 coreutils
                 marksman
                 nixfmt
+                nh
+                nix-output-monitor
               ])
               ++ [
                 home-manager.packages.${system}.default
