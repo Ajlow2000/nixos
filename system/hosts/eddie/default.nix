@@ -69,6 +69,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "marvin";
+  networking.hostName = "eddie";
   system.stateVersion = "24.05";
 }
