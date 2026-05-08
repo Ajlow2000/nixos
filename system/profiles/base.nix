@@ -32,6 +32,7 @@ in
     };
 
     programs.wireshark.enable = true;
+    programs.wireshark.package = pkgs.wireshark;
     programs.zsh.enable = true;
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [

@@ -37,7 +37,6 @@ in
           zoom-us
           firefox
           inkscape
-          wireshark
           discord
           spotify
           element-desktop
