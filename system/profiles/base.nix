@@ -82,6 +82,8 @@ in
       SUBSYSTEM=="usb", ATTR{idVendor}=="303a", MODE="0660", GROUP="dialout"
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess"
     '';
+    services.udev.packages = [ pkgs.probe-rs-tools ];
+    users.groups.plugdev = { };
 
     networking.networkmanager.enable = true;
     services.openssh.enable = true;

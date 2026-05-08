@@ -43,6 +43,7 @@ in
           "wireshark"
           "docker"
           "dialout"
+          "plugdev"
         ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = builtins.attrValues keys.personal;
@@ -72,6 +73,7 @@ in
           "wheel"
           "wireshark"
           "docker"
+          "plugdev"
         ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = builtins.attrValues keys.sram;
