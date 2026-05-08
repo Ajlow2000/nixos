@@ -31,6 +31,7 @@ in
       options = "--delete-older-than 30d";
     };
 
+    programs.wireshark.enable = true;
     programs.zsh.enable = true;
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
