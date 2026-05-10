@@ -207,6 +207,24 @@ in
         source = ../dotfiles/gdb/gdbinit;
         target = "./.gdbinit";
       };
+      direnv-nom-wrap = {
+        target = "./.config/direnv/lib/zz-nom-wrap.sh";
+        text = ''
+          # Route nix-direnv's print-dev-env through nix-output-monitor.
+          # Sources after hm-nix-direnv.sh (alphabetical) so this override wins.
+          _nix() {
+            if [[ "$1" == "print-dev-env" ]]; then
+              "''${_nix_direnv_nix}" --no-warn-dirty \
+                --extra-experimental-features "nix-command flakes" \
+                --log-format internal-json -v "$@" \
+                2> >(${pkgs.nix-output-monitor}/bin/nom --json >&2)
+            else
+              "''${_nix_direnv_nix}" --no-warn-dirty \
+                --extra-experimental-features "nix-command flakes" "$@"
+            fi
+          }
+        '';
+      };
     };
 
     xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {

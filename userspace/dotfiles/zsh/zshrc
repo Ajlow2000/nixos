@@ -107,17 +107,6 @@ eval "$(atuin init zsh)"
 
 # ~~~~~ Direnv ~~~~~
 eval "$(direnv hook zsh)"
-# Tone down verbosity of loading output
-# https://github.com/direnv/direnv/issues/68#issuecomment-1003426550
-copy_function() {
-  test -n "$(declare -f "$1")" || return
-  eval "${_/$1/$2}"
-}
-copy_function _direnv_hook _direnv_hook__old
-_direnv_hook() {
-  _direnv_hook__old "$@" 2> >(awk '{if (length >= 200) { sub("^direnv: export.*","direnv: export "NF" environment variables")}}1')
-  wait
-}
 
 eval "$(zoxide init zsh)"
 
