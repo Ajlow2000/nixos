@@ -39,13 +39,14 @@ return {
             require("zen-mode").toggle()
         end, { desc = "[ZenMode] - Toggle Zen Mode" })
 
-        vim.api.nvim_create_autocmd("BufWinEnter", {
-            pattern = "*.md",
-            callback = function()
-                vim.schedule(function()
-                    require("zen-mode").open()
-                end)
-            end,
-        })
+        -- NOTE: disabling because its annoying to :wqa when I open one md file...  
+        -- vim.api.nvim_create_autocmd("BufWinEnter", {
+        --     pattern = "*.md",
+        --     callback = function()
+        --         vim.schedule(function()
+        --             require("zen-mode").open()
+        --         end)
+        --     end,
+        -- })
     end,
 }
