@@ -9,6 +9,40 @@
 let
   inherit (inputs) toolbox;
   cfg = config.pde;
+
+  blendr = pkgs.rustPlatform.buildRustPackage rec {
+    pname = "blendr";
+    version = "1.3.3";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "dmtrKovalenko";
+      repo = "blendr";
+      rev = "v${version}";
+      hash = "sha256-6QRI1MQnoppzlVfRV/bfqfTnBjC0/haFm52Ez9nltzw=";
+    };
+
+    cargoHash = "sha256-TMFE1I2ozY2Cu8S+CdeuGWK77JVpFSj229tKbTmC5rw=";
+
+    nativeBuildInputs = with pkgs; [ pkg-config ];
+
+    buildInputs = with pkgs; lib.optionals stdenv.isLinux [ dbus ];
+
+    # time 0.3.22 doesn't compile with Rust >=1.80: Box<_> is ambiguous, Box<[_]> is not
+    postPatch = ''
+      chmod -R u+w ../blendr-${version}-vendor || true
+      substituteInPlace \
+        ../blendr-${version}-vendor/source-registry-0/time-0.3.22/src/format_description/parse/mod.rs \
+        --replace-fail ".collect::<Result<Box<_>, _>>()?;" \
+                       ".collect::<Result<Box<[_]>, _>>()?;"
+    '';
+
+    meta = with pkgs.lib; {
+      description = "The hacker's BLE (bluetooth low energy) browser terminal app";
+      homepage = "https://github.com/dmtrKovalenko/blendr";
+      license = licenses.bsd3;
+      mainProgram = "blendr";
+    };
+  };
 in
 {
   options = {
@@ -132,6 +166,7 @@ in
           signal-cli
           syft
           grype
+          blendr
 
           # Toolbox packages (currently Linux-only)
           toolbox.packages.${system}.print-path
