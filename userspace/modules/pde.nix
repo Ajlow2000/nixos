@@ -167,6 +167,7 @@ in
           syft
           grype
           blendr
+          ventoy
 
           # Toolbox packages (currently Linux-only)
           toolbox.packages.${system}.print-path
