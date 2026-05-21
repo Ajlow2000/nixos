@@ -52,6 +52,7 @@ in
           teams-for-linux
           chromium
           godot
+          pixieditor
         ]
       );
   };
