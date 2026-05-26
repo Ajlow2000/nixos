@@ -55,6 +55,7 @@ in
       parted
       nh
       nix-output-monitor
+      tcpdump
     ];
 
     environment.sessionVariables = rec {
