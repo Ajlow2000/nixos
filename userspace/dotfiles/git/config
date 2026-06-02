@@ -31,6 +31,9 @@
     prune = true
     tags = true
 
+[submodule]
+    recurse = true
+
 [push]
     autoSetupRemote = true
 
