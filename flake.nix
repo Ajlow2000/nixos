@@ -19,7 +19,7 @@
     };
 
     toolbox = {
-      url = "github:Ajlow2000/toolbox";
+      url = "path:./toolbox";
       flake = true;
       inputs.nixpkgs.follows = "nixpkgs";
     };

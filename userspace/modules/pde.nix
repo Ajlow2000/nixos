@@ -7,7 +7,6 @@
   ...
 }:
 let
-  inherit (inputs) toolbox;
   cfg = config.pde;
 
   blendr = pkgs.rustPlatform.buildRustPackage rec {
@@ -64,7 +63,14 @@ in
     home.packages =
       with pkgs;
       (
-        [
+        # Every per-crate package built by the toolbox flake. `default` and
+        # `workspace` are filtered out because both bundle the same binaries
+        # as the per-crate derivations and would collide in ~/.nix-profile.
+        (lib.attrValues (lib.removeAttrs inputs.toolbox.packages.${system} [
+          "default"
+          "workspace"
+        ]))
+        ++ [
           ### PDE
           neovim
           (runCommand "nvim-nightly" { } ''
@@ -168,14 +174,6 @@ in
           grype
           blendr
           ventoy
-
-          # Toolbox packages (currently Linux-only)
-          toolbox.packages.${system}.print-path
-          toolbox.packages.${system}.audit-dir
-          #toolbox.packages.${system}.repo-manager
-          #toolbox.packages.${system}.conventional-commit
-          toolbox.packages.${system}.tmux-session-manager
-          toolbox.packages.${system}.zellij-session-manager
         ]
       );
 

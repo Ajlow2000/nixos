@@ -1,12 +1,8 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }:
-let
-  inherit (inputs) toolbox;
-in
 {
   imports = [
     ../profiles/work.nix
