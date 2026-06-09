@@ -13,12 +13,11 @@ pub async fn run(args: CloneArgs, _manifest: &Manifest) -> Result<()> {
     info!(
         profile = ?args.profile,
         url = %args.url,
-        vcs = ?args.vcs,
         "clone stub",
     );
     println!(
-        "repo-manager clone profile={:?} url={} vcs={:?}",
-        args.profile, args.url, args.vcs,
+        "repo-manager clone profile={:?} url={}",
+        args.profile, args.url,
     );
     Ok(())
 }

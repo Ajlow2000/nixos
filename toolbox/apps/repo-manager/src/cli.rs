@@ -1,6 +1,10 @@
+use std::ffi::OsStr;
 use std::path::PathBuf;
+use std::process::Command as StdCommand;
 
 use clap::{Args, Parser, Subcommand, ValueEnum};
+use clap_complete::engine::ArgValueCompleter;
+use clap_complete::CompletionCandidate;
 use clap_verbosity_flag::{OffLevel, Verbosity};
 
 #[derive(Parser, Debug)]
@@ -10,7 +14,7 @@ pub struct Cli {
     pub verbose: Verbosity<OffLevel>,
 
     /// Path to the manifest file (the list of tracked repo directories).
-    #[arg(long, global = true, default_value_os_t = session::default_manifest_path())]
+    #[arg(long, global = true, default_value_os_t = session::DEFAULT_MANIFEST_PATH.clone())]
     pub manifest: PathBuf,
 
     #[command(subcommand)]
@@ -27,6 +31,8 @@ pub enum Command {
     Audit(AuditArgs),
     /// Remove a tracked repository.
     Remove(RemoveArgs),
+    /// Switch setup a worktree/local branch pair
+    Switch(SwitchArgs),
 }
 
 #[derive(Args, Debug)]
@@ -36,10 +42,6 @@ pub struct CloneArgs {
 
     /// Repository URL.
     pub url: String,
-
-    /// Version-control system to use.
-    #[arg(long, value_enum, default_value_t)]
-    pub vcs: SupportedVcs,
 }
 
 /// Named identity profile applied to clones.
@@ -47,14 +49,6 @@ pub struct CloneArgs {
 pub enum GitProfile {
     Personal,
     Sram,
-}
-
-/// Supported version-control systems for `repo-manager clone`.
-#[derive(ValueEnum, Debug, Clone, Copy, Default, PartialEq, Eq)]
-pub enum SupportedVcs {
-    #[default]
-    Git,
-    Pijul,
 }
 
 #[derive(Args, Debug)]
@@ -68,4 +62,29 @@ pub struct RemoveArgs {
     /// Skip safety checks and remove repo from disk and tracked dirs
     #[arg(short, long)]
     pub force: bool,
+}
+
+#[derive(Args, Debug)]
+pub struct SwitchArgs {
+    /// Branch to switch to. Tab-completes from local branches in the current
+    /// working directory.
+    #[arg(add = ArgValueCompleter::new(local_branches))]
+    pub branch: String,
+}
+
+/// Lists local git branches matching the current completion prefix.
+fn local_branches(current: &OsStr) -> Vec<CompletionCandidate> {
+    let prefix = current.to_string_lossy();
+    let output = match StdCommand::new("git")
+        .args(["branch", "--list", "--format=%(refname:short)"])
+        .output()
+    {
+        Ok(o) if o.status.success() => o.stdout,
+        _ => return Vec::new(),
+    };
+    String::from_utf8_lossy(&output)
+        .lines()
+        .filter(|b| b.starts_with(prefix.as_ref()))
+        .map(CompletionCandidate::new)
+        .collect()
 }

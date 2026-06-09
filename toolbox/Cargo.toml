@@ -16,6 +16,7 @@ session = { path = "libs/session" }
 
 anyhow = "1"
 clap = { version = "4", features = ["derive"] }
+clap_complete = { version = "4", features = ["unstable-dynamic"] }
 clap-verbosity-flag = { version = "3", features = ["tracing"] }
 dirs = "5"
 owo-colors = { version = "4", features = ["supports-colors"] }

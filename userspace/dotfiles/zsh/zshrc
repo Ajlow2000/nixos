@@ -104,6 +104,7 @@ eval "$(direnv hook zsh)"
 
 eval "$(zoxide init zsh)"
 eval "$(session-aware-cd init zsh)"
+source <(COMPLETE=zsh repo-manager)
 
 autoload -U colors && colors
 

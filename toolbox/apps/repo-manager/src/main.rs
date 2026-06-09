@@ -2,7 +2,8 @@ mod cli;
 mod commands;
 
 use anyhow::Result;
-use clap::Parser;
+use clap::{CommandFactory, Parser};
+use clap_complete::CompleteEnv;
 use session::Manifest;
 use tracing::level_filters::LevelFilter;
 
@@ -10,6 +11,10 @@ use cli::{Cli, Command};
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // If invoked in completion mode (env-driven), print candidates and exit
+    // before doing anything else. No-op for normal invocations.
+    CompleteEnv::with_factory(Cli::command).complete();
+
     let cli = Cli::parse();
     init_tracing(cli.verbose.tracing_level_filter());
 
@@ -21,6 +26,7 @@ async fn main() -> Result<()> {
         Command::List(a) => commands::list::run(a, &manifest),
         Command::Audit(a) => commands::audit::run(a, &manifest).await,
         Command::Remove(a) => commands::remove::run(a, &manifest).await,
+        Command::Switch(a) => commands::switch::run(a, &manifest).await,
     }
 }
 

@@ -8,6 +8,7 @@ authors.workspace = true
 [dependencies]
 anyhow.workspace = true
 clap.workspace = true
+clap_complete.workspace = true
 clap-verbosity-flag.workspace = true
 owo-colors.workspace = true
 session.workspace = true

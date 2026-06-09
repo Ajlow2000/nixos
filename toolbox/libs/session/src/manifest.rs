@@ -11,45 +11,17 @@ use std::path::{Path, PathBuf};
 
 use tempfile::NamedTempFile;
 
-/// Path fragment, relative to the platform data dir. Public so consumers can
-/// reference it (e.g., as a clap default); prefer `default_manifest_path()`
-/// when you want the fully resolved path.
-pub const DEFAULT_MANIFEST_PATH: &str = "managed-sessions/manifest";
-
-/// Returns the fully-resolved default manifest path,
-/// `dirs::data_dir().join(DEFAULT_MANIFEST_PATH)`.
-///
-/// Falls back to `./DEFAULT_MANIFEST_PATH` if the platform data dir cannot
-/// be resolved (rare; would mean no `$HOME` on Unix). Always returns a value
-/// so CLI default-value attributes never fail.
-#[must_use]
-pub fn default_manifest_path() -> PathBuf {
-    dirs::data_dir()
-        .unwrap_or_else(|| PathBuf::from("."))
-        .join(DEFAULT_MANIFEST_PATH)
-}
-
 /// Owns reads/writes to the on-disk manifest of tracked session directories.
 pub struct Manifest {
     path: PathBuf,
 }
 
 impl Manifest {
-    /// Opens a handle pointing at the default manifest location.
-    ///
-    /// # Errors
-    /// Returns an `io::Error` of kind `NotFound` if the platform data
-    /// directory cannot be resolved (e.g., no `$HOME` set on Unix).
-    pub fn open_default() -> io::Result<Self> {
-        let data = dirs::data_dir().ok_or_else(|| {
-            io::Error::new(
-                io::ErrorKind::NotFound,
-                "could not resolve platform data directory",
-            )
-        })?;
-        Ok(Self {
-            path: data.join(DEFAULT_MANIFEST_PATH),
-        })
+    /// Opens a handle pointing at the default manifest location
+    /// (`crate::DEFAULT_MANIFEST_PATH`).
+    #[must_use]
+    pub fn open_default() -> Self {
+        Self::at(crate::DEFAULT_MANIFEST_PATH.clone())
     }
 
     /// Opens a handle pointing at the given file path. Useful for tests or
