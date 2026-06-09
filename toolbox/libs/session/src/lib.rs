@@ -27,5 +27,5 @@ pub static DEFAULT_MANIFEST_PATH: LazyLock<PathBuf> = LazyLock::new(|| {
 pub static DEFAULT_REPO_HOME: LazyLock<PathBuf> = LazyLock::new(|| {
     dirs::home_dir()
         .unwrap_or_else(|| PathBuf::from("."))
-        .join("repos")
+        .join("ng-repos")
 });

@@ -31,8 +31,8 @@ pub enum Command {
     Audit(AuditArgs),
     /// Remove a tracked repository.
     Remove(RemoveArgs),
-    /// Switch setup a worktree/local branch pair
-    Switch(SwitchArgs),
+    /// Manage git worktrees.
+    Worktree(WorktreeArgs),
 }
 
 #[derive(Args, Debug)]
@@ -65,11 +65,31 @@ pub struct RemoveArgs {
 }
 
 #[derive(Args, Debug)]
-pub struct SwitchArgs {
-    /// Branch to switch to. Tab-completes from local branches in the current
-    /// working directory.
+pub struct WorktreeArgs {
+    #[command(subcommand)]
+    pub command: WorktreeCommand,
+}
+
+#[derive(Subcommand, Debug)]
+pub enum WorktreeCommand {
+    /// Create a new worktree at `./<name>` on a fresh branch `<name>`.
+    Create(WorktreeCreateArgs),
+    /// Remove an existing worktree by name.
+    Remove(WorktreeRemoveArgs),
+}
+
+#[derive(Args, Debug)]
+pub struct WorktreeCreateArgs {
+    /// Name used for both the worktree directory and the new local branch.
+    /// Tab-completes from local branches in the current working directory.
     #[arg(add = ArgValueCompleter::new(local_branches))]
-    pub branch: String,
+    pub name: String,
+}
+
+#[derive(Args, Debug)]
+pub struct WorktreeRemoveArgs {
+    /// Worktree name to remove.
+    pub name: String,
 }
 
 /// Lists local git branches matching the current completion prefix.
