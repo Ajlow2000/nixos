@@ -109,24 +109,28 @@
             }
           );
 
-        # Auto-discover crates: every directory under ./crates with a
+        # Auto-discover app crates: every directory under ./apps with a
         # Cargo.toml becomes a package whose attribute name matches the
         # directory name. The crate's `[package].name` in its Cargo.toml
         # must match the directory name (cargo's -p uses package name).
-        cratesDir = ./crates;
-        crateNames = builtins.attrNames (
+        #
+        # Library crates under ./libs are intentionally NOT enumerated here —
+        # they are built transitively by cargo when an app depends on them,
+        # and are still covered by the workspace-wide `checks` below.
+        appsDir = ./apps;
+        appNames = builtins.attrNames (
           pkgs.lib.filterAttrs (
             name: type:
-            type == "directory" && builtins.pathExists (cratesDir + "/${name}/Cargo.toml")
-          ) (builtins.readDir cratesDir)
+            type == "directory" && builtins.pathExists (appsDir + "/${name}/Cargo.toml")
+          ) (builtins.readDir appsDir)
         );
 
         # Per-crate Nix overrides applied on top of the auto-discovered set.
-        # New crates that need similar treatment can follow the same
+        # New apps that need similar treatment can follow the same
         # `optionalAttrs` pattern.
-        cratePackages =
+        appPackages =
           let
-            base = pkgs.lib.genAttrs crateNames mkCrate;
+            base = pkgs.lib.genAttrs appNames mkCrate;
           in
           base
           // pkgs.lib.optionalAttrs (base ? tmux-session-manager) {
@@ -183,7 +187,7 @@
         # want to install every crate (e.g. pde.nix via `attrValues`) should
         # filter out `default` and `workspace` to avoid bin/ collisions.
         # -----------------------------------------------------------------------
-        packages = cratePackages // {
+        packages = appPackages // {
           default = workspace;
           inherit workspace;
         };
@@ -191,7 +195,7 @@
         # -----------------------------------------------------------------------
         # Apps — `nix run` entry points, one per crate
         # -----------------------------------------------------------------------
-        apps = pkgs.lib.mapAttrs (_: drv: flake-utils.lib.mkApp { inherit drv; }) cratePackages;
+        apps = pkgs.lib.mapAttrs (_: drv: flake-utils.lib.mkApp { inherit drv; }) appPackages;
 
         # -----------------------------------------------------------------------
         # Dev shell

@@ -1,0 +1,1 @@
+pub const SESSION_HOME: &str = "AJLOW_SESSION_HOME";

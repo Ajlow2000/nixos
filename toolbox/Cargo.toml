@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/*"]
+members = ["apps/*", "libs/*"]
 
 [workspace.metadata.crane]
 name = "toolbox"

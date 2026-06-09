@@ -3,5 +3,24 @@
 version = 4
 
 [[package]]
+name = "ng-tmux-session-manager"
+version = "0.1.0"
+
+[[package]]
+name = "repo-manager"
+version = "0.1.0"
+
+[[package]]
+name = "session"
+version = "0.1.0"
+
+[[package]]
+name = "session-aware-cd"
+version = "0.1.0"
+dependencies = [
+ "session",
+]
+
+[[package]]
 name = "tmux-session-manager"
 version = "0.1.0"
