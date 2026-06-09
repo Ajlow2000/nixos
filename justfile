@@ -5,11 +5,12 @@ system := `nix eval --impure --raw --expr 'builtins.currentSystem'`
 # Hostname → ajlow home-manager profile mapping
 # Add new machines here (unknown hosts default to "work")
 _ajlow_profile := if hostname == "hal9000"  { "personal" } else \
-             if hostname == "mindgame" { "personal" } else \
-             if hostname == "eddie"    { "work"     } else \
-             if hostname == "marvin"   { "work"     } else \
-             if hostname == "glados"   { "server"   } else \
-                                       { "work"     }
+             if hostname == "mindgame"      { "personal" } else \
+             if hostname == "eddie"         { "work"     } else \
+             if hostname == "marvin"        { "work"     } else \
+             if hostname == "glados"        { "server"   } else \
+             if hostname == "do-prod-01"    { "server"   } else \
+                                            { "work"     }
 
 fmt:
     find . -name '*.nix' -exec nixfmt {} +
