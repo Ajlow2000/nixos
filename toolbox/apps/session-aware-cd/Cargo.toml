@@ -6,7 +6,7 @@ license.workspace = true
 authors.workspace = true
 
 [dependencies]
-session = { path = "../../libs/session" }
+session.workspace = true
 
 [lints]
 workspace = true
