@@ -18,6 +18,7 @@ in
     ../modules/personal.nix
     ../modules/de.nix
     ../modules/minecraft.nix
+    ../modules/easyeffects.nix
   ];
 
   options.profiles.user.personal = {
@@ -37,6 +38,7 @@ in
     gui_utilities.enable = true;
     personal.enable = true;
     de.enable = pkgs.stdenv.isLinux;
+    easyeffects.enable = pkgs.stdenv.isLinux;
     minecraft.enable = true;
 
     # Virt-manager dconf settings (Linux only)

@@ -17,6 +17,7 @@ in
     ../modules/gui_utilities.nix
     ../modules/work.nix
     ../modules/de.nix
+    ../modules/easyeffects.nix
   ];
 
   options.profiles.user.work = {
@@ -35,6 +36,7 @@ in
     env.enable = true;
     gui_utilities.enable = true;
     de.enable = pkgs.stdenv.isLinux;
+    easyeffects.enable = pkgs.stdenv.isLinux;
 
     # Let Home Manager install and manage itself
     programs.home-manager.enable = true;
