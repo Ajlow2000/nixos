@@ -1,9 +1,5 @@
 use std::process::{exit, Command};
 
-// Verbatim port of https://github.com/27medkamal/tmux-session-wizard. This crate
-// is a placeholder so the `tmux-session-manager` binary keeps existing under the
-// same name (it is referenced by tmux.conf, hyprland.conf, and zsh aliases)
-// while a pure-Rust implementation is in flight.
 const SCRIPT: &str = r##"
 set -o errexit
 set -o nounset

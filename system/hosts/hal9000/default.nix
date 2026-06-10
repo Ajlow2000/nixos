@@ -18,6 +18,7 @@
     ../../modules/services/star-citizen.nix
     ../../modules/services/minecraft/1502adams.nix
     ../../modules/services/playit.nix
+    ../../modules/services/git-server.nix
     ../../modules/user-definitions.nix
   ];
 
@@ -37,6 +38,11 @@
   modules.services.star-citizen.enable = true;
   modules.services.minecraft."1502adams".enable = true;
   modules.services.playit.enable = true;
+
+  modules.services.git-server = {
+    enable = true;
+    adminPubkey = (import ../../../keys.nix).personal.microvac;
+  };
 
   user-definitions.ajlow.enable = true;
 
