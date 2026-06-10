@@ -120,8 +120,7 @@
         appsDir = ./apps;
         appNames = builtins.attrNames (
           pkgs.lib.filterAttrs (
-            name: type:
-            type == "directory" && builtins.pathExists (appsDir + "/${name}/Cargo.toml")
+            name: type: type == "directory" && builtins.pathExists (appsDir + "/${name}/Cargo.toml")
           ) (builtins.readDir appsDir)
         );
 

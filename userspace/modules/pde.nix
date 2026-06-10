@@ -66,10 +66,12 @@ in
         # Every per-crate package built by the toolbox flake. `default` and
         # `workspace` are filtered out because both bundle the same binaries
         # as the per-crate derivations and would collide in ~/.nix-profile.
-        (lib.attrValues (lib.removeAttrs inputs.toolbox.packages.${system} [
-          "default"
-          "workspace"
-        ]))
+        (lib.attrValues (
+          lib.removeAttrs inputs.toolbox.packages.${system} [
+            "default"
+            "workspace"
+          ]
+        ))
         ++ [
           ### PDE
           neovim
