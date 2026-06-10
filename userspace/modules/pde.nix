@@ -118,6 +118,7 @@ in
           realvnc-vnc-viewer
 
           openssh
+          lighttpd
           zip
           unzip
           rsync
