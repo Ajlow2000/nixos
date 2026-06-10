@@ -41,7 +41,13 @@
 
   modules.services.git-server = {
     enable = true;
-    adminPubkey = (import ../../../keys.nix).personal.microvac;
+    adminPubkeys =
+      let
+        keys = (import ../../../keys.nix).personal;
+      in
+      {
+        inherit (keys) microvac hal9000;
+      };
   };
 
   user-definitions.ajlow.enable = true;
