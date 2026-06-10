@@ -18,7 +18,7 @@ pub const SESSION_HOME: &str = "AJLOW_SESSION_HOME";
 pub static DEFAULT_MANIFEST_PATH: LazyLock<PathBuf> = LazyLock::new(|| {
     dirs::data_dir()
         .unwrap_or_else(|| PathBuf::from("."))
-        .join("ajlow-session/manifest")
+        .join("managed-sessions/manifest")
 });
 
 /// Default location of managed repositories, resolved on first access as

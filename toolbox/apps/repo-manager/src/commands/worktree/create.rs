@@ -7,36 +7,51 @@ use tracing::info;
 
 use crate::cli::WorktreeCreateArgs;
 
-/// Creates a new git worktree under the current repo root.
+/// Creates a new git worktree as a sibling of the current worktree.
 ///
-/// Runs `git rev-parse --show-toplevel`, checks the resulting path is tracked
-/// in the manifest, then runs `git worktree add -b <name> <repo_root>/<name>`.
+/// Layout assumed (non-standard bare clone):
+///
+/// ```text
+/// <session_root>/
+///   .git/   (bare)
+///   main/   (current worktree — `git rev-parse --show-toplevel`)
+///   <name>/ (new worktree created here)
+/// ```
+///
+/// Runs `git rev-parse --show-toplevel`, strips the trailing component to get
+/// the session root (where the bare `.git/` lives), checks that path is
+/// tracked in the manifest, then runs
+/// `git worktree add -b <name> <session_root>/<name>`.
 ///
 /// # Errors
 /// - Fails if `git rev-parse` can't find a repo (i.e., not inside a git
 ///   working tree).
-/// - Fails if the current repo root is not present in the manifest — this
+/// - Fails if the worktree root has no parent directory.
+/// - Fails if the session root is not present in the manifest — this
 ///   command only operates on "managed sessions".
 /// - Surfaces git's exit code if the worktree creation itself fails.
 pub async fn run(args: WorktreeCreateArgs, manifest: &Manifest) -> Result<()> {
     let name = &args.name;
 
     let repo_root = git_repo_root().await?;
+    let session_root = repo_root
+        .parent()
+        .with_context(|| format!("repo root has no parent: {}", repo_root.display()))?;
     let entries = manifest
         .list()
         .with_context(|| format!("reading manifest {}", manifest.path().display()))?;
-    if !entries.iter().any(|e| e == &repo_root) {
+    if !entries.iter().any(|e| e == session_root) {
         bail!(
             "not a managed session\n  \
-             repo root: {}\n  \
-             manifest:  {}\n  \
-             hint:      add the repo root to the manifest first",
-            repo_root.display(),
+             session root: {}\n  \
+             manifest:     {}\n  \
+             hint:         add the session root to the manifest first",
+            session_root.display(),
             manifest.path().display(),
         );
     }
 
-    let worktree_path = repo_root.join(name);
+    let worktree_path = session_root.join(name);
     info!(
         name = %name,
         path = %worktree_path.display(),
