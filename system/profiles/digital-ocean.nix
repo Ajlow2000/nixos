@@ -32,6 +32,9 @@ in
     # Don't attempt nixos-rebuild from DO user-data (flake-managed)
     virtualisation.digitalOcean.rebuildFromUserData = false;
 
+    # Allow remote nh deploys from wheel users to push unsigned store paths
+    nix.settings.trusted-users = [ "root" "@wheel" ];
+
     # Define ajlow without home-manager dependency
     # (user-definitions.nix is coupled to HM; not used here)
     users.users.ajlow = {

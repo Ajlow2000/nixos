@@ -22,6 +22,15 @@ update-toolbox:
 os:
     nh os switch --impure .
 
+# Build locally and deploy to the do-prod-01 droplet
+vps:
+    nh os switch \
+        --hostname do-prod-01 \
+        --target-host ajlow@do-prod-01 \
+        --build-host localhost \
+        --impure \
+        .
+
 hm:
     nh home switch --backup-extension backup -c ajlow-{{_ajlow_profile}} .
 
