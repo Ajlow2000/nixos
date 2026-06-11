@@ -1,4 +1,17 @@
-# Self-hosted git server: gitolite backend + cgit web UI.
+# Self-hosted git server: gitolite backend + two cgit web UIs.
+#
+# Two cgit instances scan the same repo dir:
+#   - `private` (port `cfg.port`)        — shows everything.
+#   - `public`  (port `cfg.publicPort`)  — shows only repos whose bare dir
+#                                          contains `git-daemon-export-ok`
+#                                          (via cgit `strict-export`).
+# Both bind to wt0 only. The intent is to route `publicPort` to the internet
+# externally (e.g. Netbird routing); this module keeps the firewall closed.
+#
+# A repo opts into the public instance by setting `config gitweb.public = "1"`
+# in its `gitolite.conf` stanza. A POST_COMPILE trigger (see `markerTrigger`)
+# walks all bare repos after each gitolite recompile and touches/removes the
+# export marker to match. Default is private (marker absent).
 #
 # Admin keys are managed declaratively via `adminPubkeys` (attrset where the
 # attribute name becomes the user's gitolite identity). Whichever name sorts
@@ -17,8 +30,11 @@
 #          RW+ = ajlow
 #          config gitweb.owner = "ajlow"
 #          config gitweb.description = "first test repo"
-#      Commit + push. Gitolite materializes the bare repo server-side.
-#   4. Browse: http://<hal9000-wt0-ip>:8082/
+#          config gitweb.public = "1"          # omit to keep private
+#      Commit + push. Gitolite materializes the bare repo server-side and the
+#      marker trigger toggles its visibility on the public instance.
+#   4. Browse: http://<hal9000-wt0-ip>:<cfg.port>/        (private)
+#             http://<hal9000-wt0-ip>:<cfg.publicPort>/  (public)
 #
 # Verification:
 #   - systemctl status gitolite-init gitolite-admin-sync   (active/exited)
@@ -33,7 +49,6 @@
 # Deferred TODOs:
 #   - Vendor mermaid.esm.min.mjs into the Nix store instead of using the CDN
 #   - Move to a dedicated host once one exists (this module is host-agnostic)
-#   - Iterate on customCssBody for theming once the rest is verified
 {
   config,
   lib,
@@ -42,22 +57,6 @@
 }:
 let
   cfg = config.modules.services.git-server;
-
-  customCssBody = ''
-    body { background: #1d2021; color: #ebdbb2; font-family: sans-serif; }
-    a { color: #83a598; }
-    a:visited { color: #b16286; }
-    div#cgit table#header { background: #282828; color: #fbf1c7; }
-    div#cgit table#header a { color: #fabd2f; }
-    div.cgit-panel { background: #282828; color: #ebdbb2; }
-    pre, code { background: #282828; color: #ebdbb2; }
-    div.commit-subject { color: #fbf1c7; }
-    table.list tr:nth-child(even) { background: #282828; }
-    table.list tr:hover { background: #3c3836; }
-    table.list tr.nohover:hover { background: inherit; }
-    table.diff td.add { background: #32361a; }
-    table.diff td.del { background: #421e1e; }
-  '';
 
   # Stage 2 of the about-filter pipeline. Reads HTML on stdin and:
   #   - Rewrites ```mermaid fenced blocks (which cmark-gfm emits as
@@ -78,7 +77,7 @@ let
     print $html;
     print qq(<script type="module">\n);
     print qq(  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid\@10/dist/mermaid.esm.min.mjs";\n);
-    print qq(  mermaid.initialize({startOnLoad: true, theme: "dark"});\n);
+    print qq(  mermaid.initialize({startOnLoad: true});\n);
     print qq(</script>\n);
   '';
 
@@ -105,9 +104,57 @@ let
   sourceFilter = pkgs.writeShellScript "cgit-source-filter" ''
     exec ${pkgs.highlight}/bin/highlight \
       --force -f -I -O xhtml \
-      --syntax-by-name="$1" \
-      --style=base16/gruvbox-dark-hard 2>/dev/null
+      --syntax-by-name="$1" 2>/dev/null
   '';
+
+  # Settings shared by both cgit instances. Per-instance overrides (title,
+  # strict-export) are merged on top.
+  commonCgitSettings = {
+    readme = ":README.md :readme.md :README";
+    about-filter = "${aboutFilter}/bin/cgit-about-filter";
+    source-filter = "${sourceFilter}";
+    enable-blame = 1;
+    enable-commit-graph = 1;
+    enable-log-filecount = 1;
+    enable-log-linecount = 1;
+    enable-index-links = 1;
+    enable-tree-linenumbers = 1;
+    side-by-side-diffs = 1;
+    snapshots = "tar.gz zip";
+    max-stats = "quarter";
+  };
+
+  # POST_COMPILE trigger: for each bare repo under repositories/, touch
+  # `git-daemon-export-ok` iff the repo has `gitweb.public` truthy in its
+  # gitolite config (set via `config gitweb.public = "1"` in gitolite.conf,
+  # materialized by the upstream `update-git-configs` trigger that runs
+  # earlier in POST_COMPILE). cgit's public instance honors this marker via
+  # `strict-export`; the private instance ignores it.
+  markerTrigger = pkgs.writeShellScript "cgit-export-marker" ''
+    set -eu
+    base=${cfg.dataDir}/repositories
+    [ -d "$base" ] || exit 0
+    ${pkgs.findutils}/bin/find "$base" -type d -name '*.git' | while read -r repo; do
+      pub=$(${pkgs.git}/bin/git -C "$repo" config --bool gitweb.public 2>/dev/null || echo false)
+      marker="$repo/git-daemon-export-ok"
+      if [ "$pub" = "true" ]; then
+        ${pkgs.coreutils}/bin/touch "$marker"
+      else
+        ${pkgs.coreutils}/bin/rm -f "$marker"
+      fi
+    done
+  '';
+
+  # Gitolite resolves trigger names via `_which("triggers/$name")`, which
+  # only searches `$GL_BINDIR/triggers/` and `$LOCAL_CODE/triggers/`. We
+  # can't write to GL_BINDIR (read-only nix store path of pkgs.gitolite),
+  # so build a tiny LOCAL_CODE tree containing just our trigger under the
+  # required `triggers/` subdir.
+  gitoliteLocalCode = pkgs.runCommand "gitolite-local-code" { } ''
+    mkdir -p $out/triggers
+    install -m 0555 ${markerTrigger} $out/triggers/cgit-export-marker
+  '';
+
   adminNames = lib.attrNames cfg.adminPubkeys;
   bootstrapName = lib.head (lib.sort lib.lessThan adminNames);
   bootstrapPubkey = cfg.adminPubkeys.${bootstrapName};
@@ -124,7 +171,21 @@ in
     port = lib.mkOption {
       type = lib.types.port;
       default = 8082;
-      description = "Port the cgit nginx vhost listens on (Netbird-only).";
+      description = ''
+        Port the private cgit nginx vhost listens on. Bound only to wt0;
+        shows every repo regardless of export marker.
+      '';
+    };
+
+    publicPort = lib.mkOption {
+      type = lib.types.port;
+      default = 8083;
+      description = ''
+        Port the public cgit nginx vhost listens on. Still bound only to
+        wt0 by this module — route to the public internet externally
+        (e.g. Netbird routing). Only shows repos with
+        `config gitweb.public = "1"` in gitolite.conf.
+      '';
     };
 
     dataDir = lib.mkOption {
@@ -176,8 +237,44 @@ in
       adminPubkey = bootstrapPubkey;
       # UMASK 0027 → new repos are group-readable (0750) so the cgit user
       # (added to the gitolite group below) can serve them via the web UI.
+      #
+      # GIT_CONFIG_KEYS '.*' → allow any `config foo.bar = …` line in
+      # gitolite.conf. Defaults to empty (all rejected), which kills
+      # compile on common stanzas like `config gitweb.description = …`.
+      # Sole-admin personal box, so unconstrained is fine.
+      #
+      # Append our marker trigger to POST_COMPILE so the export marker tracks
+      # `config gitweb.public` after every recompile. Order matters: it
+      # appends, so it runs after the built-in `update-git-configs` which
+      # is what writes `gitweb.public` into each bare repo's git config.
+      # Trigger names are bare; gitolite resolves them under
+      # `$LOCAL_CODE/triggers/` (preferred) or `$GL_BINDIR/triggers/`.
+      #
+      # Two trigger-list adjustments here, both of which have to happen
+      # in `extraGitoliteRc` (the user rc file) because gitolite's
+      # `non_core_expand()` walks ENABLE *after* the rc file has been
+      # `do`'d, and POST_COMPILE / POST_CREATE arrays don't even exist
+      # yet at that point:
+      #
+      #   - Drop the built-in 'daemon' feature: its post-compile
+      #     trigger writes `git-daemon-export-ok` based on whether
+      #     gitolite's `daemon` pseudo-user has R access (implicit
+      #     for `@all`). We don't run git-daemon, and we want
+      #     `gitweb.public` to be the sole visibility switch for the
+      #     public cgit instance.
+      #
+      #   - Register our `cgit-export-marker` trigger via NON_CORE +
+      #     ENABLE so non_core_expand appends it to POST_COMPILE in
+      #     order. Appending matters: it must run *after* the
+      #     built-in `git-config` trigger, which is what writes the
+      #     `gitweb.public` value into each repo's git config.
       extraGitoliteRc = ''
         $RC{UMASK} = 0027;
+        $RC{GIT_CONFIG_KEYS} = '.*';
+        $RC{LOCAL_CODE} = '${gitoliteLocalCode}';
+        @{$RC{ENABLE}} = grep { $_ ne 'daemon' } @{$RC{ENABLE}};
+        $RC{NON_CORE} = "cgit-export-marker POST_COMPILE .\n";
+        push @{$RC{ENABLE}}, 'cgit-export-marker';
       '';
     };
 
@@ -196,6 +293,12 @@ in
         coreutils
         jq
         findutils
+        # The bare repo's post-update hook spawns `gitolite compile` /
+        # `gitolite trigger SSH_AUTHKEYS` to regenerate authorized_keys
+        # from keydir; needs the gitolite binary on PATH and ssh-keygen
+        # for pubkey fingerprinting.
+        gitolite
+        openssh
       ];
       serviceConfig = {
         Type = "oneshot";
@@ -244,56 +347,94 @@ in
         git add -A
         if ! git diff --cached --quiet; then
           git commit -m 'gitolite-admin-sync: align with nix-declared admins'
+          # The bare repo's update hook is gitolite's Perl script that loads
+          # modules from GL_LIBDIR and validates the pushing GL_USER against
+          # the ACL. A local push inherits this process's env, so:
+          #   - point GL_BINDIR/GL_LIBDIR at the gitolite package so the
+          #     hook's `use lib $ENV{GL_LIBDIR}` resolves
+          #   - set GL_BYPASS_ACCESS_CHECKS=1 so the hook returns immediately
+          #     without an ACL lookup (this sync IS the ACL change; there's
+          #     no real user pushing)
+          export GL_BINDIR=${pkgs.gitolite}/bin
+          export GL_LIBDIR=${pkgs.gitolite}/bin/lib
+          export GL_BYPASS_ACCESS_CHECKS=1
           git push origin HEAD
         fi
+
+        # Unconditional reconciliation: extract the bare repo's master tree
+        # into GL_ADMIN_BASE and rebuild authorized_keys. The push's
+        # post-update hook normally does this, but doing it here too means:
+        #   - a partial prior run (push landed, post-update bailed) heals on
+        #     the next activation, even when there's no fresh diff to push
+        #   - drift between bare repo HEAD and ~/.gitolite/ from any other
+        #     cause gets corrected idempotently
+        # Both ops are no-ops when state already matches.
+        GIT_DIR="${cfg.dataDir}/repositories/gitolite-admin.git" \
+        GIT_WORK_TREE="${cfg.dataDir}/.gitolite" \
+          git read-tree --reset -u master
+        gitolite compile
+        gitolite trigger POST_COMPILE
       '';
     };
 
     # Give cgit's CGI process read access to gitolite-owned repos.
     users.users.cgit.extraGroups = [ "gitolite" ];
 
-    services.cgit."main" = {
+    # SSH-only pushes/clones via gitolite — no smart HTTP needed. Disabling
+    # gitHttpBackend on both instances also sidesteps the cgit module's
+    # checkExportOkFiles assertion, since gitolite repos don't carry the
+    # `git-daemon-export-ok` marker by default (the marker we manage above
+    # is for cgit's `strict-export`, not for git-http-backend).
+    services.cgit."private" = {
       enable = true;
       scanPath = "${cfg.dataDir}/repositories";
-      nginx.virtualHost = "git";
-      # SSH-only pushes/clones via gitolite — no smart HTTP needed. Disabling
-      # also sidesteps the gitHttpBackend.checkExportOkFiles assertion, since
-      # gitolite repos don't carry the `git-daemon-export-ok` marker.
+      nginx.virtualHost = "git-private";
       gitHttpBackend.enable = false;
-      settings = {
+      settings = commonCgitSettings // {
         root-title = "ajlow's git";
-        root-desc = "Self-hosted repositories";
-        readme = ":README.md :readme.md :README";
-        about-filter = "${aboutFilter}/bin/cgit-about-filter";
-        source-filter = "${sourceFilter}";
-        enable-blame = 1;
-        enable-commit-graph = 1;
-        enable-log-filecount = 1;
-        enable-log-linecount = 1;
-        enable-index-links = 1;
-        enable-tree-linenumbers = 1;
-        side-by-side-diffs = 1;
-        snapshots = "tar.gz zip";
-        max-stats = "quarter";
+        root-desc = "All repositories";
       };
     };
 
-    # The cgit module declares /cgit.css with mkDefault; override the alias
-    # to serve our themed stylesheet instead of the upstream default.
-    services.nginx.virtualHosts."git" = {
+    services.cgit."public" = {
+      enable = true;
+      scanPath = "${cfg.dataDir}/repositories";
+      nginx.virtualHost = "git-public";
+      gitHttpBackend.enable = false;
+      settings = commonCgitSettings // {
+        root-title = "ajlow's public git";
+        root-desc = "Public repositories";
+        # Only show repos whose bare dir contains this marker file. The
+        # POST_COMPILE trigger above maintains the marker against the
+        # `gitweb.public` per-repo config.
+        strict-export = "git-daemon-export-ok";
+      };
+    };
+
+    services.nginx.virtualHosts."git-private" = {
       listen = [
         {
           addr = "0.0.0.0";
           port = cfg.port;
         }
       ];
-      locations."= /cgit.css".alias = lib.mkForce (
-        toString (pkgs.writeText "cgit.css" customCssBody)
-      );
     };
 
-    # Reachable only over the Netbird mesh (wt0). Deliberately not added
-    # to the global allowedTCPPorts — the public interface stays closed.
-    networking.firewall.interfaces.wt0.allowedTCPPorts = [ cfg.port ];
+    services.nginx.virtualHosts."git-public" = {
+      listen = [
+        {
+          addr = "0.0.0.0";
+          port = cfg.publicPort;
+        }
+      ];
+    };
+
+    # Both vhosts reach only over the Netbird mesh (wt0). Deliberately not
+    # added to the global allowedTCPPorts — exposing the public one to the
+    # internet is the operator's call (e.g. Netbird routing).
+    networking.firewall.interfaces.wt0.allowedTCPPorts = [
+      cfg.port
+      cfg.publicPort
+    ];
   };
 }
