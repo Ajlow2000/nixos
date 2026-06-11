@@ -10,6 +10,7 @@ in
 {
   imports = [
     ../modules/services/netbird-agent.nix
+    ../modules/services/banner.nix
   ];
 
   options.profiles.system.base = {
@@ -18,6 +19,7 @@ in
 
   config = lib.mkIf cfg.enable {
     modules.services.netbird-agent.enable = true;
+    modules.services.banner.enable = true;
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
