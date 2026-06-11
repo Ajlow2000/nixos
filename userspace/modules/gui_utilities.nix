@@ -14,7 +14,7 @@ let
       (old: {
         src = pkgs.fetchurl {
           url = "https://cdn.binary.ninja/installers/binaryninja_free_linux.zip";
-          hash = "sha256-knicC9Ph91saA9gOdOt+qNOpXhn3kVVXd0oK1AJnSSY=";
+          hash = "sha256-YKr3oF0Um7D7yoLX/OFixuQXDZ6SbpDmEWIVbCPxwlI=";
         };
       });
 in
