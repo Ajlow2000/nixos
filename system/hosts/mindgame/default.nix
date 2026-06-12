@@ -43,8 +43,8 @@
 
   networking.firewall.checkReversePath = false;
 
+  boot.loader.grub.useOSProber = true;
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.default = "auto-windows.conf";
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
