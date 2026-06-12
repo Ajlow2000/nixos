@@ -14,6 +14,7 @@
     ../../modules/desktop/cosmic.nix
     ../../modules/desktop/display-manager.nix
     ../../modules/services/gaming.nix
+    ../../modules/services/game-streaming.nix
     ../../modules/services/ollama.nix
     ../../modules/services/star-citizen.nix
     ../../modules/services/minecraft/1502adams.nix
@@ -34,6 +35,8 @@
   modules.desktop.display-manager.enable = lib.mkForce false;
 
   modules.services.gaming.enable = true;
+  modules.services.game-streaming.server.enable = true;
+  modules.services.game-streaming.client.enable = true;
   modules.services.ollama.enable = true;
   modules.services.star-citizen.enable = true;
   modules.services.minecraft."1502adams".enable = true;
