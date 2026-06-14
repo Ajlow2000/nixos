@@ -130,4 +130,41 @@
     # yubikey-01 = "sk-ssh-ed25519@openssh.com AAAA... alowry@yubikey-01";
     # yubikey-02 = "sk-ssh-ed25519@openssh.com AAAA... alowry@yubikey-02";
   };
+
+  /*
+    AGE KEYS (for sops-nix)
+    ========================
+    Reference list of age public keys used by .sops.yaml. The .sops.yaml file
+    is plain YAML (read by the sops binary directly, not Nix) so it can't
+    import this attrset — these are documentation. When adding a new host
+    or admin key, update BOTH this block and .sops.yaml.
+
+    Generate the admin key once:
+      age-keygen -o ~/.config/sops/age/keys.txt
+      age-keygen -y ~/.config/sops/age/keys.txt   # prints the public key
+
+    Derive a host age key from a persistent SSH host key:
+      nix run nixpkgs#ssh-to-age -- -i /persist/etc/ssh/ssh_host_ed25519_key.pub
+  */
+  age = {
+    # Admin identities. yk01 + yk02 are PIV-backed (via age-plugin-yubikey),
+    # daily drivers. recovery is a pure software key whose private part is
+    # stored ONLY in Bitwarden — never on disk except for emergency rotations.
+    admin = {
+      # ajlow-yk01     = "age1yubikey1...";
+      # ajlow-yk02     = "age1yubikey1...";
+      # ajlow-recovery = "age1...";
+    };
+    # Host identities, derived from each host's persistent SSH host key
+    # via `ssh-to-age`.
+    hosts = {
+      # microvac     = "age1...";
+      # hal9000      = "age1...";
+      # mindgame     = "age1...";
+      # marvin       = "age1...";
+      # eddie        = "age1...";
+      # multivac     = "age1...";
+      # do-prod-01   = "age1...";
+    };
+  };
 }

@@ -1,0 +1,127 @@
+# sops-nix key directory and creation rules.
+#
+# Admin keys:
+#   - admin_ajlow_yk01:     daily-driver YubiKey #1 (PIV slot, via age-plugin-yubikey)
+#   - admin_ajlow_yk02:     backup YubiKey #2
+#   - admin_ajlow_recovery: software age key, private part stored ONLY in
+#                           Bitwarden as break-glass. Never written to disk
+#                           except temporarily for emergency `sops updatekeys`.
+#
+# Host keys are derived from each host's persistent SSH host key via ssh-to-age.
+# See secrets/README.md for the full setup walkthrough.
+#
+# After editing this file or adding/rotating keys, re-encrypt:
+#   sops updatekeys secrets/<file>.yaml
+#
+# Mirror the recipient values in keys.nix's `age` block for human reference.
+
+keys:
+  # --- Admin recipients (any can decrypt everything) ---
+  - &admin_ajlow_yk01      age1yubikey1REPLACE_WITH_YK01_RECIPIENT
+  - &admin_ajlow_yk02      age1yubikey1REPLACE_WITH_YK02_RECIPIENT
+  - &admin_ajlow_recovery  age1REPLACE_WITH_RECOVERY_RECIPIENT
+
+  # --- Impermanent hosts (key at /persist/etc/ssh/ssh_host_ed25519_key) ---
+  - &host_microvac    age1REPLACE_WITH_MICROVAC_HOST_PUBKEY
+  - &host_hal9000     age1REPLACE_WITH_HAL9000_HOST_PUBKEY
+  - &host_mindgame    age1REPLACE_WITH_MINDGAME_HOST_PUBKEY
+  - &host_marvin      age1REPLACE_WITH_MARVIN_HOST_PUBKEY
+  - &host_eddie       age1REPLACE_WITH_EDDIE_HOST_PUBKEY
+  - &host_multivac    age1REPLACE_WITH_MULTIVAC_HOST_PUBKEY
+
+  # --- Cloud hosts (key at /etc/ssh/ssh_host_ed25519_key) ---
+  - &host_do_prod_01  age1REPLACE_WITH_DO_PROD_01_HOST_PUBKEY
+
+creation_rules:
+  - path_regex: secrets/microvac\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_microvac
+
+  - path_regex: secrets/hal9000\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_hal9000
+
+  - path_regex: secrets/mindgame\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_mindgame
+
+  - path_regex: secrets/marvin\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_marvin
+
+  - path_regex: secrets/eddie\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_eddie
+
+  - path_regex: secrets/multivac\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_multivac
+
+  - path_regex: secrets/do-prod-01\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_do_prod_01
+
+  - path_regex: secrets/users/ajlow\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_microvac
+          - *host_hal9000
+          - *host_mindgame
+          - *host_marvin
+          - *host_eddie
+          - *host_multivac
+          - *host_do_prod_01
+
+  - path_regex: secrets/users/alowry\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_marvin
+          - *host_eddie
+
+  - path_regex: secrets/common\.yaml$
+    key_groups:
+      - age:
+          - *admin_ajlow_yk01
+          - *admin_ajlow_yk02
+          - *admin_ajlow_recovery
+          - *host_microvac
+          - *host_hal9000
+          - *host_mindgame
+          - *host_marvin
+          - *host_eddie
+          - *host_multivac
+          - *host_do_prod_01

@@ -4,13 +4,16 @@
   Assumed device: /dev/sda (SATA — no nvme kernel module present)
   Verify with `lsblk` before running disko.
 
-  Reinstall workflow:
-    1. Boot installer ISO
-    2. Verify/update device path below
-    3. disko --mode disko --flake .#multivac
-    4. Set disko.enableConfig = true in default.nix
-    5. Remove fileSystems and swapDevices from hardware.nix
-    6. nixos-install --flake .#multivac
+  Layout:
+    - ESP            (vfat, /boot, 512M)
+    - swap           (8G, random-key encrypted — no hibernation by design)
+    - cryptroot      (LUKS2, fills the rest)
+        btrfs with subvolumes:
+          /root, /home, /nix, /log, /snapshots, /persist
+        All mounted with compress=zstd,noatime.
+
+  Reinstall workflow: see system/hosts/microvac/disko.nix for the canonical
+  step-by-step. Substitute `multivac` and &host_multivac throughout.
 */
 {
   disko.devices = {
@@ -28,20 +31,75 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+                mountOptions = [
+                  "fmask=0077"
+                  "dmask=0077"
+                ];
               };
             };
             swap = {
               size = "8G";
               content = {
                 type = "swap";
+                randomEncryption = true;
               };
             };
-            root = {
+            cryptroot = {
               size = "100%";
               content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+                type = "luks";
+                name = "cryptroot";
+                settings = {
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "btrfs";
+                  extraArgs = [ "-f" ];
+                  subvolumes = {
+                    "/root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/home" = {
+                      mountpoint = "/home";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/log" = {
+                      mountpoint = "/var/log";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/snapshots" = {
+                      mountpoint = "/.snapshots";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                  };
+                };
               };
             };
           };

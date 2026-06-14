@@ -9,6 +9,8 @@ let
   cfg = config.profiles.user.personal;
   # Only set nixpkgs config when running standalone (not as NixOS module)
   isStandalone = osConfig == null;
+  hostHasImpermanence =
+    (osConfig.modules.impermanence.persistence.enable or false);
 in
 {
   imports = [
@@ -19,6 +21,9 @@ in
     ../modules/de.nix
     ../modules/minecraft.nix
     ../modules/easyeffects.nix
+    ../modules/ssh-identity.nix
+    ../modules/impermanence-home.nix
+    ../modules/git-cloner.nix
   ];
 
   options.profiles.user.personal = {
@@ -40,6 +45,16 @@ in
     de.enable = pkgs.stdenv.isLinux;
     easyeffects.enable = pkgs.stdenv.isLinux;
     minecraft.enable = true;
+
+    ssh-identity.enable = true;
+    impermanence-home.enable = hostHasImpermanence;
+    git-cloner.enable = true;
+    git-cloner.repos = [
+      {
+        url = "git@github.com:ajlow2000/ajlow2000_nixos.git";
+        path = "~/repos/personal/ajlow2000_nixos";
+      }
+    ];
 
     # Virt-manager dconf settings (Linux only)
     dconf.settings = lib.mkIf pkgs.stdenv.isLinux {
