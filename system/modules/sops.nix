@@ -28,16 +28,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Shared across all hosts. Per-host secrets can override sopsFile on
-    # specific sops.secrets entries when we add them.
+    # User passwords are shared across hosts and live in common.yaml.
+    # Root password is per-host; the secret entry below overrides sopsFile.
     sops.defaultSopsFile = ../../secrets/common.yaml;
     sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-    # Secret keys in common.yaml follow the convention <account>_passwd.
+    # Secret keys follow the convention <account>_passwd.
     sops.secrets = lib.mkMerge (
       (lib.optional cfg.passwords.root.enable {
         "root_passwd" = {
           neededForUsers = true;
+          sopsFile = ../../secrets/hosts + "/${config.networking.hostName}.yaml";
         };
       })
       ++ (map (u: {

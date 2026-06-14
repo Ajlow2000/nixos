@@ -10,17 +10,27 @@ the host's SSH ed25519 host key.
 ```
 secrets/
 ├── README.md              this file
+├── common.yaml            shared user-account passwords (every enrolled host decrypts)
 └── hosts/
-    └── <hostname>.yaml    one encrypted file per host
+    └── <hostname>.yaml    per-host root password (only that host decrypts)
 ```
 
-Each `hosts/<host>.yaml` contains hashed passwords keyed by username, e.g.:
+`common.yaml` holds hashed user passwords keyed `<account>_passwd`:
 
 ```yaml
-root:  $y$j9T$...
-ajlow: $y$j9T$...
-alowry: $y$j9T$...   # only on hosts where alowry is enabled
+ajlow_passwd:  $y$j9T$...
+alowry_passwd: $y$j9T$...   # only consumed on hosts where alowry is enabled
 ```
+
+Each `hosts/<host>.yaml` holds that host's unique root password:
+
+```yaml
+root_passwd: $y$j9T$...
+```
+
+Split rationale: the user account is the same human across hosts, so sharing
+one hash is fine. The root password is per-host so a compromise of one host's
+age key doesn't expose root on the others.
 
 ## Recipient registry
 
@@ -84,30 +94,39 @@ enrolled on first install — leave them commented for now.
 
 ### 5. Hash passwords
 
-For each (host, account) pair, generate a yescrypt hash:
+Generate a yescrypt hash for each password you need:
 
 ```sh
 mkpasswd -m yescrypt
 ```
 
-Type the password twice. The output (`$y$j9T$...`) is what goes into the
-secrets file. Plan a password per host per account up front.
+Type the password twice. The output (`$y$j9T$...`) is the value that goes
+into a secrets file. You need:
 
-### 6. Create and encrypt the per-host secret files
+- one hash per user account (shared across hosts) → `common.yaml`
+- one hash per host for the root account → `hosts/<host>.yaml`
 
-For each enrolled host:
+### 6. Create and encrypt the secret files
+
+Shared user passwords:
 
 ```sh
-cat > secrets/hosts/<host>.yaml <<EOF
-root:  $y$j9T$...REPLACE_WITH_HASH_FROM_STEP_5
-ajlow: $y$j9T$...
-alowry: $y$j9T$...     # only on hosts that enable alowry
-EOF
-
-sops --encrypt --in-place secrets/hosts/<host>.yaml
+sops secrets/common.yaml
+# Then add:
+# ajlow_passwd:  $y$j9T$...
+# alowry_passwd: $y$j9T$...
 ```
 
-(You'll need at least one YubiKey inserted; sops will prompt for touch.)
+Per-host root password (run once per enrolled host):
+
+```sh
+sops secrets/hosts/<host>.yaml
+# Then add:
+# root_passwd: $y$j9T$...
+```
+
+`sops` picks the right recipient set from `.sops.yaml` based on the file
+path. You'll need at least one YubiKey inserted; sops will prompt for touch.
 
 ### 7. Enable sops on the host
 
@@ -142,14 +161,29 @@ session. The DigitalOcean web console is the ultimate fallback for do-prod-01.
 
 ```sh
 # Edit an existing secret (prompts YubiKey)
+sops secrets/common.yaml
 sops secrets/hosts/hal9000.yaml
 
 # Re-key after editing .sops.yaml (added/removed recipients)
+sops updatekeys secrets/common.yaml
 sops updatekeys secrets/hosts/hal9000.yaml
 
 # Decrypt to stdout for inspection
 sops --decrypt secrets/hosts/hal9000.yaml
 ```
+
+## Adding a new host
+
+1. Enroll the host's age key: paste its `ssh-to-age` output into `.sops.yaml`
+   under `&host_<name>`, and add `- *host_<name>` to the `common.yaml`
+   creation rule (so the host can decrypt shared user passwords).
+2. Add a new `creation_rules` block in `.sops.yaml` for
+   `secrets/hosts/<name>\.yaml$` with just the admins + that host's key.
+3. Re-key shared secrets: `sops updatekeys secrets/common.yaml`.
+4. Create the per-host file with a new root password hash:
+   `sops secrets/hosts/<name>.yaml`.
+5. In the host's `default.nix`, set `modules.sops.enable = true`. The path
+   to the per-host file is auto-derived from `config.networking.hostName`.
 
 ## Recovering with the Bitwarden backup
 

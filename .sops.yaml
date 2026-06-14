@@ -30,7 +30,28 @@ keys:
   # - &host_marvin     age1REPLACE_ME
 
 creation_rules:
-  # After changing this rule: `sops updatekeys secrets/common.yaml`
+  # Per-host secret files. Each is encrypted only for that host (+ admins).
+  # When adding a new host: enroll its age key above, then copy one of these
+  # blocks and adjust the path_regex + host recipient.
+  - path_regex: secrets/hosts/hal9000\.yaml$
+    key_groups:
+      - age:
+          - *admin_yubikey_01
+          - *admin_yubikey_02
+          - *admin_backup
+          - *host_hal9000
+
+  - path_regex: secrets/hosts/do-prod-01\.yaml$
+    key_groups:
+      - age:
+          - *admin_yubikey_01
+          - *admin_yubikey_02
+          - *admin_backup
+          - *host_do_prod_01
+          # - *host_hal9000 # allow remote build
+
+  # Shared secrets (user login passwords). Every enrolled host needs to
+  # decrypt this. After changing recipients: `sops updatekeys secrets/common.yaml`
   - path_regex: secrets/common\.yaml$
     key_groups:
       - age:
@@ -45,6 +66,3 @@ creation_rules:
           # - *host_multivac
           # - *host_eddie
           # - *host_marvin
-
-  # Per-host secret files (optional, for future host-specific secrets like
-  # wireguard keys). Add a rule + path_regex here when needed.
