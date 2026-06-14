@@ -23,7 +23,7 @@ keys:
   - &host_hal9000       age1d9vzxup9plyvfutr0r0nzj4cfh2qryup9726u82d02uwvfcam54shhnqgw
   # - &host_microvac   age1REPLACE_ME
   # - &host_glados     age1REPLACE_ME
-  # - &host_do_prod_01 age1REPLACE_ME
+  - &host_do_prod_01    age1awzyuh2hyy60znaz7rte48leqs0t60m5lmvldd7vhewh8csh5f7sa22awc
   # - &host_mindgame   age1REPLACE_ME
   # - &host_multivac   age1REPLACE_ME
   # - &host_eddie      age1REPLACE_ME
