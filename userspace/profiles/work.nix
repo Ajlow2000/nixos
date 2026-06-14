@@ -23,6 +23,7 @@ in
     ../modules/ssh-identity.nix
     ../modules/impermanence-home.nix
     ../modules/git-cloner.nix
+    ../modules/sops-identity.nix
   ];
 
   options.profiles.user.work = {
@@ -46,6 +47,7 @@ in
     ssh-identity.enable = true;
     impermanence-home.enable = hostHasImpermanence;
     git-cloner.enable = true;
+    sops-identity.enable = true;
     git-cloner.repos = [
       # Work repos go here. Set per-host or per-profile.
     ];

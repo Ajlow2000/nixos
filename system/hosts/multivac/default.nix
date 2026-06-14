@@ -53,9 +53,6 @@
   environment.systemPackages = with pkgs; [
     wireguard-tools
     proton-vpn
-    sops
-    ssh-to-age
-    age
   ];
 
   boot.loader.systemd-boot.enable = true;

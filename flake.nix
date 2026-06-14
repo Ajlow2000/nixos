@@ -224,6 +224,9 @@
                 nixfmt
                 nh
                 nix-output-monitor
+                sops
+                ssh-to-age
+                age
               ])
               ++ [
                 home-manager.packages.${system}.default

@@ -54,9 +54,6 @@
     cosmic-ext-ctl
     wireguard-tools
     proton-vpn
-    sops
-    ssh-to-age
-    age
   ];
 
   networking.firewall.checkReversePath = false;

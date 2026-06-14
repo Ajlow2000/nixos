@@ -136,24 +136,40 @@
     ========================
     Reference list of age public keys used by .sops.yaml. The .sops.yaml file
     is plain YAML (read by the sops binary directly, not Nix) so it can't
-    import this attrset — these are documentation. When adding a new host
-    or admin key, update BOTH this block and .sops.yaml.
+    import this attrset — those values are hand-mirrored. The userspace
+    `sops-identity` home-manager module DOES read this attrset and renders
+    ~/.config/sops/age/keys.txt automatically.
 
-    Generate the admin key once:
-      age-keygen -o ~/.config/sops/age/keys.txt
-      age-keygen -y ~/.config/sops/age/keys.txt   # prints the public key
+    Admin identities:
+      `recipient` — the public age key, listed in .sops.yaml.
+      `identity`  — the AGE-PLUGIN-YUBIKEY-1... stub printed by
+                    `age-plugin-yubikey --generate` (or `--identity` later).
+                    Contains YubiKey serial + slot but NO secret material;
+                    safe to commit. Omit for software keys whose private
+                    half lives elsewhere (e.g. the recovery key in Bitwarden).
+
+    To repopulate an identity stub for an existing YubiKey:
+      # Insert the YubiKey, then:
+      age-plugin-yubikey --identity
+    Paste the AGE-PLUGIN-YUBIKEY-1... line into the matching `identity` field.
 
     Derive a host age key from a persistent SSH host key:
       nix run nixpkgs#ssh-to-age -- -i /persist/etc/ssh/ssh_host_ed25519_key.pub
   */
   age = {
-    # Admin identities. yk01 + yk02 are PIV-backed (via age-plugin-yubikey),
-    # daily drivers. recovery is a pure software key whose private part is
-    # stored ONLY in Bitwarden — never on disk except for emergency rotations.
     admin = {
-      # ajlow-yk01     = "age1yubikey1...";
-      # ajlow-yk02     = "age1yubikey1...";
-      # ajlow-recovery = "age1...";
+      ajlow-yk01 = {
+        recipient = "age1yubikey1q0jg5440tqhc9frzwzyv4kwzl8ctcqqnjur64nkzm6prygdk0ctwwz0egpe";
+        identity = "AGE-PLUGIN-YUBIKEY-PASTE-YK01-STUB-HERE";
+      };
+      ajlow-yk02 = {
+        recipient = "age1yubikey1q2taedrm9p0dgrcz8q94k2yg95568aa2ar02s6429zex5yf5deuxc974yzg";
+        identity = "AGE-PLUGIN-YUBIKEY-PASTE-YK02-STUB-HERE";
+      };
+      ajlow-recovery = {
+        recipient = "age169ptetg5gzq64nsmrqqa8g9r558kjpklyw20mrc20uj4gxnjeqkq3qw7xl";
+        # No `identity`: recovery private key lives in Bitwarden only.
+      };
     };
     # Host identities, derived from each host's persistent SSH host key
     # via `ssh-to-age`.

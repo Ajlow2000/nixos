@@ -24,6 +24,7 @@ in
     ../modules/ssh-identity.nix
     ../modules/impermanence-home.nix
     ../modules/git-cloner.nix
+    ../modules/sops-identity.nix
   ];
 
   options.profiles.user.personal = {
@@ -49,6 +50,7 @@ in
     ssh-identity.enable = true;
     impermanence-home.enable = hostHasImpermanence;
     git-cloner.enable = true;
+    sops-identity.enable = true;
     git-cloner.repos = [
       {
         url = "git@github.com:ajlow2000/ajlow2000_nixos.git";

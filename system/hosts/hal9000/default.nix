@@ -89,9 +89,6 @@
     cosmic-ext-ctl
     wireguard-tools
     proton-vpn
-    sops
-    ssh-to-age
-    age
   ];
 
   systemd.tmpfiles.rules = [

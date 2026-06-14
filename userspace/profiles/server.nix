@@ -14,6 +14,7 @@ in
     ../modules/env.nix
     ../modules/ssh-identity.nix
     ../modules/git-cloner.nix
+    ../modules/sops-identity.nix
   ];
 
   options.profiles.user.server = {
@@ -30,6 +31,7 @@ in
 
     ssh-identity.enable = true;
     git-cloner.enable = true;
+    sops-identity.enable = true;
     git-cloner.repos = [
       # Server repos (e.g. deployment configs) go here.
     ];
