@@ -47,7 +47,10 @@ in
         ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = builtins.attrValues keys.personal;
+        hashedPasswordFile = lib.mkIf config.modules.sops.enable config.sops.secrets."ajlow_passwd".path;
       };
+
+      modules.sops.passwords.users = lib.mkIf config.modules.sops.enable [ "ajlow" ];
 
       # Home Manager integration
       home-manager = {
@@ -78,7 +81,10 @@ in
         ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = builtins.attrValues keys.sram;
+        hashedPasswordFile = lib.mkIf config.modules.sops.enable config.sops.secrets."alowry_passwd".path;
       };
+
+      modules.sops.passwords.users = lib.mkIf config.modules.sops.enable [ "alowry" ];
 
       # Home Manager integration
       home-manager = {

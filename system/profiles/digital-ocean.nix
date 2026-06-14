@@ -33,7 +33,10 @@ in
     virtualisation.digitalOcean.rebuildFromUserData = false;
 
     # Allow remote nh deploys from wheel users to push unsigned store paths
-    nix.settings.trusted-users = [ "root" "@wheel" ];
+    nix.settings.trusted-users = [
+      "root"
+      "@wheel"
+    ];
 
     # Define ajlow without home-manager dependency
     # (user-definitions.nix is coupled to HM; not used here)
@@ -43,7 +46,10 @@ in
       extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = builtins.attrValues keys.personal;
+      hashedPasswordFile = lib.mkIf config.modules.sops.enable config.sops.secrets."ajlow_passwd".path;
     };
+
+    modules.sops.passwords.users = lib.mkIf config.modules.sops.enable [ "ajlow" ];
 
     security.sudo.wheelNeedsPassword = false;
   };

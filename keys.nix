@@ -130,4 +130,23 @@
     # yubikey-01 = "sk-ssh-ed25519@openssh.com AAAA... alowry@yubikey-01";
     # yubikey-02 = "sk-ssh-ed25519@openssh.com AAAA... alowry@yubikey-02";
   };
+
+  # AGE IDENTITY STUBS FOR SOPS
+  # ---------------------------
+  # Stubs that tell age which YubiKey + PIV slot to use when decrypting sops
+  # files. These are NOT secret — they only reference the hardware. Without
+  # the physical YubiKey inserted, they cannot decrypt anything. Safe to
+  # commit and deploy to ~/.config/sops/age/keys.txt.
+  #
+  # Generate per YubiKey, with the key inserted:
+  #   age-plugin-yubikey --identity
+  #
+  # The bare AGE-PLUGIN-YUBIKEY-1... line is what goes below. Add one entry
+  # per YubiKey.
+  sops-age-identities = [
+    # YubiKey 1 (slot 1, name sops-admin-yubikey-01)
+    "AGE-PLUGIN-YUBIKEY-1RXUAQQVZE2AD5JQTXYDMW"
+    # YubiKey 2 (slot 1, name sops-admin-yubikey-02)
+    "AGE-PLUGIN-YUBIKEY-1JWADQQVZRNMJZSQ65LQSP"
+  ];
 }

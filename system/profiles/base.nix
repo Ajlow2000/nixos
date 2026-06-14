@@ -11,6 +11,7 @@ in
   imports = [
     ../modules/services/netbird-agent.nix
     ../modules/services/banner.nix
+    ../modules/sops.nix
   ];
 
   options.profiles.system.base = {
@@ -93,6 +94,7 @@ in
 
     networking.networkmanager.enable = true;
     services.openssh.enable = true;
+    services.pcscd.enable = true;
     services.avahi = {
       enable = true;
       nssmdns4 = true;

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  keys,
   osConfig ? null,
   ...
 }:
@@ -19,6 +20,7 @@ in
     ../modules/de.nix
     ../modules/minecraft.nix
     ../modules/easyeffects.nix
+    ../modules/sops.nix
   ];
 
   options.profiles.user.personal = {
@@ -26,6 +28,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    modules.sops.enable = true;
+    modules.sops.ageIdentities = keys.sops-age-identities;
+
     # Only set allowUnfree when running standalone (for non-NixOS systems)
     nixpkgs.config = lib.mkIf isStandalone {
       allowUnfreePredicate = _: true;

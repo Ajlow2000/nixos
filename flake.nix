@@ -68,6 +68,11 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # ---------------------------------------------------------------------------
@@ -120,6 +125,7 @@
               };
               modules = [
                 inputs.disko.nixosModules.disko
+                inputs.sops-nix.nixosModules.sops
                 (hostsDir + "/${name}")
               ];
             };
@@ -215,6 +221,12 @@
                 nixfmt
                 nh
                 nix-output-monitor
+                sops
+                age
+                age-plugin-yubikey
+                ssh-to-age
+                mkpasswd
+                yubikey-manager
               ])
               ++ [
                 home-manager.packages.${system}.default

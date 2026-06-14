@@ -1,0 +1,50 @@
+# sops-nix recipient registry.
+#
+# Two recipient classes:
+#   - admins:   YubiKey PIV identities + a Bitwarden-backed software backup.
+#               These can decrypt every secret in the repo (used for editing).
+#   - per-host: each host's SSH ed25519 host key, converted to age.
+#               That host can decrypt only its own files at activation time.
+#
+# When adding new hosts, populate &host_<host>, uncomment it in the relevant
+# creation_rules block, and re-key existing files:
+#     sops updatekeys secrets/common.yaml
+
+keys:
+  - &admin_yubikey_01 age1yubikey1qg5t2cm6ud9mpwmrnpxsg6gc8jmk8a4nnajztucy6wk4yvpwudjx5aptxg4
+  - &admin_yubikey_02 age1yubikey1q2puqsepwxlhrgs69glhk353tp4r2zjy8exk9ysd7zs66erhw5akj5d8yre
+  - &admin_backup     age169ptetg5gzq64nsmrqqa8g9r558kjpklyw20mrc20uj4gxnjeqkq3qw7xl
+
+  # Derived from each host's /etc/ssh/ssh_host_ed25519_key.pub via ssh-to-age.
+  # Fill in and uncomment as each host is enrolled.
+  #
+  # cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
+  #
+  - &host_hal9000       age1d9vzxup9plyvfutr0r0nzj4cfh2qryup9726u82d02uwvfcam54shhnqgw
+  # - &host_microvac   age1REPLACE_ME
+  # - &host_glados     age1REPLACE_ME
+  # - &host_do_prod_01 age1REPLACE_ME
+  # - &host_mindgame   age1REPLACE_ME
+  # - &host_multivac   age1REPLACE_ME
+  # - &host_eddie      age1REPLACE_ME
+  # - &host_marvin     age1REPLACE_ME
+
+creation_rules:
+  # After changing this rule: `sops updatekeys secrets/common.yaml`
+  - path_regex: secrets/common\.yaml$
+    key_groups:
+      - age:
+          - *admin_yubikey_01
+          - *admin_yubikey_02
+          - *admin_backup
+          - *host_hal9000
+          # - *host_microvac
+          # - *host_glados
+          # - *host_do_prod_01
+          # - *host_mindgame
+          # - *host_multivac
+          # - *host_eddie
+          # - *host_marvin
+
+  # Per-host secret files (optional, for future host-specific secrets like
+  # wireguard keys). Add a rule + path_regex here when needed.
