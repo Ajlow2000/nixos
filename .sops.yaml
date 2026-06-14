@@ -40,7 +40,7 @@ creation_rules:
           - *host_hal9000
           # - *host_microvac
           # - *host_glados
-          # - *host_do_prod_01
+          - *host_do_prod_01
           # - *host_mindgame
           # - *host_multivac
           # - *host_eddie
