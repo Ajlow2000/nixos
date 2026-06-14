@@ -172,6 +172,33 @@ sops updatekeys secrets/hosts/hal9000.yaml
 sops --decrypt secrets/hosts/hal9000.yaml
 ```
 
+## Rotating ajlow's SSH key on a host
+
+The private key lives in `secrets/hosts/<host>.yaml` under `ajlow_ssh_key`;
+the matching public key lives in `keys.nix` under `personal.<host>`. Both
+update in the same commit so deploys land them atomically.
+
+```sh
+# 1. Generate a fresh keypair locally (no passphrase)
+ssh-keygen -t ed25519 -C "ajlow@<host>" -f /tmp/k -N ""
+
+# 2. Paste the private key into the sops file under `ajlow_ssh_key: |`
+sops secrets/hosts/<host>.yaml
+
+# 3. Replace the public key in keys.nix under `personal.<host>`
+cat /tmp/k.pub          # copy this line
+$EDITOR keys.nix
+
+# 4. Wipe the tempfiles
+shred -u /tmp/k /tmp/k.pub
+
+# 5. Deploy (local host or remote)
+just os                 # or: just vps
+```
+
+After the deploy, `/home/ajlow/.ssh/id_ed25519` will contain the new private
+key with mode 0600.
+
 ## Adding a new host
 
 1. Enroll the host's age key: paste its `ssh-to-age` output into `.sops.yaml`

@@ -51,6 +51,7 @@ in
       };
 
       modules.sops.passwords.users = lib.mkIf config.modules.sops.enable [ "ajlow" ];
+      modules.sops.sshKeys.users = lib.mkIf config.modules.sops.enable [ "ajlow" ];
 
       # Home Manager integration
       home-manager = {

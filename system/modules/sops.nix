@@ -25,6 +25,16 @@ in
         when the corresponding user is enabled.
       '';
     };
+
+    sshKeys.users = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = ''
+        User accounts whose ed25519 SSH private key should be deployed from
+        the host's per-host sops file to ~/.ssh/id_ed25519. The corresponding
+        public key lives in keys.nix and is not managed here.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -33,7 +43,7 @@ in
     sops.defaultSopsFile = ../../secrets/common.yaml;
     sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-    # Secret keys follow the convention <account>_passwd.
+    # Secret keys follow the convention <account>_passwd / <account>_ssh_key.
     sops.secrets = lib.mkMerge (
       (lib.optional cfg.passwords.root.enable {
         "root_passwd" = {
@@ -46,7 +56,20 @@ in
           neededForUsers = true;
         };
       }) cfg.passwords.users)
+      ++ (map (u: {
+        "${u}_ssh_key" = {
+          path = "/home/${u}/.ssh/id_ed25519";
+          owner = u;
+          group = "users";
+          mode = "0600";
+          sopsFile = ../../secrets/hosts + "/${config.networking.hostName}.yaml";
+        };
+      }) cfg.sshKeys.users)
     );
+
+    # ~/.ssh must exist before sops writes the key into it.
+    systemd.tmpfiles.rules =
+      map (u: "d /home/${u}/.ssh 0700 ${u} users -") cfg.sshKeys.users;
 
     users.mutableUsers = false;
 
