@@ -135,7 +135,7 @@ in
           hyperfine
           nmap
           tokei
-          binwalk
+          # binwalk  # disabled: nixpkgs uefi-firmware-parser missing setuptools-scm build dep
           bandwhich
           atuin
           csvlens
