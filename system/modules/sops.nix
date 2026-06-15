@@ -68,8 +68,7 @@ in
     );
 
     # ~/.ssh must exist before sops writes the key into it.
-    systemd.tmpfiles.rules =
-      map (u: "d /home/${u}/.ssh 0700 ${u} users -") cfg.sshKeys.users;
+    systemd.tmpfiles.rules = map (u: "d /home/${u}/.ssh 0700 ${u} users -") cfg.sshKeys.users;
 
     users.mutableUsers = false;
 
