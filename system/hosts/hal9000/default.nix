@@ -20,6 +20,7 @@
     ../../modules/services/minecraft/1502adams.nix
     ../../modules/services/playit.nix
     ../../modules/services/git-server.nix
+    ../../modules/services/glance.nix
     ../../modules/user-definitions.nix
   ];
 
@@ -41,6 +42,7 @@
   modules.services.star-citizen.enable = true;
   modules.services.minecraft."1502adams".enable = true;
   modules.services.playit.enable = true;
+  modules.services.glance.enable = true;
 
   modules.services.git-server = {
     enable = true;

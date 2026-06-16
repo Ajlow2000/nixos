@@ -13,7 +13,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.${config.services.netbird.clients.default.service.name}.path = [ pkgs.shadow ]; # https://github.com/NixOS/nixpkgs/issues/505846
+    systemd.services.${config.services.netbird.clients.default.service.name} = {
+      path = [ pkgs.shadow ]; # https://github.com/NixOS/nixpkgs/issues/505846
+
+      # Don't restart netbird during `nixos-rebuild switch`. Remote deploys run
+      # over the mesh (wt0); restarting netbird mid-activation severs the SSH
+      # session nh/nixos-rebuild is using, aborting the switch before later
+      # services activate. Netbird picks up package/config changes on the next
+      # reboot or an explicit `systemctl restart`.
+      restartIfChanged = false;
+    };
 
     services.netbird = {
       enable = true; # for netbird service & CLI

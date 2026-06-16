@@ -3,11 +3,13 @@
   imports = [
     ../../profiles/digital-ocean.nix
     ../../modules/services/uptime-kuma.nix
+    ../../modules/services/glance.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
   profiles.system.digital-ocean.enable = true;
   modules.services.uptime-kuma.enable = true;
+  modules.services.glance.enable = true;
 
   networking.hostName = "do-prod-01";
 
