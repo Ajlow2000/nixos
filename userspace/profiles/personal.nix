@@ -21,6 +21,7 @@ in
     ../modules/minecraft.nix
     ../modules/easyeffects.nix
     ../modules/sops.nix
+    ../modules/eaw-mod-tool.nix
   ];
 
   options.profiles.user.personal = {
@@ -45,6 +46,12 @@ in
     de.enable = pkgs.stdenv.isLinux;
     easyeffects.enable = pkgs.stdenv.isLinux;
     minecraft.enable = true;
+
+    # Empire at War mod tool — only on hal9000 and microvac.
+    eawModTool.enable = lib.elem (if osConfig != null then osConfig.networking.hostName else "") [
+      "hal9000"
+      "microvac"
+    ];
 
     # Virt-manager dconf settings (Linux only)
     dconf.settings = lib.mkIf pkgs.stdenv.isLinux {
