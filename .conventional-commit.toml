@@ -1,6 +1,0 @@
-default_scopes = [
-    "flake",
-    "readme",
-    "nvim",
-    "pkgs",
-]
