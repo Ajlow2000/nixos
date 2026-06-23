@@ -23,23 +23,8 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/3fb2aabf-bc29-4699-9207-a3af6ac2cb66";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/AB84-B80D";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
-
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/1dd7b792-6103-49c0-9d07-8d88581e6f83"; }
-  ];
+  # fileSystems and swapDevices are provided by disko (see ./disko.nix), which
+  # mounts by /dev/disk/by-partlabel and is stable across reinstalls.
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
