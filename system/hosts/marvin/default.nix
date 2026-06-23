@@ -20,9 +20,9 @@
     ../../modules/user-definitions.nix
   ];
 
-  # Keep hardware.nix managing fileSystems until next reinstall.
-  # On reinstall: flip to true and remove fileSystems/swapDevices from hardware.nix.
-  disko.enableConfig = false;
+  # disko owns the filesystem layout (see ./disko.nix); fileSystems/swapDevices
+  # were removed from hardware.nix so they come from disko's by-partlabel mounts.
+  disko.enableConfig = true;
 
   profiles.system.laptop.enable = true;
 
