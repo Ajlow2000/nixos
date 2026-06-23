@@ -44,6 +44,8 @@ let
   };
 in
 {
+  imports = [ ./git-clone.nix ];
+
   options = {
     pde.enable = lib.mkOption {
       type = lib.types.bool;
@@ -52,6 +54,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Auto-clone repos into ~/repos/personal (clone-only; add entries below).
+    modules.git-clone = {
+      enable = true;
+      repos = {
+        ajlow2000_nixos.url = "git@github.com:Ajlow2000/nixos.git";
+      };
+    };
+
     programs = {
       direnv = {
         enable = true;
