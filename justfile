@@ -84,11 +84,10 @@ install hostname ip:
     # --- 4. shred runs automatically via the EXIT trap ---
     echo "==> done"
 
-# Build locally and deploy to the do-prod-01 droplet
-vps:
+remote hostname:
     nh os switch \
-        --hostname do-prod-01 \
-        --target-host ajlow@do-prod-01 \
+        --hostname {{hostname}} \
+        --target-host ajlow@{{hostname}} \
         --build-host localhost \
         --impure \
         .

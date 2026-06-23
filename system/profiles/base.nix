@@ -29,6 +29,11 @@ in
       "flakes"
     ];
     nix.settings.auto-optimise-store = true;
+    # Allow remote nh deploys from wheel users to push unsigned store paths
+    nix.settings.trusted-users = [
+      "root"
+      "@wheel"
+    ];
     nix.gc = {
       automatic = true;
       dates = "weekly";
