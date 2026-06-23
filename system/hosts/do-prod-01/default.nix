@@ -8,6 +8,7 @@
   ];
 
   profiles.system.digital-ocean.enable = true;
+  modules.sops.enable = true;
   modules.services.uptime-kuma.enable = true;
   modules.services.glance.enable = true;
 

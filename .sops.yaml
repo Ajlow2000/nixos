@@ -21,10 +21,11 @@ keys:
   # cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
   #
   - &host_hal9000       age1d9vzxup9plyvfutr0r0nzj4cfh2qryup9726u82d02uwvfcam54shhnqgw
-  # - &host_microvac   age1REPLACE_ME
-  # - &host_glados     age1REPLACE_ME
+  - &host_microvac      age1k6z9r6aevvzfzx2cq8fgzxjp98szv0c2lnzkufsrrnayvwul95qqaj2usp
   - &host_do_prod_01    age1awzyuh2hyy60znaz7rte48leqs0t60m5lmvldd7vhewh8csh5f7sa22awc
-  # - &host_mindgame   age1REPLACE_ME
+  - &host_mindgame      age1rfs04gzdyjhk6dkx3d7yp2fm0m8j262jtwz72mwwgqumjx4ug3dqdm2fe7
+
+  # - &host_glados     age1REPLACE_ME
   # - &host_multivac   age1REPLACE_ME
   # - &host_eddie      age1REPLACE_ME
   # - &host_marvin     age1REPLACE_ME
@@ -41,6 +42,14 @@ creation_rules:
           - *admin_backup
           - *host_hal9000
 
+  - path_regex: secrets/hosts/microvac\.yaml$
+    key_groups:
+      - age:
+          - *admin_yubikey_01
+          - *admin_yubikey_02
+          - *admin_backup
+          - *host_microvac
+
   - path_regex: secrets/hosts/do-prod-01\.yaml$
     key_groups:
       - age:
@@ -50,6 +59,14 @@ creation_rules:
           - *host_do_prod_01
           # - *host_hal9000 # allow remote build
 
+  - path_regex: secrets/hosts/mindgame\.yaml$
+    key_groups:
+      - age:
+          - *admin_yubikey_01
+          - *admin_yubikey_02
+          - *admin_backup
+          - *host_mindgame
+
   # Shared secrets (user login passwords). Every enrolled host needs to
   # decrypt this. After changing recipients: `sops updatekeys secrets/common.yaml`
   - path_regex: secrets/common\.yaml$
@@ -58,11 +75,12 @@ creation_rules:
           - *admin_yubikey_01
           - *admin_yubikey_02
           - *admin_backup
+
           - *host_hal9000
-          # - *host_microvac
-          # - *host_glados
+          - *host_microvac
           - *host_do_prod_01
-          # - *host_mindgame
+          - *host_mindgame
+
           # - *host_multivac
           # - *host_eddie
           # - *host_marvin

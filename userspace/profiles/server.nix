@@ -12,6 +12,7 @@ in
   imports = [
     ../modules/pde.nix
     ../modules/env.nix
+    ../modules/ssh.nix
   ];
 
   options.profiles.user.server = {

@@ -22,6 +22,68 @@ update-toolbox:
 os:
     nh os switch --impure .
 
+# Stages the host key (= root's sops key) from secrets/hosts/<hostname>.yaml into a
+# /tmp/<pid> dir, seeds it with --extra-files, and ALWAYS shreds it afterward.
+# Preconditions: host is install-ready (modules.sops.enable = true, &host_<hostname>
+# enrolled in .sops.yaml, and `sops updatekeys secrets/common.yaml` run). YubiKey
+# required for the sops decrypt.
+#
+# DESTRUCTIVE first-time nixos-anywhere install (reformats target). Usage: just install <hostname> <ip>
+install hostname ip:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    secret="secrets/hosts/{{hostname}}.yaml"
+
+    # --- preflight ---
+    for t in sops ssh-to-age ssh-keygen nix ping shred awk; do
+      command -v "$t" >/dev/null 2>&1 || { echo "missing tool: $t (run inside 'nix develop')" >&2; exit 1; }
+    done
+    [[ -f "$secret" ]] || { echo "no such secret file: $secret" >&2; exit 1; }
+
+    # --- 1. reachability ---
+    echo "==> pinging {{ip}} ..."
+    ping -c1 -W3 {{ip}} >/dev/null 2>&1 || { echo "{{ip}} is not reachable" >&2; exit 1; }
+    echo "    reachable"
+
+    # --- staging dir + guaranteed shred (set BEFORE writing any key material) ---
+    stage="/tmp/$$"
+    mkdir -p "$stage/etc/ssh"
+    cleanup() {
+      if [[ -d "$stage" ]]; then
+        find "$stage" -type f -exec shred -vzu {} + 2>/dev/null || true
+        rm -rf "$stage"
+      fi
+    }
+    trap cleanup EXIT INT TERM
+
+    # --- 2. stage host key from sops (root.ssh_private_key) ---
+    echo "==> staging host key from $secret ..."
+    sops decrypt --extract '["root"]["ssh_private_key"]' "$secret" \
+      > "$stage/etc/ssh/ssh_host_ed25519_key"
+    chmod 600 "$stage/etc/ssh/ssh_host_ed25519_key"
+    ssh-keygen -y -f "$stage/etc/ssh/ssh_host_ed25519_key" \
+      > "$stage/etc/ssh/ssh_host_ed25519_key.pub"
+
+    # --- verify the staged key matches the host's sops recipient (avoid lockout) ---
+    alias_name="host_$(echo {{hostname}} | tr '-' '_')"
+    want="$(awk -v a="&$alias_name" '$1=="-" && $2==a {print $3; exit}' .sops.yaml)"
+    got="$(ssh-to-age -i "$stage/etc/ssh/ssh_host_ed25519_key.pub")"
+    [[ -n "$want" ]] || { echo "no &$alias_name recipient in .sops.yaml" >&2; exit 1; }
+    [[ "$got" == "$want" ]] || { echo "recipient mismatch: staged=$got .sops.yaml=$want" >&2; exit 1; }
+    echo "    recipient ok ($got)"
+
+    # --- 3. install ---
+    echo "==> installing {{hostname}} -> root@{{ip}} (reformats disk) ..."
+    nix run github:nix-community/nixos-anywhere -- \
+      --flake ".#{{hostname}}" \
+      --extra-files "$stage" \
+      --ssh-option StrictHostKeyChecking=accept-new \
+      root@{{ip}}
+
+    # --- 4. shred runs automatically via the EXIT trap ---
+    echo "==> done"
+
 # Build locally and deploy to the do-prod-01 droplet
 vps:
     nh os switch \

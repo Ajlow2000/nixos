@@ -17,9 +17,12 @@
     ../../modules/user-definitions.nix
   ];
 
-  # Keep hardware.nix managing fileSystems until next reinstall.
-  # On reinstall: flip to true and remove fileSystems/swapDevices from hardware.nix.
-  disko.enableConfig = false;
+  # disko owns fileSystems/swapDevices (btrfs layout in ./disko.nix); they were
+  # removed from hardware.nix accordingly.
+  # WARNING: this config now matches the post-reinstall btrfs disk, NOT the live
+  # ext4 system. Do not `nh os switch`/reboot microvac into a new generation
+  # before the nixos-anywhere reinstall (see ./readme.md) or it will be unbootable.
+  disko.enableConfig = true;
 
   profiles.system.laptop.enable = true;
 
@@ -29,6 +32,8 @@
 
   modules.services.gaming.enable = true;
   modules.services.ollama.enable = true;
+
+  modules.sops.enable = true;
 
   user-definitions.ajlow.enable = true;
 

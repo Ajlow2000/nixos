@@ -45,11 +45,11 @@ in
       description = "Alec Lowry";
       extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = builtins.attrValues keys.personal;
-      hashedPasswordFile = lib.mkIf config.modules.sops.enable config.sops.secrets."ajlow_passwd".path;
+      openssh.authorizedKeys.keys = [ keys.ajlow ];
+      hashedPasswordFile = lib.mkIf config.modules.sops.enable config.sops.secrets."ajlow-passwd".path;
     };
 
-    modules.sops.passwords.users = lib.mkIf config.modules.sops.enable [ "ajlow" ];
+    modules.sops.users = lib.mkIf config.modules.sops.enable [ "ajlow" ];
 
     security.sudo.wheelNeedsPassword = false;
   };

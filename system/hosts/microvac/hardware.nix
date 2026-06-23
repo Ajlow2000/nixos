@@ -25,21 +25,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/87f9c339-95b9-450f-9495-c65aa2e68ef4";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/48BE-04BF";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
-  };
-
-  swapDevices = [ ];
+  # fileSystems and swapDevices are provided by disko (./disko.nix, btrfs layout).
 
   networking.useDHCP = lib.mkDefault true;
 

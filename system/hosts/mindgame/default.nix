@@ -30,6 +30,8 @@
   modules.services.gaming.enable = true;
   modules.services.ollama.enable = true;
 
+  modules.sops.enable = true;
+
   user-definitions.ajlow.enable = true;
 
   modules.services.virtualization.users = [ "ajlow" ];

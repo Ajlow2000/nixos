@@ -15,6 +15,7 @@ in
   imports = [
     ../modules/pde.nix
     ../modules/env.nix
+    ../modules/ssh.nix
     ../modules/gui_utilities.nix
     ../modules/personal.nix
     ../modules/de.nix

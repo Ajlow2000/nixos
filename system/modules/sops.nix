@@ -5,6 +5,7 @@
 }:
 let
   cfg = config.modules.sops;
+  hostFile = ../../secrets/hosts + "/${config.networking.hostName}.yaml";
 in
 {
   options.modules.sops = {
@@ -13,67 +14,74 @@ in
     passwords.root.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Manage the root password via sops (requires modules.sops.enable).";
-    };
-
-    passwords.users = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
       description = ''
-        User accounts whose login password should be sops-managed on this host.
-        Callers (user-definitions, digital-ocean profile) append to this list
-        when the corresponding user is enabled.
+        Manage root via sops on this host: login password (root.passwd) and
+        SSH private key (root.ssh_private_key), both from the per-host file
+        secrets/hosts/<hostName>.yaml. Requires modules.sops.enable.
       '';
     };
 
-    sshKeys.users = lib.mkOption {
+    users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
       description = ''
-        User accounts whose ed25519 SSH private key should be deployed from
-        the host's per-host sops file to ~/.ssh/id_ed25519. The corresponding
-        public key lives in keys.nix and is not managed here.
+        User accounts whose login password and SSH private key are sops-managed
+        from the shared secrets/common.yaml, under the nested keys
+        <user>.passwd and <user>.ssh_private_key. Callers (user-definitions,
+        digital-ocean profile) append to this list when the user is enabled.
       '';
     };
   };
 
   config = lib.mkIf cfg.enable {
-    # User passwords are shared across hosts and live in common.yaml.
-    # Root password is per-host; the secret entry below overrides sopsFile.
+    # User passwords/keys are shared across hosts and live in common.yaml.
+    # Root password/key are per-host (the entries below override sopsFile).
     sops.defaultSopsFile = ../../secrets/common.yaml;
     sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-    # Secret keys follow the convention <account>_passwd / <account>_ssh_key.
+    # Nested YAML keys are addressed with "/" (e.g. ajlow/passwd). The secret
+    # name is the flat <account>-{passwd,ssh-key}; `key` points at the nested
+    # field, `path` controls where the materialized secret lands.
     sops.secrets = lib.mkMerge (
       (lib.optional cfg.passwords.root.enable {
-        "root_passwd" = {
+        "root-passwd" = {
+          key = "root/passwd";
           neededForUsers = true;
-          sopsFile = ../../secrets/hosts + "/${config.networking.hostName}.yaml";
+          sopsFile = hostFile;
+        };
+        "root-ssh-key" = {
+          key = "root/ssh_private_key";
+          sopsFile = hostFile;
+          path = "/root/.ssh/id_ed25519";
+          owner = "root";
+          group = "root";
+          mode = "0600";
         };
       })
       ++ (map (u: {
-        "${u}_passwd" = {
+        "${u}-passwd" = {
+          key = "${u}/passwd";
           neededForUsers = true;
         };
-      }) cfg.passwords.users)
-      ++ (map (u: {
-        "${u}_ssh_key" = {
+        "${u}-ssh-key" = {
+          key = "${u}/ssh_private_key";
           path = "/home/${u}/.ssh/id_ed25519";
           owner = u;
           group = "users";
           mode = "0600";
-          sopsFile = ../../secrets/hosts + "/${config.networking.hostName}.yaml";
         };
-      }) cfg.sshKeys.users)
+      }) cfg.users)
     );
 
     # ~/.ssh must exist before sops writes the key into it.
-    systemd.tmpfiles.rules = map (u: "d /home/${u}/.ssh 0700 ${u} users -") cfg.sshKeys.users;
+    systemd.tmpfiles.rules =
+      (lib.optional cfg.passwords.root.enable "d /root/.ssh 0700 root root -")
+      ++ map (u: "d /home/${u}/.ssh 0700 ${u} users -") cfg.users;
 
     users.mutableUsers = false;
 
     users.users.root.hashedPasswordFile =
       lib.mkIf cfg.passwords.root.enable
-        config.sops.secrets."root_passwd".path;
+        config.sops.secrets."root-passwd".path;
   };
 }

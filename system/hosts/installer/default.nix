@@ -26,7 +26,7 @@
     enable = true;
     settings.PermitRootLogin = "yes";
   };
-  users.users.root.openssh.authorizedKeys.keys = builtins.attrValues keys.personal;
+  users.users.root.openssh.authorizedKeys.keys = [ keys.ajlow ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "25.05";

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  keys,
   ...
 }:
 {
@@ -46,13 +47,9 @@
 
   modules.services.git-server = {
     enable = true;
-    adminPubkeys =
-      let
-        keys = (import ../../../keys.nix).personal;
-      in
-      {
-        inherit (keys) microvac hal9000;
-      };
+    adminPubkeys = {
+      ajlow = keys.ajlow;
+    };
   };
 
   modules.sops.enable = true;
