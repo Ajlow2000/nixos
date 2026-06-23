@@ -15,6 +15,17 @@ _ajlow_profile := if hostname == "hal9000"  { "personal" } else \
 fmt:
     find . -name '*.nix' -exec nixfmt {} +
 
+# Re-encrypt every secrets/*.yaml to its current .sops.yaml recipients.
+# Run after editing .sops.yaml (e.g. enrolling a new &host_<name> key).
+# YubiKey required for the decrypt half of each updatekeys.
+sops:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    find secrets -type f -name '*.yaml' -print0 | sort -z | while IFS= read -r -d '' f; do
+      echo "==> sops updatekeys $f"
+      sops updatekeys -y "$f"
+    done
+
 update-toolbox:
     nix flake lock --update-input toolbox
 

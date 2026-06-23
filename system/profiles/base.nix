@@ -22,6 +22,11 @@ in
     modules.services.netbird-agent.enable = true;
     modules.services.banner.enable = true;
 
+    # sops-managed root password/key (and per-user secrets) on every host that
+    # runs the base profile. mkDefault so a host can opt out with `= false`
+    # (e.g. before it has a secrets file / sops recipient entry).
+    modules.sops.enable = lib.mkDefault true;
+
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
     nix.settings.experimental-features = [

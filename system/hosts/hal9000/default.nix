@@ -52,8 +52,6 @@
     };
   };
 
-  modules.sops.enable = true;
-
   user-definitions.ajlow.enable = true;
 
   modules.services.virtualization.users = [ "ajlow" ];
