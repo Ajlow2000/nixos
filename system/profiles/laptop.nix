@@ -26,6 +26,13 @@ in
     hardware.bluetooth.powerOnBoot = true;
     services.blueman.enable = true;
 
+    # Keep the Bluetooth USB controller awake. With autosuspend (the default)
+    # the controller dozes between events and the wake-up latency shows up as
+    # the cursor skipping/stuttering on BT mice.
+    boot.extraModprobeConfig = ''
+      options btusb enable_autosuspend=n
+    '';
+
     systemd.services.bluetooth-rfkill-unblock = {
       description = "Unblock Bluetooth rfkill soft block";
       before = [ "bluetooth.service" ];
