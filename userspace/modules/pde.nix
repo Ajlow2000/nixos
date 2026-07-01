@@ -125,7 +125,6 @@ in
           eza
           tealdeer
           gh-dash
-          realvnc-vnc-viewer
 
           openssh
           lighttpd
