@@ -22,6 +22,7 @@ in
       tone
       ffmpeg_6
       vlc
+      ardour
       asunder
       newsboat
       obs-studio
