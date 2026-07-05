@@ -79,13 +79,12 @@ let
   sshCloneUrl = "ssh://git@${cfg.cloneFqdn}:${toString cfg.sshPort}/$CGIT_REPO_URL";
   httpCloneUrl = port: "http://${cfg.cloneFqdn}:${toString port}/$CGIT_REPO_URL";
 
-  # cgit renders each clone URL as <a rel='vcs-git' href='…'>; label only the
-  # HTTP one as read-only (HTTP clone is anonymous read-only; SSH is the RW path).
-  cloneNote = pkgs.writeText "cgit-head.html" ''
-    <style>
-      a[rel='vcs-git'][href^='http://']::after { content: ' (read only)'; color: #888; }
-    </style>
-  '';
+  # Theming library: the terminus palette (source of truth) feeds a CSS
+  # generator; the result (chrome theme + read-only clone annotation) is
+  # injected into every cgit page via head-include.
+  palette = import ./palette.nix;
+  themeCss = import ./theme.nix palette;
+  cgitHead = pkgs.writeText "cgit-head.html" "<style>\n${themeCss}</style>\n";
 
   commonCgitSettings = {
     enable-git-config = true; # read cgit.*/gitweb.* from each repo's git config
@@ -93,7 +92,8 @@ let
     section-from-path = 1;
     snapshots = "tar.gz tar.bz2 zip";
     enable-http-clone = true;
-    head-include = "${cloneNote}";
+    logo = "/logo.svg"; # served by the nginx location added to each vhost below
+    head-include = "${cgitHead}";
     readme = [
       ":README.md"
       ":readme.md"
@@ -280,19 +280,26 @@ in
       };
     };
 
-    # cgit creates services.nginx.virtualHosts.{public,private}; pin their ports.
-    services.nginx.virtualHosts.public.listen = lib.mkForce [
-      {
-        addr = "0.0.0.0";
-        port = cfg.publicPort;
-      }
-    ];
-    services.nginx.virtualHosts.private.listen = lib.mkForce [
-      {
-        addr = "0.0.0.0";
-        port = cfg.privatePort;
-      }
-    ];
+    # cgit creates services.nginx.virtualHosts.{public,private}; pin their ports
+    # and serve the custom header logo (referenced by cgit's logo= setting).
+    services.nginx.virtualHosts.public = {
+      listen = lib.mkForce [
+        {
+          addr = "0.0.0.0";
+          port = cfg.publicPort;
+        }
+      ];
+      locations."= /logo.svg".alias = ./logo.svg;
+    };
+    services.nginx.virtualHosts.private = {
+      listen = lib.mkForce [
+        {
+          addr = "0.0.0.0";
+          port = cfg.privatePort;
+        }
+      ];
+      locations."= /logo.svg".alias = ./logo.svg;
+    };
 
     # sshd also listens on sshPort; wt0:22 stays Netbird's (see netbird-agent.nix).
     services.openssh.ports = [

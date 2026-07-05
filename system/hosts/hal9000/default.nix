@@ -20,7 +20,7 @@
             ../../modules/services/star-citizen.nix
             ../../modules/services/minecraft/1502adams.nix
             ../../modules/services/playit.nix
-            ../../modules/services/git-server.nix
+            ../../modules/services/git-server
             ../../modules/services/glance.nix
             ../../modules/user-definitions.nix
     ];
