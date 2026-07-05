@@ -61,12 +61,51 @@ palette:
     border: solid 1px ${palette.border};
   }
 
-  /* keep code/diff readable (light) until the dark code/diff pass */
+  /* blob/source view */
   div#cgit div#blob,
   div#cgit table.blob,
-  div#cgit table.blob pre,
-  div#cgit table.diff,
-  div#cgit table.diff td { background: #fff; color: #333; }
+  div#cgit table.blob pre { background: ${palette.surface}; color: ${palette.syntax.fg}; }
+  div#cgit table.blob td.linenumbers,
+  div#cgit table.blob td.linenumbers a { color: ${palette.textSubtle}; }
+  div#cgit table.blob td.linenumbers a:hover { color: ${palette.accent}; }
+
+  /* syntax tokens (Pygments classes). Scoped to .highlight so it themes both
+     blob views and README fenced code. Colours from palette.syntax. */
+  div#cgit .highlight { color: ${palette.syntax.fg}; }
+  div#cgit .highlight .c, div#cgit .highlight .c1, div#cgit .highlight .cm,
+  div#cgit .highlight .cs, div#cgit .highlight .cp { color: ${palette.syntax.comment}; font-style: italic; }
+  div#cgit .highlight .k, div#cgit .highlight .kd, div#cgit .highlight .kn,
+  div#cgit .highlight .kp, div#cgit .highlight .kr { color: ${palette.syntax.keyword}; }
+  div#cgit .highlight .kt { color: ${palette.syntax.type}; }
+  div#cgit .highlight .s, div#cgit .highlight .s1, div#cgit .highlight .s2,
+  div#cgit .highlight .sb, div#cgit .highlight .sc, div#cgit .highlight .sh,
+  div#cgit .highlight .si, div#cgit .highlight .sx, div#cgit .highlight .sr,
+  div#cgit .highlight .ss, div#cgit .highlight .sd { color: ${palette.syntax.string}; }
+  div#cgit .highlight .se { color: ${palette.syntax.escape}; }
+  div#cgit .highlight .nf, div#cgit .highlight .fm,
+  div#cgit .highlight .nb, div#cgit .highlight .bp { color: ${palette.syntax.func}; }
+  div#cgit .highlight .nc, div#cgit .highlight .nn, div#cgit .highlight .no { color: ${palette.syntax.type}; }
+  div#cgit .highlight .nt { color: ${palette.syntax.tag}; }
+  div#cgit .highlight .na { color: ${palette.syntax.attr}; }
+  div#cgit .highlight .nv, div#cgit .highlight .vc,
+  div#cgit .highlight .vg, div#cgit .highlight .vi { color: ${palette.syntax.variable}; }
+  div#cgit .highlight .m, div#cgit .highlight .mi, div#cgit .highlight .mf,
+  div#cgit .highlight .mh, div#cgit .highlight .mo { color: ${palette.syntax.number}; }
+  div#cgit .highlight .o, div#cgit .highlight .ow, div#cgit .highlight .p { color: ${palette.syntax.punctuation}; }
+
+  /* diffs */
+  div#cgit table.diff td div.head { color: ${palette.textMuted}; }
+  div#cgit table.diff td div.hunk { color: ${palette.accent}; }
+  div#cgit table.diff td div.add { color: ${palette.diffAddFg}; background: ${palette.diffAddBg}; }
+  div#cgit table.diff td div.del { color: ${palette.diffDelFg}; background: ${palette.diffDelBg}; }
+  div#cgit table.diffstat { background: ${palette.surface}; border: solid 1px ${palette.border}; }
+  div#cgit table.diffstat td.add a { color: ${palette.diffAddFg}; }
+  div#cgit table.diffstat td.del a { color: ${palette.diffDelFg}; }
+  div#cgit table.diffstat td.upd a { color: ${palette.accent}; }
+  div#cgit table.diffstat td.graph td.add { background-color: ${palette.diffAddFg}; }
+  div#cgit table.diffstat td.graph td.rem { background-color: ${palette.diffDelFg}; }
+  div#cgit span.insertions { color: ${palette.diffAddFg}; }
+  div#cgit span.deletions { color: ${palette.diffDelFg}; }
 
   /* rendered README (About tab). No pygments stylesheet is loaded, so fenced
      code renders monochrome — safe to style dark. */

@@ -26,4 +26,28 @@ rec {
   textSubtle = sage;
   accent = slateBright;
   accentSubtle = slate;
+
+  # syntax highlighting: terminus "lackluster" dark colours, but tuned for the
+  # surface-green code background (its darkest tokens are lifted so they read
+  # against #3A4A35 instead of the near-black they were designed for).
+  syntax = {
+    fg = linen; # default text (lackluster #DDDDDD)
+    comment = "#8A9487"; # lifted from #3A3A3A
+    keyword = "#B3BBAF"; # lifted from #666666
+    string = slateBright; # lackluster slate #708090, lifted toward accent
+    escape = "#9FC29F"; # lackluster #789978, lifted
+    func = "#DEEEED"; # kept
+    type = "#C3C9BE"; # lackluster #AAAAAA, lifted
+    number = "#C3C9BE"; # lackluster #AAAAAA, lifted
+    tag = "#AEB6AA"; # lifted from #555555
+    attr = "#AEB6AA"; # lifted from #444444
+    variable = "#D6D6D6"; # lackluster #CCCCCC
+    punctuation = "#A6ADA0"; # lifted from #7A7A7A
+  };
+
+  # diffs (palette has no red/green pair, so introduce a tuned one)
+  diffAddFg = "#A9D492";
+  diffAddBg = "#2B3A24";
+  diffDelFg = "#D79C9C";
+  diffDelBg = "#3B2626";
 }

@@ -86,6 +86,34 @@ let
   themeCss = import ./theme.nix palette;
   cgitHead = pkgs.writeText "cgit-head.html" "<style>\n${themeCss}</style>\n";
 
+  # Language-aware syntax highlighting for blob views. Unlike the packaged
+  # filter (which hardcodes the light 'pastie' style and injects its own CSS),
+  # this emits token markup only — the .highlight token colours come from the
+  # theme (theme.nix), the single source of truth, and cover README code too.
+  highlightFilter = pkgs.writers.writePython3 "cgit-highlight" {
+    libraries = [ pkgs.python3Packages.pygments ];
+    flakeIgnore = [
+      "E501"
+      "E128"
+    ];
+  } ''
+    import sys
+    from pygments import highlight
+    from pygments.util import ClassNotFound
+    from pygments.lexers import TextLexer, guess_lexer, guess_lexer_for_filename
+    from pygments.formatters import HtmlFormatter
+
+    data = sys.stdin.read()
+    filename = sys.argv[1] if len(sys.argv) > 1 else ""
+    try:
+        lexer = guess_lexer_for_filename(filename, data)
+    except ClassNotFound:
+        lexer = guess_lexer(data) if data[0:2] == "#!" else TextLexer()
+    except TypeError:
+        lexer = TextLexer()
+    sys.stdout.write(highlight(data, lexer, HtmlFormatter(nobackground=True)))
+  '';
+
   commonCgitSettings = {
     enable-git-config = true; # read cgit.*/gitweb.* from each repo's git config
     remove-suffix = true; # strip the .git suffix in the UI
@@ -97,6 +125,8 @@ let
     # Render markdown READMEs on the About tab. The nixpkgs filter is
     # self-contained (bundles python-markdown + pygments).
     about-filter = "${pkgs.cgit}/lib/cgit/filters/about-formatting.sh";
+    # Language-aware syntax highlighting in blob views (see highlightFilter).
+    source-filter = "${highlightFilter}";
     readme = [
       ":README.md"
       ":readme.md"
