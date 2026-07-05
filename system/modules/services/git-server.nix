@@ -73,15 +73,27 @@ let
     lib.concatMapStringsSep "\n" (n: "${n}.git") publicRepoNames + "\n"
   );
 
+  # Clone URLs shown in the "Clone" box. cgit expands $CGIT_REPO_URL to the
+  # repo's path (the name, since remove-suffix is on). The HTTP port is
+  # per-instance, so clone-url is set on each instance rather than in common.
+  sshCloneUrl = "ssh://git@${cfg.cloneFqdn}:${toString cfg.sshPort}/$CGIT_REPO_URL";
+  httpCloneUrl = port: "http://${cfg.cloneFqdn}:${toString port}/$CGIT_REPO_URL";
+
+  # cgit renders each clone URL as <a rel='vcs-git' href='…'>; label only the
+  # HTTP one as read-only (HTTP clone is anonymous read-only; SSH is the RW path).
+  cloneNote = pkgs.writeText "cgit-head.html" ''
+    <style>
+      a[rel='vcs-git'][href^='http://']::after { content: ' (read only)'; color: #888; }
+    </style>
+  '';
+
   commonCgitSettings = {
     enable-git-config = true; # read cgit.*/gitweb.* from each repo's git config
     remove-suffix = true; # strip the .git suffix in the UI
     section-from-path = 1;
     snapshots = "tar.gz tar.bz2 zip";
     enable-http-clone = true;
-    # SSH clone URL shown in the "Clone" box. cgit expands $CGIT_REPO_URL to the
-    # repo's path (the name, since remove-suffix is on).
-    clone-url = "ssh://git@${cfg.cloneFqdn}:${toString cfg.sshPort}/$CGIT_REPO_URL";
+    head-include = "${cloneNote}";
     readme = [
       ":README.md"
       ":readme.md"
@@ -250,6 +262,7 @@ in
         settings = commonCgitSettings // {
           root-title = "Repositories (private)";
           root-desc = "All repositories";
+          clone-url = "${sshCloneUrl} ${httpCloneUrl cfg.privatePort}";
         };
       };
       public = {
@@ -262,6 +275,7 @@ in
           root-title = "Repositories";
           root-desc = "Public repositories";
           project-list = "${publicProjectList}";
+          clone-url = "${sshCloneUrl} ${httpCloneUrl cfg.publicPort}";
         };
       };
     };
