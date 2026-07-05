@@ -1,78 +1,95 @@
 {
-  pkgs,
-  lib,
-  inputs,
-  keys,
-  ...
+    pkgs,
+        lib,
+        inputs,
+        keys,
+        ...
 }:
 {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-    inputs.nix-citizen.nixosModules.StarCitizen
-    ./hardware.nix
-    ./disko.nix
-    ../../profiles/laptop.nix
-    ../../modules/desktop/cosmic.nix
-    ../../modules/desktop/display-manager.nix
-    ../../modules/services/gaming.nix
-    ../../modules/services/game-streaming.nix
-    ../../modules/services/ollama.nix
-    ../../modules/services/star-citizen.nix
-    ../../modules/services/minecraft/1502adams.nix
-    ../../modules/services/playit.nix
-    ../../modules/services/git-server.nix
-    ../../modules/services/glance.nix
-    ../../modules/user-definitions.nix
-  ];
+    imports = [
+        inputs.home-manager.nixosModules.home-manager
+            inputs.nix-citizen.nixosModules.StarCitizen
+            ./hardware.nix
+            ./disko.nix
+            ../../profiles/laptop.nix
+            ../../modules/desktop/cosmic.nix
+            ../../modules/desktop/display-manager.nix
+            ../../modules/services/gaming.nix
+            ../../modules/services/game-streaming.nix
+            ../../modules/services/ollama.nix
+            ../../modules/services/star-citizen.nix
+            ../../modules/services/minecraft/1502adams.nix
+            ../../modules/services/playit.nix
+            ../../modules/services/git-server.nix
+            ../../modules/services/glance.nix
+            ../../modules/user-definitions.nix
+    ];
 
-  # Keep hardware.nix managing fileSystems until next reinstall.
-  # On reinstall: flip to true and remove fileSystems/swapDevices from hardware.nix.
-  # Note: ssd1/ssd2 entries in hardware.nix must stay until they are added to disko.nix.
-  disko.enableConfig = false;
+# Keep hardware.nix managing fileSystems until next reinstall.
+# On reinstall: flip to true and remove fileSystems/swapDevices from hardware.nix.
+# Note: ssd1/ssd2 entries in hardware.nix must stay until they are added to disko.nix.
+    disko.enableConfig = false;
 
-  profiles.system.laptop.enable = true;
+    profiles.system.laptop.enable = true;
 
-  modules.desktop.cosmic.enable = true;
+    modules.desktop.cosmic.enable = true;
 
-  modules.desktop.display-manager.enable = lib.mkForce false;
+    modules.desktop.display-manager.enable = lib.mkForce false;
 
-  modules.services.gaming.enable = true;
-  modules.services.game-streaming.server.enable = true;
-  modules.services.game-streaming.client.enable = true;
-  modules.services.ollama.enable = true;
-  modules.services.star-citizen.enable = true;
-  modules.services.minecraft."1502adams".enable = true;
-  modules.services.playit.enable = true;
-  modules.services.glance.enable = true;
+    modules.services.gaming.enable = true;
+    modules.services.game-streaming.server.enable = true;
+    modules.services.game-streaming.client.enable = true;
+    modules.services.ollama.enable = true;
+    modules.services.star-citizen.enable = true;
+    modules.services.minecraft."1502adams".enable = true;
+    modules.services.playit.enable = true;
+    modules.services.glance.enable = true;
 
-  modules.services.git-server = {
-    enable = true;
-    adminPubkeys = {
-      ajlow = keys.ajlow;
+    modules.services.git-server = {
+        enable = true;
+        adminPubkeys = {
+            ajlow = keys.ajlow;
+        };
+        repos = {
+            playground = {
+                description = "A collection of small toys in various languages";
+                owner = "ajlow";
+                public = true;
+            };
+            notes = {
+                description = "Plaintext notes";
+                owner = "ajlow";
+                public = false;
+            };
+            records = {
+                description = "Personal Records";
+                owner = "ajlow";
+                public = false;
+            };
+        };
     };
-  };
 
-  user-definitions.ajlow.enable = true;
+    user-definitions.ajlow.enable = true;
 
-  modules.services.virtualization.users = [ "ajlow" ];
+    modules.services.virtualization.users = [ "ajlow" ];
 
-  environment.systemPackages = with pkgs; [
-    cosmic-bg
-    cosmic-ext-ctl
-    wireguard-tools
-    proton-vpn
-  ];
+    environment.systemPackages = with pkgs; [
+        cosmic-bg
+            cosmic-ext-ctl
+            wireguard-tools
+            proton-vpn
+    ];
 
-  systemd.tmpfiles.rules = [
-    "d /mnt/ssd1 0755 ajlow users -"
-    "d /mnt/ssd2 0755 ajlow users -"
-  ];
+    systemd.tmpfiles.rules = [
+        "d /mnt/ssd1 0755 ajlow users -"
+            "d /mnt/ssd2 0755 ajlow users -"
+    ];
 
-  networking.firewall.checkReversePath = false;
+    networking.firewall.checkReversePath = false;
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "hal9000";
-  system.stateVersion = "24.05";
+    networking.hostName = "hal9000";
+    system.stateVersion = "24.05";
 }
