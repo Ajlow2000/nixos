@@ -10,6 +10,7 @@ rec {
   slate = "#8FA9A5";
   slateBright = "#A3C0BC";
   forest = "#3A4A35";
+  forestDim = "#34422F"; # a touch darker than forest; used for list striping
   forestMid = "#4E5F47";
   forestDark = "#252E21";
   pink = "#c290b8";
