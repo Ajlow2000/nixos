@@ -34,8 +34,9 @@ palette:
   div#cgit div.content { border-bottom: solid 3px ${palette.border}; }
 
   /* repo/log lists */
-  div#cgit table.list th { color: ${palette.heading}; background-color: ${palette.surface}; }
-  div#cgit table.list tr.logheader { background-color: ${palette.surface}; }
+  /* distinct header band, lighter than both alternating row colours */
+  div#cgit table.list th { color: ${palette.heading}; background-color: ${palette.border}; }
+  div#cgit table.list tr.logheader { background-color: ${palette.border}; }
   div#cgit table.list tr:nth-child(even) { background: ${palette.surface}; }
   div#cgit table.list tr:nth-child(odd) { background: ${palette.bg}; }
   div#cgit table.list tr:hover { background: ${palette.surface}; }
