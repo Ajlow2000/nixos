@@ -94,6 +94,9 @@ let
     enable-http-clone = true;
     logo = "/logo.svg"; # served by the nginx location added to each vhost below
     head-include = "${cgitHead}";
+    # Render markdown READMEs on the About tab. The nixpkgs filter is
+    # self-contained (bundles python-markdown + pygments).
+    about-filter = "${pkgs.cgit}/lib/cgit/filters/about-formatting.sh";
     readme = [
       ":README.md"
       ":readme.md"
