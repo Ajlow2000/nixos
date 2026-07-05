@@ -79,6 +79,9 @@ let
     section-from-path = 1;
     snapshots = "tar.gz tar.bz2 zip";
     enable-http-clone = true;
+    # SSH clone URL shown in the "Clone" box. cgit expands $CGIT_REPO_URL to the
+    # repo's path (the name, since remove-suffix is on).
+    clone-url = "ssh://git@${cfg.cloneFqdn}:${toString cfg.sshPort}/$CGIT_REPO_URL";
     readme = [
       ":README.md"
       ":readme.md"
@@ -157,6 +160,15 @@ in
         needs a dedicated port. Clone via ssh://git@<host>:<sshPort>/<repo>.
       '';
     };
+
+    cloneFqdn = lib.mkOption {
+      type = lib.types.str;
+      description = ''
+        Hostname shown in cgit clone URLs, e.g. git.example.com. Must resolve
+        over wt0 (mesh IP, netbird name, or internal DNS pointing at the wt0
+        address). Required, since a wrong value ships a broken clone link.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -208,9 +220,23 @@ in
         install -Dm0644 ${gitoliteConf} ${dataDir}/.gitolite/conf/gitolite.conf
         rm -f ${dataDir}/.gitolite/keydir/*.pub
         install -Dm0644 -t ${dataDir}/.gitolite/keydir ${keydir}/*.pub
+
+        # Create repos on `main`. gitolite's `git init` reads init.defaultBranch
+        # from the git user's config ($HOME=${dataDir}).
+        git config --global init.defaultBranch main
+
         gitolite compile
         gitolite trigger POST_COMPILE
         gitolite setup
+
+        # Point HEAD at main on any still-unborn repo (fixes repos gitolite
+        # already created on `master`). Repos with commits are left untouched.
+        for name in ${lib.escapeShellArgs (builtins.attrNames cfg.repos)}; do
+          repo=${dataDir}/repositories/"$name".git
+          if ! git -C "$repo" rev-parse --verify --quiet HEAD >/dev/null 2>&1; then
+            git -C "$repo" symbolic-ref HEAD refs/heads/main
+          fi
+        done
       '';
     };
 

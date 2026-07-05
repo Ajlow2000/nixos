@@ -47,6 +47,7 @@
 
     modules.services.git-server = {
         enable = true;
+        cloneFqdn = "hal9000";
         adminPubkeys = {
             ajlow = keys.ajlow;
         };
