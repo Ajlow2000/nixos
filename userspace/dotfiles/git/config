@@ -30,6 +30,7 @@
     all = true
     prune = true
     tags = true
+    recurseSubmodules = true
 
 [submodule]
     recurse = true
