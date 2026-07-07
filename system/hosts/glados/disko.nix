@@ -23,7 +23,6 @@
 {
   disko.devices = {
     disk = {
-      # ---- Boot SSD (128G), btrfs -------------------------------------------
       boot = {
         type = "disk";
         device = "/dev/disk/by-id/nvme-nvme.1e4b-514d48383531573030303337395031313033-4169724469736b20313238474220535344-00000001";
@@ -81,7 +80,7 @@
                   # can deadlock under memory pressure).
                   "@swap" = {
                     mountpoint = "/swap";
-                    swap.swapfile.size = "8G";
+                    swap.swapfile.size = "16G";
                   };
                 };
               };
@@ -133,34 +132,34 @@
           };
         };
       };
-      # hdd3 = {
-      #   type = "disk";
-      #   device = "/dev/disk/by-id/REPLACE_ME_HDD_4TB_3";
-      #   content = {
-      #     type = "gpt";
-      #     partitions.zfs = {
-      #       size = "100%";
-      #       content = {
-      #         type = "zfs";
-      #         pool = "tank";
-      #       };
-      #     };
-      #   };
-      # };
-      # hdd4 = {
-      #   type = "disk";
-      #   device = "/dev/disk/by-id/REPLACE_ME_HDD_4TB_4";
-      #   content = {
-      #     type = "gpt";
-      #     partitions.zfs = {
-      #       size = "100%";
-      #       content = {
-      #         type = "zfs";
-      #         pool = "tank";
-      #       };
-      #     };
-      #   };
-      # };
+      hdd3 = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-WDC_WD40EFZZ-68CPAN0_WD-WX72DC5F024J";
+        content = {
+          type = "gpt";
+          partitions.zfs = {
+            size = "100%";
+            content = {
+              type = "zfs";
+              pool = "tank";
+            };
+          };
+        };
+      };
+      hdd4 = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-WDC_WD40EFZZ-68CPAN0_WD-WX72DC5F08P6";
+        content = {
+          type = "gpt";
+          partitions.zfs = {
+            size = "100%";
+            content = {
+              type = "zfs";
+              pool = "tank";
+            };
+          };
+        };
+      };
     };
 
     zpool = {
