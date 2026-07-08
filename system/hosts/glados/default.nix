@@ -27,7 +27,8 @@
   #   head -c4 /dev/urandom | od -A none -t x4
   # ZFS requires it and refuses to import a pool if it changes unexpectedly.
   boot.supportedFilesystems = [ "zfs" ];
-  networking.hostId = "REPLACE_ME"; # 8 hex digits, e.g. "a1b2c3d4"
+  boot.zfs.forceImportRoot = false;
+  networking.hostId = "9dd1dbc7";
   services.zfs.autoScrub.enable = true;
 
   networking.hostName = "glados";

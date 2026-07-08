@@ -39,11 +39,10 @@ Managed by [disko](./disko.nix) (`disko.enableConfig = true`). Two parts:
 - `@swap` → `/swap` (8G swapfile; kept off ZFS on purpose)
 
 **Storage pool `tank`** — ZFS **raidz2** across the 5x 4TB HDDs
-(~12 TB usable, survives any two drive failures):
-
-- `ashift=12`, `compression=zstd`, `atime=off`
-- dataset `tank/data` → `/mnt/tank`
-- `services.zfs.autoScrub.enable = true` (periodic scrub)
+(~12 TB usable, survives any two drive failures). `ashift=12`,
+`compression=zstd`, `atime=off`, `xattr=sa`, `acltype=posixacl` (inherited),
+`services.zfs.autoScrub.enable = true`. Datasets are defined in
+[disko.nix](./disko.nix) and mounted under `/mnt/tank`.
 
 All six drives are pinned by `/dev/disk/by-id/` in `disko.nix` — `/dev/sdX`
 ordering is not stable with this many disks.
@@ -63,7 +62,7 @@ ordering is not stable with this many disks.
    ls -l /dev/disk/by-id/              # map each to a stable by-id path
    ```
 
-   Replace every `REPLACE_ME_*` device path in `disko.nix`.
+   Replace device paths in `disko.nix`.
 3. **Generate `hardware.nix`** on glados (disko owns the filesystems):
 
    ```sh
