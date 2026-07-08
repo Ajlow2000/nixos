@@ -7,11 +7,19 @@
     ../../profiles/base.nix
     ../../modules/user-definitions.nix
     ../../modules/services/immich.nix
+    ../../modules/services/traefik.nix
   ];
 
   profiles.system.base.enable = true;
 
   modules.services.immich.enable = true;
+
+  # Mesh-internal reverse proxy: https://<service>.glados.aleclowry.com over wt0.
+  modules.services.traefik = {
+    enable = true;
+    domain = "glados.aleclowry.com";
+    acmeEmail = "alowry@sram.com"; # LE expiry notices — change to your preferred address
+  };
 
   # disko owns the filesystem layout (see ./disko.nix): btrfs boot SSD +
   # ZFS raidz2 "tank" pool. fileSystems/swapDevices come from there.
