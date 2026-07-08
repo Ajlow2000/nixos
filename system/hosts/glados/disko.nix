@@ -203,58 +203,27 @@
             type = "zfs_fs";
             options.mountpoint = "none";
           };
-          # Originals from your phone — PRECIOUS. Snapshot + replicate off-box.
+          # Everything Immich stores (originals, uploads, thumbnails,
+          # transcodes, profile, DB dumps) lives under its mediaLocation here.
           "immich/library" = {
             type = "zfs_fs";
             mountpoint = "/mnt/tank/immich/library";
-            options.recordsize = "1M";
+            options = {
+              recordsize = "1M";
+              # systemd owns the mount (via the fileSystems entry disko
+              # generates). ZFS must NOT also auto-mount on import, or the two
+              # collide with "mountpoint or dataset is busy" at boot.
+              canmount = "noauto";
+            };
           };
-          # Postgres (pgvecto.rs) — small random IO, 16K avoids write amplification.
+          # Postgres data dir — small random IO, 16K avoids write amplification.
           "immich/db" = {
             type = "zfs_fs";
             mountpoint = "/mnt/tank/immich/db";
-            options.recordsize = "16K";
-          };
-          # Thumbnails / transcodes / ML — regenerable, no snapshots, capped.
-          "immich/cache" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/immich/cache";
             options = {
-              recordsize = "1M";
-              quota = "200G";
+              recordsize = "16K";
+              canmount = "noauto";
             };
-          };
-          # Git server (repos + config) — snapshot frequently.
-          "git" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/git";
-          };
-          # Movies / TV for Plex/Jellyfin — large sequential, re-obtainable, no snapshots.
-          "media" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/media";
-            options.recordsize = "1M";
-          };
-          # VPN-only Samba share — general user data, snapshot.
-          "share" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/share";
-          };
-          # Publicly-exposed downloads — ISOLATED, served read-only, capped so a
-          # compromise can't fill the pool or reach anything private.
-          "public" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/public";
-            options = {
-              recordsize = "1M";
-              quota = "500G";
-            };
-          };
-          # Config/state for services that don't warrant their own dataset.
-          "appdata" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/appdata";
-            options.recordsize = "64K";
           };
         };
       };
