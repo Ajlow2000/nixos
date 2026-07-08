@@ -138,6 +138,7 @@ in
           whois
           transmission_4
           binsider
+          bcc
 
           gdb
           bitwarden-cli
