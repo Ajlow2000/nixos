@@ -7,11 +7,13 @@
     ../../profiles/base.nix
     ../../modules/user-definitions.nix
     ../../modules/services/immich.nix
+    ../../modules/services/forgejo.nix
   ];
 
   profiles.system.base.enable = true;
 
   modules.services.immich.enable = true;
+  modules.services.forgejo.enable = true;
 
   # disko owns the filesystem layout (see ./disko.nix): btrfs boot SSD +
   # ZFS raidz2 "tank" pool. fileSystems/swapDevices come from there.

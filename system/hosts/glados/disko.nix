@@ -225,6 +225,15 @@
               canmount = "noauto";
             };
           };
+          # Forgejo git forge — repos, LFS, and the sqlite DB all live under the
+          # stateDir here, so a single `zfs snapshot tank/forgejo@x` captures the
+          # whole forge atomically. sqlite load on a personal instance is trivial,
+          # so the inherited 128K recordsize is fine (no separate db dataset).
+          "forgejo" = {
+            type = "zfs_fs";
+            mountpoint = "/mnt/tank/forgejo";
+            options.canmount = "noauto"; # systemd owns the mount (see immich above)
+          };
         };
       };
     };
