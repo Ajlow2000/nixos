@@ -168,8 +168,6 @@ in
           marksman
           gcc
           scc
-
-          moreutils # only necessary to provide vipe until nix build of conventional-commit is working
         ]
         ++ lib.optionals stdenv.isLinux [
           # Linux-only utilities
@@ -182,6 +180,8 @@ in
           ghostty
           rr
           arp-scan
+          samba
+          cifs-utils
           signal-cli
           syft
           grype
