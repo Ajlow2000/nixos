@@ -1,0 +1,68 @@
+/*
+ * terminus — custom Forgejo colorscheme.
+ *
+ * Forest-green palette mirroring the cgit/git-server theme
+ * (see system/modules/services/git-server/palette.nix, itself mirrored from
+ * the terminus site repo). Standalone theme: Forgejo loads ONLY the active
+ * theme file, so we @import the built-in dark theme to inherit its full
+ * variable set, then override the semantic --color-* variables and the
+ * --color-primary ramp with palette values.
+ *
+ * Pinned to Forgejo 15.0.4's variable names — UI theming is officially
+ * "unsupported" and variable names can change between releases. If a future
+ * bump breaks this, re-derive from
+ *   https://git.aleclowry.com/assets/css/theme-forgejo-dark.css
+ */
+@import url("./theme-forgejo-dark.css");
+
+:root {
+  /* --- primary ramp: sage green (replaces the built-in orange) --- */
+  --color-primary: #94ae87; /* sage */
+  --color-primary-contrast: #1c2417; /* dark text on sage buttons */
+  --color-primary-hover: var(--color-primary-dark-1);
+  --color-primary-active: var(--color-primary-dark-2);
+
+  /* "-light-N" darkens toward the primary's shadow end */
+  --color-primary-light-1: #88a37a;
+  --color-primary-light-2: #7c9a6e;
+  --color-primary-light-3: #6e8a61;
+  --color-primary-light-4: #5f7853;
+  --color-primary-light-5: #5f7853;
+  --color-primary-light-6: #4e6344;
+  --color-primary-light-7: #4e6344;
+
+  /* "-dark-N" lightens toward white (used for accents/hover on dark bg) */
+  --color-primary-dark-1: #a6bd9a;
+  --color-primary-dark-2: #a6bd9a;
+  --color-primary-dark-3: #b9cbaf;
+  --color-primary-dark-4: #b9cbaf;
+  --color-primary-dark-5: #cdd9c6;
+  --color-primary-dark-6: #cdd9c6;
+  --color-primary-dark-7: #e8efe4;
+
+  /* links / accents: the slate-blue from the palette, for contrast vs green */
+  --color-accent: #a3c0bc; /* slateBright */
+  --color-small-accent: #8fa9a5; /* slate */
+
+  /* --- surfaces: forest greens (replaces the built-in steel scale) --- */
+  --color-body: #252e21; /* forestDark */
+  --color-header-wrapper: #20281c;
+  --color-nav-bg: #1e251b;
+  --color-footer: #1e251b;
+
+  --color-box-header: #3a4a35; /* forest */
+  --color-box-body: #2e3a29;
+  --color-box-body-highlight: #45543e;
+  --color-card: #3a4a35;
+  --color-menu: #3a4a35;
+  --color-secondary: #3a4a35;
+  --fancy-card-bg: #45543e;
+
+  --color-input-border: #4e5f47; /* forestMid */
+  --color-light-border: #ffffff20;
+
+  /* --- text --- */
+  --color-text-dark: #ffffff;
+  --color-text: #e8e8e8; /* linen */
+  --color-text-light: #bac8b1; /* mist */
+}

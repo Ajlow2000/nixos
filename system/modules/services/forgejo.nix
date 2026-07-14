@@ -66,13 +66,18 @@ in
           SSH_DOMAIN = cfg.domain;
           SSH_PORT = cfg.sshPort; # advertised in clone URLs
           SSH_LISTEN_PORT = cfg.sshPort; # port the built-in server binds
+          LANDING_PAGE = "explore";
         };
-        # Open sign-ups enabled. The first account to register becomes the
-        # instance admin automatically. Reachable only over the mesh (wt0), so
-        # "open" means open to Netbird peers, not the public internet.
-        service.DISABLE_REGISTRATION = false;
+        service.DISABLE_REGISTRATION = true;
         # Plain HTTP for now (mesh-only). Revisit when Forgejo moves behind Traefik.
         session.COOKIE_SECURE = false;
+        # Custom "terminus" colorscheme (forest-green, matches the cgit theme).
+        # The CSS is symlinked into customDir/public/assets/css below. THEMES is a
+        # whitelist, so the built-ins stay selectable alongside it.
+        ui = {
+          THEMES = "forgejo-auto,forgejo-light,forgejo-dark,gitea-auto,gitea-light,gitea-dark,terminus";
+          DEFAULT_THEME = "terminus";
+        };
       };
     };
 
@@ -85,6 +90,18 @@ in
     # custom/ dir.
     systemd.services.forgejo.unitConfig.RequiresMountsFor = [ base ];
     systemd.services.forgejo-secrets.unitConfig.RequiresMountsFor = [ base ];
+
+    # Drop the custom theme CSS into customDir/public/assets/css. The upstream
+    # module only creates custom/ and custom/conf/, so we build the asset tree
+    # ourselves and symlink the store-interned CSS in. L+ replaces any existing
+    # link so a redeploy picks up edits. Lives under the ZFS mount (base), same
+    # as the immich mounted-dir tmpfiles pattern.
+    systemd.tmpfiles.rules = [
+      "d ${base}/custom/public 0755 forgejo forgejo -"
+      "d ${base}/custom/public/assets 0755 forgejo forgejo -"
+      "d ${base}/custom/public/assets/css 0755 forgejo forgejo -"
+      "L+ ${base}/custom/public/assets/css/theme-terminus.css - - - - ${./theme-terminus.css}"
+    ];
 
     # Reachable only over the Netbird mesh (wt0). Deliberately not added to the
     # global allowedTCPPorts so the public interface stays closed.
