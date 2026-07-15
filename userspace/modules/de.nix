@@ -20,6 +20,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      wl-clipboard
+      wl-clip-persist
+      cliphist
+    ];
+
     my_hypr.enable = true;
 
     # Prevent gnome-keyring from starting via XDG autostart.
