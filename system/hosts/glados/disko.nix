@@ -248,6 +248,13 @@
             mountpoint = "/mnt/tank/internal-share";
             options.canmount = "noauto"; # systemd owns the mount (see immich above)
           };
+          # Mealie recipe manager — sqlite DB and recipe data/images.
+          # Small random IO; inherited 128K recordsize is fine (same as forgejo).
+          "mealie" = {
+            type = "zfs_fs";
+            mountpoint = "/mnt/tank/mealie";
+            options.canmount = "noauto"; # systemd owns the mount (see immich above)
+          };
         };
       };
     };
