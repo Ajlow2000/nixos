@@ -139,6 +139,7 @@ in
           transmission_4
           binsider
           bcc
+          visidata
 
           gdb
           bitwarden-cli
