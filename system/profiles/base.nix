@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -9,6 +10,7 @@ let
 in
 {
   imports = [
+    inputs.determinate.nixosModules.default
     ../modules/services/netbird-agent.nix
     ../modules/services/banner.nix
     ../modules/sops.nix
@@ -29,10 +31,6 @@ in
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
     nix.settings.auto-optimise-store = true;
     # Allow remote nh deploys from wheel users to push unsigned store paths
     nix.settings.trusted-users = [
