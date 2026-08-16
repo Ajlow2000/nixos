@@ -71,12 +71,9 @@ in
         service.DISABLE_REGISTRATION = true;
         # Plain HTTP for now (mesh-only). Revisit when Forgejo moves behind Traefik.
         session.COOKIE_SECURE = false;
-        # Custom "terminus" colorscheme (forest-green, matches the cgit theme).
-        # The CSS is symlinked into customDir/public/assets/css below. THEMES is a
-        # whitelist, so the built-ins stay selectable alongside it.
         ui = {
           THEMES = "forgejo-auto,forgejo-light,forgejo-dark,gitea-auto,gitea-light,gitea-dark,terminus";
-          DEFAULT_THEME = "terminus";
+          DEFAULT_THEME = "forgejo-dark";
         };
       };
     };
