@@ -30,7 +30,7 @@ in
     modules.sops.enable = lib.mkDefault true;
 
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
+    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.17" ];
     nix.settings.auto-optimise-store = true;
     # Allow remote nh deploys from wheel users to push unsigned store paths
     nix.settings.trusted-users = [

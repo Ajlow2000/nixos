@@ -29,7 +29,7 @@ in
     # Only set allowUnfree when running standalone (for non-NixOS systems)
     nixpkgs.config = lib.mkIf isStandalone {
       allowUnfreePredicate = _: true;
-      permittedInsecurePackages = [ "ventoy-1.1.12" ];
+      permittedInsecurePackages = [ "ventoy-1.1.17" ];
     };
 
     # Enable modules (with de conditional on Linux)
