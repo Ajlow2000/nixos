@@ -2,21 +2,10 @@
   config,
   lib,
   pkgs,
-  inputs,
-  system,
   ...
 }:
 let
   cfg = config.gui_utilities;
-  # BN updates the zip at the same URL without bumping the version; override hash until upstream fixes it
-  binary-ninja-free =
-    (inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland).overrideAttrs
-      (old: {
-        src = pkgs.fetchurl {
-          url = "https://cdn.binary.ninja/installers/binaryninja_free_linux.zip";
-          hash = "sha256-YKr3oF0Um7D7yoLX/OFixuQXDZ6SbpDmEWIVbCPxwlI=";
-        };
-      });
 in
 {
   options = {
@@ -43,7 +32,7 @@ in
           anki
           signal-desktop
           ghidra
-          binary-ninja-free
+          binaryninja-free
           gimp
           krita
           zathura
@@ -53,6 +42,7 @@ in
           chromium
           godot
           pixieditor
+          kdePackages.kdenlive
         ]
       );
   };
