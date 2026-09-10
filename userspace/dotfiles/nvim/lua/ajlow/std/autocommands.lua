@@ -26,7 +26,7 @@ vim.cmd [[
     augroup _markdown
       autocmd!
       " autocmd FileType markdown setlocal wrap
-      autocmd FileType markdown setlocal spell
+      autocmd FileType markdown,mdx setlocal spell
     augroup end
 
     augroup _auto_resize
@@ -61,7 +61,7 @@ local spell_augroup = vim.api.nvim_create_augroup("_spell", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
     group = spell_augroup,
-    pattern = { "gitcommit", "markdown" },
+    pattern = { "gitcommit", "markdown", "mdx" },
     callback = function()
         local spellfile = personal_spellfile()
         ensure_spell_dir(spellfile)

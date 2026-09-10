@@ -167,6 +167,7 @@ in
           nh
           nix-output-monitor
           marksman
+          mdx-language-server
           gcc
           scc
         ]
