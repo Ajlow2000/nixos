@@ -99,7 +99,7 @@ return {
             'nil_ls', 'bashls', 'gopls', 'templ', 'html',
             'ocamllsp', 'zls', 'rust_analyzer', 'pyright',
             'clangd', 'hls', 'marksman', 'asm_lsp', 'lua_ls',
-            'omnisharp', 'tinymist', 'mdx_analyzer',
+            'omnisharp', 'tinymist',
         })
     end
 }

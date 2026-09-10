@@ -25,7 +25,6 @@ return {
                     "css",
                     "markdown",
                     "markdown_inline",
-                    "mdx",
                     "bash",
                     "lua",
                     "vim",
