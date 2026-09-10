@@ -131,6 +131,7 @@ in
           zip
           unzip
           rsync
+          rclone
           gnupatch
           bzip2
           gnupg
