@@ -47,7 +47,6 @@ in
       };
 
       modules.sops.users = lib.mkIf config.modules.sops.enable [ "ajlow" ];
-      modules.sops.rclone.enable = lib.mkIf config.modules.sops.enable true;
 
       # Home Manager integration
       home-manager = {

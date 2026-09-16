@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -101,8 +102,26 @@ in
 
     users.mutableUsers = false;
 
-    users.users.root.hashedPasswordFile =
-      lib.mkIf cfg.passwords.root.enable
-        config.sops.secrets."root-passwd".path;
+    # Derive the host age key once at boot, readable by sops users so they can
+    # run sops interactively without needing root.
+    users.groups.sops-age = { };
+    users.users = lib.mkMerge (
+      lib.optional cfg.passwords.root.enable {
+        root.hashedPasswordFile = config.sops.secrets."root-passwd".path;
+      }
+      ++ map (u: { ${u}.extraGroups = [ "sops-age" ]; }) cfg.users
+    );
+
+    system.activationScripts.sopsHostAgeKey = {
+      deps = [ "specialfs" ];
+      text = ''
+        mkdir -p /etc/sops/age
+        ${pkgs.ssh-to-age}/bin/ssh-to-age -private-key \
+          -i /etc/ssh/ssh_host_ed25519_key \
+          > /etc/sops/age/host.txt
+        chown root:sops-age /etc/sops/age/host.txt
+        chmod 640 /etc/sops/age/host.txt
+      '';
+    };
   };
 }

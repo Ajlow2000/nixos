@@ -13,6 +13,7 @@ in
     ../modules/pde.nix
     ../modules/env.nix
     ../modules/ssh.nix
+    ../modules/sops.nix
   ];
 
   options.profiles.user.server = {
@@ -23,6 +24,8 @@ in
     nixpkgs.config = lib.mkIf isStandalone {
       allowUnfreePredicate = _: true;
     };
+
+    modules.sops.enable = true;
 
     pde.enable = true;
     env.enable = true;
