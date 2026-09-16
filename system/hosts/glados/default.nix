@@ -15,20 +15,17 @@
 
   profiles.system.base.enable = true;
 
-  modules.services.immich     = { enable = true; exposeInternal = true; };
-  modules.services.forgejo    = { enable = true; exposeInternal = true; };
-  modules.services.mealie     = { enable = true; exposeInternal = true; };
+  modules.services.immich.enable  = true;
+  modules.services.forgejo.enable = true;
+  modules.services.mealie.enable  = true;
   modules.services.pijulNest = {
     enable = true;
-    exposeInternal = true;
     domain = "pijul.internal.aleclowry.com";
     baseUrl = "https://pijul.internal.aleclowry.com";
     pbkdf2PasswordFile = config.sops.secrets."pijul-nest-pbkdf2-password".path;
     pbkdf2SaltFile = config.sops.secrets."pijul-nest-pbkdf2-salt".path;
   };
-  modules.services.loreServer = { enable = true; exposeInternal = true; };
-
-  modules.services.internalProxy.enable = true;
+  modules.services.loreServer.enable = true;
 
   sops.secrets."pijul-nest-pbkdf2-password" = {
     key = "pijul_nest/pbkdf2_password";

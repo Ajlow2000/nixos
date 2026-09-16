@@ -61,7 +61,7 @@ let
     export PBKDF2_SALT=$(cat ${cfg.pbkdf2SaltFile})
     export PBKDF2_ITERATIONS=${toString cfg.pbkdf2Iterations}
     export NEST_API_INTERNAL="http://127.0.0.1:${toString cfg.httpPort}"
-    export HOST="127.0.0.1"
+    export HOST="0.0.0.0"
     exec ${pkgs.nodejs}/bin/node ${nest.ui} --report-on-signal --perf-basic-prof-only-functions
   '';
 
@@ -304,7 +304,7 @@ in
     };
 
     # ── Firewall ───────────────────────────────────────────────────────────────
-    networking.firewall.interfaces.wt0.allowedTCPPorts = [ cfg.sshPort ];
+    networking.firewall.interfaces.wt0.allowedTCPPorts = [ cfg.sshPort cfg.httpPort cfg.uiPort ];
 
     # ── Caddy (multi-backend routing) ─────────────────────────────────────────
     # The Rust API handles /api*, /login*, /register*, and the pijul protocol
