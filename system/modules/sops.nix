@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -29,6 +30,16 @@ in
         from the shared secrets/common.yaml, under the nested keys
         <user>.passwd and <user>.ssh_private_key. Callers (user-definitions,
         digital-ocean profile) append to this list when the user is enabled.
+      '';
+    };
+
+    rclone.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Deploy rclone.conf from secrets/common.yaml (key: rclone/config) to
+        ~/.config/rclone/rclone.conf for each user in modules.sops.users.
+        The file is owner-readable only (0600) and managed entirely by sops-nix.
       '';
     };
   };
@@ -71,17 +82,46 @@ in
           mode = "0600";
         };
       }) cfg.users)
+      ++ (lib.optionals cfg.rclone.enable (map (u: {
+        "${u}-rclone-config" = {
+          key = "rclone/config";
+          path = "/home/${u}/.config/rclone/rclone.conf";
+          owner = u;
+          group = "users";
+          mode = "0600";
+        };
+      }) cfg.users))
     );
 
     # ~/.ssh must exist before sops writes the key into it.
     systemd.tmpfiles.rules =
       (lib.optional cfg.passwords.root.enable "d /root/.ssh 0700 root root -")
-      ++ map (u: "d /home/${u}/.ssh 0700 ${u} users -") cfg.users;
+      ++ map (u: "d /home/${u}/.ssh 0700 ${u} users -") cfg.users
+      ++ lib.optionals cfg.rclone.enable
+           (map (u: "d /home/${u}/.config/rclone 0700 ${u} users -") cfg.users);
 
     users.mutableUsers = false;
 
-    users.users.root.hashedPasswordFile =
-      lib.mkIf cfg.passwords.root.enable
-        config.sops.secrets."root-passwd".path;
+    # Derive the host age key once at boot, readable by sops users so they can
+    # run sops interactively without needing root.
+    users.groups.sops-age = { };
+    users.users = lib.mkMerge (
+      lib.optional cfg.passwords.root.enable {
+        root.hashedPasswordFile = config.sops.secrets."root-passwd".path;
+      }
+      ++ map (u: { ${u}.extraGroups = [ "sops-age" ]; }) cfg.users
+    );
+
+    system.activationScripts.sopsHostAgeKey = {
+      deps = [ "specialfs" ];
+      text = ''
+        mkdir -p /etc/sops/age
+        ${pkgs.ssh-to-age}/bin/ssh-to-age -private-key \
+          -i /etc/ssh/ssh_host_ed25519_key \
+          > /etc/sops/age/host.txt
+        chown root:sops-age /etc/sops/age/host.txt
+        chmod 640 /etc/sops/age/host.txt
+      '';
+    };
   };
 }

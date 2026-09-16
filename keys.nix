@@ -17,21 +17,4 @@
     do-base-image = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGXAt9qFZUfQpe5Wlf+0lsNGZFujH2c7UkwxqQWrplHP root@do-base-image_2026-06-22";
   };
 
-  # AGE IDENTITY STUBS FOR SOPS
-  # ---------------------------
-  # Stubs that tell age which YubiKey + PIV slot to use when decrypting sops
-  # files. These are NOT secret — they only reference the hardware. Without
-  # the physical YubiKey inserted, they cannot decrypt anything.
-  #
-  # Generate per YubiKey, with the key inserted:
-  #   age-plugin-yubikey --identity
-  #
-  # The bare AGE-PLUGIN-YUBIKEY-1... line is what goes below. Add one entry
-  # per YubiKey.
-  sops-age-identities = [
-    # YubiKey 1 (slot 1, name sops-admin-yubikey-01)
-    "AGE-PLUGIN-YUBIKEY-1RXUAQQVZE2AD5JQTXYDMW"
-    # YubiKey 2 (slot 1, name sops-admin-yubikey-02)
-    "AGE-PLUGIN-YUBIKEY-1JWADQQVZRNMJZSQ65LQSP"
-  ];
 }
