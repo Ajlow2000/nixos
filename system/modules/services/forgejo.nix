@@ -5,10 +5,7 @@
 }:
 let
   cfg = config.modules.services.forgejo;
-  # tank/forgejo dataset is mounted here (see system/hosts/glados/disko.nix).
-  # Repos, LFS objects, and the sqlite DB all live under stateDir, so a single
-  # `zfs snapshot tank/forgejo@x` captures the whole forge atomically.
-  base = "/mnt/tank/forgejo";
+  base = "/mnt/tank/services/forgejo";
 in
 {
   options.modules.services.forgejo = {

@@ -225,22 +225,13 @@
               canmount = "noauto";
             };
           };
-          # Forgejo git forge — repos, LFS, and the sqlite DB all live under the
-          # stateDir here, so a single `zfs snapshot tank/forgejo@x` captures the
-          # whole forge atomically. sqlite load on a personal instance is trivial,
-          # so the inherited 128K recordsize is fine (no separate db dataset).
-          "forgejo" = {
+          # General-purpose services dataset. New or experimental services land
+          # here as subdirectories (/mnt/tank/services/<name>). Promote to a
+          # dedicated dataset once a service proves long-term (like immich).
+          "services" = {
             type = "zfs_fs";
-            mountpoint = "/mnt/tank/forgejo";
-            options.canmount = "noauto"; # systemd owns the mount (see immich above)
-          };
-
-          # Mealie recipe manager — sqlite DB and recipe data/images.
-          # Small random IO; inherited 128K recordsize is fine (same as forgejo).
-          "mealie" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/mealie";
-            options.canmount = "noauto"; # systemd owns the mount (see immich above)
+            mountpoint = "/mnt/tank/services";
+            options.canmount = "noauto";
           };
         };
       };

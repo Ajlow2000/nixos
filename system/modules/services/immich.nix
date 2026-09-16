@@ -39,19 +39,7 @@ in
       # with peer auth, so no password / sops secret is needed.
     };
 
-    # Postgres data on the 16K-recordsize dataset, so it's captured in an atomic
-    # `zfs snapshot -r tank/immich` alongside the library.
-    services.postgresql.dataDir = "${base}/db";
-
-    # The db dataset mount is created root:root; fix ownership so postgres can
-    # write. tmpfiles runs after the mount, so it adjusts the mounted dir.
-    # (immich manages its own mediaLocation ownership.)
-    systemd.tmpfiles.rules = [
-      "d ${base}/db 0700 postgres postgres -"
-    ];
-
     # Don't start these before their datasets are mounted.
-    systemd.services.postgresql.unitConfig.RequiresMountsFor = [ "${base}/db" ];
     systemd.services.immich-server.unitConfig.RequiresMountsFor = [ "${base}/library" ];
 
     # Reachable only over the Netbird mesh (wt0). Deliberately not added to the

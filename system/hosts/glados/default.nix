@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ lib, config, inputs, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -9,15 +9,42 @@
     ../../modules/services/immich.nix
     ../../modules/services/forgejo.nix
     ../../modules/services/mealie.nix
+    ../../modules/services/pijul-nest.nix
+    ../../modules/services/lore-server.nix
   ];
 
   profiles.system.base.enable = true;
 
-  modules.services.immich  = { enable = true; exposeInternal = true; };
-  modules.services.forgejo = { enable = true; exposeInternal = true; };
-  modules.services.mealie  = { enable = true; exposeInternal = true; };
+  modules.services.immich     = { enable = true; exposeInternal = true; };
+  modules.services.forgejo    = { enable = true; exposeInternal = true; };
+  modules.services.mealie     = { enable = true; exposeInternal = true; };
+  modules.services.pijulNest = {
+    enable = true;
+    exposeInternal = true;
+    domain = "pijul.internal.aleclowry.com";
+    baseUrl = "https://pijul.internal.aleclowry.com";
+    pbkdf2PasswordFile = config.sops.secrets."pijul-nest-pbkdf2-password".path;
+    pbkdf2SaltFile = config.sops.secrets."pijul-nest-pbkdf2-salt".path;
+  };
+  modules.services.loreServer = { enable = true; exposeInternal = true; };
 
   modules.services.internalProxy.enable = true;
+
+  sops.secrets."pijul-nest-pbkdf2-password" = {
+    key = "pijul_nest/pbkdf2_password";
+    owner = config.modules.services.pijulNest.user;
+    mode = "0400";
+  };
+  sops.secrets."pijul-nest-pbkdf2-salt" = {
+    key = "pijul_nest/pbkdf2_salt";
+    owner = config.modules.services.pijulNest.user;
+    mode = "0400";
+  };
+
+  # Shared PostgreSQL cluster on the ZFS tank (used by immich and pijul-nest).
+  services.postgresql.dataDir = "/mnt/tank/services/postgres";
+  systemd.tmpfiles.rules = [ "d /mnt/tank/services/postgres 0700 postgres postgres -" ];
+  systemd.services.postgresql.unitConfig.RequiresMountsFor = [ "/mnt/tank/services/postgres" ];
 
   # disko owns the filesystem layout (see ./disko.nix): btrfs boot SSD +
   # ZFS raidz2 "tank" pool. fileSystems/swapDevices come from there.

@@ -11,6 +11,7 @@ in
 {
   imports = [
     inputs.determinate.nixosModules.default
+    ../pkgs/default.nix
     ../modules/services/netbird-agent.nix
     ../modules/services/banner.nix
     ../modules/services/internal-proxy.nix

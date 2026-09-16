@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.modules.services.mealie;
-  base = "/mnt/tank/mealie";
+  base = "/mnt/tank/services/mealie";
 in
 {
   options.modules.services.mealie = {
