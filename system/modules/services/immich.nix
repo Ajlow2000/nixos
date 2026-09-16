@@ -17,6 +17,14 @@ in
       default = 2283;
       description = "Port the Immich web/API listens on.";
     };
+
+    exposeInternal = lib.mkEnableOption "register with the internal Caddy proxy";
+
+    internalSubdomain = lib.mkOption {
+      type = lib.types.str;
+      default = "immich";
+      description = "Subdomain under the internal proxy domain for this service.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -49,5 +57,9 @@ in
     # Reachable only over the Netbird mesh (wt0). Deliberately not added to the
     # global allowedTCPPorts so the public interface stays closed.
     networking.firewall.interfaces.wt0.allowedTCPPorts = [ cfg.port ];
+
+    modules.services.internalProxy.virtualHosts = lib.mkIf cfg.exposeInternal {
+      ${cfg.internalSubdomain} = "localhost:${toString cfg.port}";
+    };
   };
 }

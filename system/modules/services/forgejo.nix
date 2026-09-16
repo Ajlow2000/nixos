@@ -44,6 +44,14 @@ in
     lfs = lib.mkEnableOption "Git LFS support" // {
       default = true;
     };
+
+    exposeInternal = lib.mkEnableOption "register with the internal Caddy proxy";
+
+    internalSubdomain = lib.mkOption {
+      type = lib.types.str;
+      default = "git";
+      description = "Subdomain under the internal proxy domain for this service.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -106,5 +114,9 @@ in
       cfg.port
       cfg.sshPort
     ];
+
+    modules.services.internalProxy.virtualHosts = lib.mkIf cfg.exposeInternal {
+      ${cfg.internalSubdomain} = "localhost:${toString cfg.port}";
+    };
   };
 }

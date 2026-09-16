@@ -12,6 +12,14 @@ in
       default = 9000;
       description = "Port the Mealie web UI listens on.";
     };
+
+    exposeInternal = lib.mkEnableOption "register with the internal Caddy proxy";
+
+    internalSubdomain = lib.mkOption {
+      type = lib.types.str;
+      default = "mealie";
+      description = "Subdomain under the internal proxy domain for this service.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -44,5 +52,9 @@ in
     systemd.tmpfiles.rules = [ "d ${base} 0750 mealie mealie -" ];
 
     networking.firewall.interfaces.wt0.allowedTCPPorts = [ cfg.port ];
+
+    modules.services.internalProxy.virtualHosts = lib.mkIf cfg.exposeInternal {
+      ${cfg.internalSubdomain} = "localhost:${toString cfg.port}";
+    };
   };
 }

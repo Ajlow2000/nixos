@@ -13,6 +13,7 @@ in
     inputs.determinate.nixosModules.default
     ../modules/services/netbird-agent.nix
     ../modules/services/banner.nix
+    ../modules/services/internal-proxy.nix
     ../modules/sops.nix
   ];
 

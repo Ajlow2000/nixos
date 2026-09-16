@@ -234,20 +234,7 @@
             mountpoint = "/mnt/tank/forgejo";
             options.canmount = "noauto"; # systemd owns the mount (see immich above)
           };
-          # File shares served over Samba + filebrowser (see
-          # ../../modules/services/file-shares.nix). Plain datasets, inherited
-          # 128K recordsize is fine for general/large files. Kept separate so
-          # each can be snapshotted/quota'd independently.
-          "public-share" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/public-share";
-            options.canmount = "noauto"; # systemd owns the mount (see immich above)
-          };
-          "internal-share" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/tank/internal-share";
-            options.canmount = "noauto"; # systemd owns the mount (see immich above)
-          };
+
           # Mealie recipe manager — sqlite DB and recipe data/images.
           # Small random IO; inherited 128K recordsize is fine (same as forgejo).
           "mealie" = {

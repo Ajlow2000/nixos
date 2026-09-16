@@ -8,16 +8,16 @@
     ../../modules/user-definitions.nix
     ../../modules/services/immich.nix
     ../../modules/services/forgejo.nix
-    ../../modules/services/file-shares.nix
     ../../modules/services/mealie.nix
   ];
 
   profiles.system.base.enable = true;
 
-  modules.services.immich.enable = true;
-  modules.services.forgejo.enable = true;
-  modules.services.fileShares.enable = true;
-  modules.services.mealie.enable = true;
+  modules.services.immich  = { enable = true; exposeInternal = true; };
+  modules.services.forgejo = { enable = true; exposeInternal = true; };
+  modules.services.mealie  = { enable = true; exposeInternal = true; };
+
+  modules.services.internalProxy.enable = true;
 
   # disko owns the filesystem layout (see ./disko.nix): btrfs boot SSD +
   # ZFS raidz2 "tank" pool. fileSystems/swapDevices come from there.
