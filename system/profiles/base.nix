@@ -60,6 +60,7 @@ in
     environment.systemPackages = with pkgs; [
       neovim
       git
+      ncdu
       wget
       curl
       home-manager
