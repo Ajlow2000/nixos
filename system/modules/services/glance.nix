@@ -26,6 +26,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Create a real system user so sops-nix can own secret files for the
+    # service (DynamicUser allocates the user only at runtime, after activation).
+    users.users.glance = {
+      isSystemUser = true;
+      group = "glance";
+    };
+    users.groups.glance = {};
+
+    systemd.services.glance.serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      User = lib.mkForce "glance";
+      Group = lib.mkForce "glance";
+    };
+
     services.glance = {
       enable = true;
       settings = {

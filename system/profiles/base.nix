@@ -15,6 +15,7 @@ in
     ../modules/services/netbird-agent.nix
     ../modules/services/banner.nix
     ../modules/services/internal-proxy.nix
+    ../modules/services/glance-agent.nix
     ../modules/sops.nix
   ];
 
@@ -25,6 +26,7 @@ in
   config = lib.mkIf cfg.enable {
     modules.services.netbird-agent.enable = true;
     modules.services.banner.enable = true;
+    modules.services.glanceAgent.enable = true;
 
     # sops-managed root password/key (and per-user secrets) on every host that
     # runs the base profile. mkDefault so a host can opt out with `= false`
