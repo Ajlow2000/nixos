@@ -223,7 +223,10 @@
 
   modules.services.internalProxy = {
     enable = true;
-    virtualHosts = {
+    autheliaUrl = "http://glados:9091";
+    # Authelia's own login page must NOT be behind forward_auth (infinite redirect).
+    virtualHosts.authelia = "glados:9091";
+    protectedVirtualHosts = {
       # Local services on do-prod-01
       glance = "localhost:8080";
       uptime = "localhost:3001";
@@ -235,11 +238,12 @@
     };
   };
 
-  # pijul-nest requires path-based routing between its API (httpPort 5000)
-  # and UI (uiPort 5050) backends — handled directly here since the routing
-  # logic lives in the pijul-nest module and can't go through the simple
-  # virtualHosts attrset.
+  # pijul-nest requires path-based routing — forward_auth added manually before handlers.
   services.caddy.virtualHosts."pijul.internal.aleclowry.com".extraConfig = ''
+    forward_auth http://glados:9091 {
+      uri /api/authz/forward-auth
+      copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+    }
     @nestApi {
       path /api* /login* /register*
     }

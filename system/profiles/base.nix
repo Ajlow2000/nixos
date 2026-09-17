@@ -72,6 +72,7 @@ in
       nh
       nix-output-monitor
       tcpdump
+      openssl
     ];
 
     environment.sessionVariables = rec {

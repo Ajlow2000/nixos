@@ -31,6 +31,18 @@ in
         mealie = "localhost:9000";
       };
     };
+
+    autheliaUrl = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Authelia base URL for forward auth (e.g. http://glados:9091). Empty disables forward auth.";
+    };
+
+    protectedVirtualHosts = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      default = { };
+      description = "Virtual hosts that require Authelia forward auth before proxying.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -53,10 +65,22 @@ in
       globalConfig = ''
         acme_dns cloudflare {env.CF_API_TOKEN}
       '';
-      virtualHosts = lib.mapAttrs' (name: backend: {
-        name = "${name}.${cfg.domain}";
-        value.extraConfig = "reverse_proxy ${backend}";
-      }) cfg.virtualHosts;
+      virtualHosts =
+        lib.mapAttrs' (name: backend: {
+          name = "${name}.${cfg.domain}";
+          value.extraConfig = "reverse_proxy ${backend}";
+        }) cfg.virtualHosts
+        // lib.optionalAttrs (cfg.autheliaUrl != "")
+           (lib.mapAttrs' (name: backend: {
+             name = "${name}.${cfg.domain}";
+             value.extraConfig = ''
+               forward_auth ${cfg.autheliaUrl} {
+                 uri /api/authz/forward-auth
+                 copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+               }
+               reverse_proxy ${backend}
+             '';
+           }) cfg.protectedVirtualHosts);
     };
 
     systemd.services.caddy.serviceConfig.EnvironmentFile = [

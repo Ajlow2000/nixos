@@ -11,13 +11,52 @@
     ../../modules/services/mealie.nix
     ../../modules/services/pijul-nest.nix
     ../../modules/services/lore-server.nix
+    ../../modules/services/authelia.nix
   ];
 
   profiles.system.base.enable = true;
 
-  modules.services.immich.enable  = true;
-  modules.services.forgejo.enable = true;
-  modules.services.mealie.enable  = true;
+  modules.services.authelia.enable = true;
+  modules.services.immich.enable   = true;
+  modules.services.forgejo.enable  = true;
+  modules.services.mealie.enable   = true;
+
+  # ── Immich OIDC ──────────────────────────────────────────────────────────────
+  sops.secrets."authelia/oidc/immich-client-secret" = {};
+  sops.templates."immich-oidc-env" = {
+    content = ''
+      OAUTH_ENABLED=true
+      OAUTH_ISSUER_URL=https://authelia.internal.aleclowry.com
+      OAUTH_CLIENT_ID=immich
+      OAUTH_CLIENT_SECRET=${config.sops.placeholder."authelia/oidc/immich-client-secret"}
+      OAUTH_AUTO_REGISTER=true
+      OAUTH_AUTO_LAUNCH=false
+    '';
+    owner = "immich";
+    mode = "0400";
+  };
+  systemd.services.immich-server.serviceConfig.EnvironmentFile = [
+    config.sops.templates."immich-oidc-env".path
+  ];
+
+  # ── Mealie OIDC ──────────────────────────────────────────────────────────────
+  sops.secrets."authelia/oidc/mealie-client-secret" = {};
+  sops.templates."mealie-oidc-env" = {
+    content = ''
+      BASE_URL=https://mealie.internal.aleclowry.com
+      OIDC_AUTH_ENABLED=true
+      OIDC_CONFIGURATION_URL=https://authelia.internal.aleclowry.com/.well-known/openid-configuration
+      OIDC_CLIENT_ID=mealie
+      OIDC_CLIENT_SECRET=${config.sops.placeholder."authelia/oidc/mealie-client-secret"}
+      OIDC_USER_CLAIM=preferred_username
+      OIDC_AUTO_REDIRECT=false
+    '';
+    owner = "mealie";
+    mode = "0400";
+  };
+  systemd.services.mealie.serviceConfig.EnvironmentFile = [
+    config.sops.templates."mealie-oidc-env".path
+  ];
   modules.services.pijulNest = {
     enable = true;
     domain = "pijul.internal.aleclowry.com";
