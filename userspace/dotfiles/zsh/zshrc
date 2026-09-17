@@ -88,6 +88,14 @@ function chpwd() {
     # zoxide add $(pwd)
 }
 
+function tmux() {
+  if [[ -n "$TMUX" ]]; then
+    echo "Already inside tmux." >&2
+    return 1
+  fi
+  command tmux "$@"
+}
+
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
