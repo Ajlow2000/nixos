@@ -2,14 +2,12 @@
 {
   imports = [
     ../../profiles/digital-ocean.nix
-    ../../modules/services/uptime-kuma.nix
     ../../modules/services/glance.nix
     ../../modules/services/internal-proxy.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
   profiles.system.digital-ocean.enable = true;
-  modules.services.uptime-kuma.enable = true;
   modules.services.glance.enable = true;
 
   sops.secrets."netbird-api-key" = { key = "netbird/api-token"; };
@@ -52,12 +50,7 @@
                     { title = "Lore";    url = "https://lore.internal.aleclowry.com"; }
                   ];
                 }
-                {
-                  title = "Admin";
-                  links = [
-                    { title = "Uptime Kuma"; url = "https://uptime.internal.aleclowry.com"; }
-                  ];
-                }
+
               ];
             }
             {
@@ -207,7 +200,6 @@
               cache = "1m";
               title = "Services";
               sites = [
-                { title = "Uptime Kuma"; url = "https://uptime.internal.aleclowry.com"; }
                 { title = "Immich";      url = "https://immich.internal.aleclowry.com"; }
                 { title = "Forgejo";     url = "https://git.internal.aleclowry.com"; }
                 { title = "Mealie";      url = "https://mealie.internal.aleclowry.com"; }
@@ -226,7 +218,6 @@
     virtualHosts = {
       # Local services on do-prod-01
       glance = "localhost:8080";
-      uptime = "localhost:3001";
       # Services on glados (reached over Netbird mesh)
       immich = "glados:2283";
       git    = "glados:3000";
