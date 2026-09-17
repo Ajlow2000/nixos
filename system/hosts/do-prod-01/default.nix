@@ -248,6 +248,9 @@
     }
   '';
 
+  # 25GB droplet — keep logs and old Nix generations from filling the disk.
+  services.journald.settings.Journal.SystemMaxUse = "500M";
+
   networking.hostName = "do-prod-01";
 
   home-manager = {
