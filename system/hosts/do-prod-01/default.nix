@@ -29,6 +29,11 @@
           size = "full";
           widgets = [
             { type = "clock"; }
+            {
+              type = "hacker-news";
+              limit = 15;
+              "collapse-after" = 5;
+            }
           ];
         }
         {
@@ -53,6 +58,16 @@
                     { title = "Uptime Kuma"; url = "https://uptime.internal.aleclowry.com"; }
                   ];
                 }
+              ];
+            }
+            {
+              type = "rss";
+              title = "Software Releases";
+              limit = 10;
+              "collapse-after" = 5;
+              feeds = [
+                { url = "https://www.kernel.org/feeds/kdist.xml"; title = "Linux Kernel"; }
+                { url = "https://github.com/NixOS/nixpkgs/releases.atom"; title = "NixOS"; }
               ];
             }
           ];
