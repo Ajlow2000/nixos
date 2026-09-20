@@ -9,11 +9,19 @@
     ../../modules/services/immich.nix
     ../../modules/services/forgejo.nix
     ../../modules/services/pijul-nest.nix
+    ../../modules/services/linkwarden.nix
   ];
 
   profiles.system.base.enable = true;
 
   modules.services.immich.enable  = true;
+  modules.services.linkwarden = {
+    enable = true;
+    exposeInternal = true;
+    enableRegistration = true;
+    nextauthUrl = "https://links.internal.aleclowry.com";
+    nextauthSecretFile = config.sops.secrets."linkwarden-nextauth-secret".path;
+  };
   modules.services.forgejo.enable = true;
   modules.services.pijulNest = {
     enable = true;
@@ -22,7 +30,12 @@
     pbkdf2PasswordFile = config.sops.secrets."pijul-nest-pbkdf2-password".path;
     pbkdf2SaltFile = config.sops.secrets."pijul-nest-pbkdf2-salt".path;
   };
-sops.secrets."pijul-nest-pbkdf2-password" = {
+sops.secrets."linkwarden-nextauth-secret" = {
+    key = "linkwarden/nextauth_secret";
+    owner = "linkwarden";
+    mode = "0400";
+  };
+  sops.secrets."pijul-nest-pbkdf2-password" = {
     key = "pijul_nest/pbkdf2_password";
     owner = config.modules.services.pijulNest.user;
     mode = "0400";

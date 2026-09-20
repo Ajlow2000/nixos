@@ -79,6 +79,7 @@ in
                           { title = "Immich";  url = "https://immich.internal.aleclowry.com"; }
                           { title = "Git";     url = "https://git.internal.aleclowry.com"; }
                           { title = "Pijul";   url = "https://pijul.internal.aleclowry.com"; }
+                          { title = "Links";   url = "https://links.internal.aleclowry.com"; }
                         ];
                       }
                     ];
@@ -232,6 +233,7 @@ in
                       { title = "Immich";      url = "https://immich.internal.aleclowry.com"; }
                       { title = "Forgejo";     url = "https://git.internal.aleclowry.com"; }
                       { title = "Pijul Nest";  url = "https://pijul.internal.aleclowry.com"; }
+                      { title = "Linkwarden";  url = "https://links.internal.aleclowry.com"; }
                     ];
                   }
                 ];

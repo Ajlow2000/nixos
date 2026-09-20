@@ -28,6 +28,7 @@
       # Services on glados (reached over Netbird mesh)
       immich = "glados:2283";
       git    = "glados:3000";
+      links  = "glados:3100";
     };
   };
 
