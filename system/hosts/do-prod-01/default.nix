@@ -45,7 +45,6 @@
                   links = [
                     { title = "Immich";  url = "https://immich.internal.aleclowry.com"; }
                     { title = "Git";     url = "https://git.internal.aleclowry.com"; }
-                    { title = "Mealie";  url = "https://mealie.internal.aleclowry.com"; }
                     { title = "Pijul";   url = "https://pijul.internal.aleclowry.com"; }
                     { title = "Lore";    url = "https://lore.internal.aleclowry.com"; }
                   ];
@@ -202,7 +201,6 @@
               sites = [
                 { title = "Immich";      url = "https://immich.internal.aleclowry.com"; }
                 { title = "Forgejo";     url = "https://git.internal.aleclowry.com"; }
-                { title = "Mealie";      url = "https://mealie.internal.aleclowry.com"; }
                 { title = "Pijul Nest";  url = "https://pijul.internal.aleclowry.com"; }
                 { title = "Lore";        url = "https://lore.internal.aleclowry.com"; }
               ];
@@ -221,7 +219,6 @@
       # Services on glados (reached over Netbird mesh)
       immich = "glados:2283";
       git    = "glados:3000";
-      mealie = "glados:9000";
       lore   = "glados:41337";
     };
   };

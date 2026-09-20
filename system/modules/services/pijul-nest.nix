@@ -244,11 +244,16 @@ in
         # exist for the migration to succeed even when the runtime user is different.
         createuser -h 127.0.0.1 -U postgres pijul || true
         createdb   -h 127.0.0.1 -U postgres -O ${cfg.user} nest || true
+        # Use a minimal diesel.toml without [print_schema] so diesel does not try
+        # to write db.rs back into the read-only nix store after running migrations.
+        _diesel_cfg=$(mktemp)
+        echo '[migrations_directory]' > "$_diesel_cfg"
+        echo 'dir = "${nest.migrations}/migrations"' >> "$_diesel_cfg"
         DATABASE_URL="postgres://postgres@127.0.0.1:5432/nest?sslmode=disable" \
           diesel migration run \
             --migration-dir ${nest.migrations}/migrations \
-            --config-file   ${nest.migrations}/diesel.toml \
-            --locked-schema
+            --config-file   "$_diesel_cfg"
+        rm -f "$_diesel_cfg"
       '';
 
       serviceConfig = {

@@ -22,7 +22,7 @@ let
   src = fetchpijul {
     url = "https://nest.pijul.com/pijul/nest";
     state = "";
-    hash = "sha256-QDd47EC+gLLb1P4okGjws4I/48rO4IY0Fru6LMbi5ZU=";
+    hash = "sha256-tivXZn5O5pJfjzvnYAa88z40jhVXj8NMTHwA3UBaSvQ=";
   };
 
   # Both nest and nest-rank are in the workspace; build them together to avoid

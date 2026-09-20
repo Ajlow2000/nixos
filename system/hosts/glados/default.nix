@@ -8,7 +8,6 @@
     ../../modules/user-definitions.nix
     ../../modules/services/immich.nix
     ../../modules/services/forgejo.nix
-    ../../modules/services/mealie.nix
     ../../modules/services/pijul-nest.nix
     ../../modules/services/lore-server.nix
   ];
@@ -17,7 +16,6 @@
 
   modules.services.immich.enable  = true;
   modules.services.forgejo.enable = true;
-  modules.services.mealie.enable  = true;
   modules.services.pijulNest = {
     enable = true;
     domain = "pijul.internal.aleclowry.com";
