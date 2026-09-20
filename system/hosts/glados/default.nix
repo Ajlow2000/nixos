@@ -10,11 +10,18 @@
     ../../modules/services/forgejo.nix
     ../../modules/services/pijul-nest.nix
     ../../modules/services/linkwarden.nix
+    ../../modules/services/freshrss.nix
   ];
 
   profiles.system.base.enable = true;
 
   modules.services.immich.enable  = true;
+  modules.services.freshrss = {
+    enable = true;
+    exposeInternal = true;
+    baseUrl = "https://rss.internal.aleclowry.com";
+    passwordFile = config.sops.secrets."freshrss-admin-password".path;
+  };
   modules.services.linkwarden = {
     enable = true;
     exposeInternal = true;
@@ -30,7 +37,12 @@
     pbkdf2PasswordFile = config.sops.secrets."pijul-nest-pbkdf2-password".path;
     pbkdf2SaltFile = config.sops.secrets."pijul-nest-pbkdf2-salt".path;
   };
-sops.secrets."linkwarden-nextauth-secret" = {
+sops.secrets."freshrss-admin-password" = {
+    key = "freshrss/admin_password";
+    owner = "freshrss";
+    mode = "0400";
+  };
+  sops.secrets."linkwarden-nextauth-secret" = {
     key = "linkwarden/nextauth_secret";
     owner = "linkwarden";
     mode = "0400";

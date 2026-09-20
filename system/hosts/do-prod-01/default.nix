@@ -29,6 +29,7 @@
       immich = "glados:2283";
       git    = "glados:3000";
       links  = "glados:3100";
+      rss    = "glados:3200";
     };
   };
 

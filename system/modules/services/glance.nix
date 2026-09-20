@@ -80,6 +80,7 @@ in
                           { title = "Git";     url = "https://git.internal.aleclowry.com"; }
                           { title = "Pijul";   url = "https://pijul.internal.aleclowry.com"; }
                           { title = "Links";   url = "https://links.internal.aleclowry.com"; }
+                          { title = "RSS";     url = "https://rss.internal.aleclowry.com"; }
                         ];
                       }
                     ];
@@ -234,6 +235,7 @@ in
                       { title = "Forgejo";     url = "https://git.internal.aleclowry.com"; }
                       { title = "Pijul Nest";  url = "https://pijul.internal.aleclowry.com"; }
                       { title = "Linkwarden";  url = "https://links.internal.aleclowry.com"; }
+                      { title = "FreshRSS";    url = "https://rss.internal.aleclowry.com"; }
                     ];
                   }
                 ];
