@@ -110,7 +110,6 @@ in
           bat
           git
           pijul
-          lore
           fzf
           ripgrep
           gnugrep

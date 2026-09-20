@@ -9,7 +9,6 @@
     ../../modules/services/immich.nix
     ../../modules/services/forgejo.nix
     ../../modules/services/pijul-nest.nix
-    ../../modules/services/lore-server.nix
   ];
 
   profiles.system.base.enable = true;
@@ -23,9 +22,7 @@
     pbkdf2PasswordFile = config.sops.secrets."pijul-nest-pbkdf2-password".path;
     pbkdf2SaltFile = config.sops.secrets."pijul-nest-pbkdf2-salt".path;
   };
-  modules.services.loreServer.enable = true;
-
-  sops.secrets."pijul-nest-pbkdf2-password" = {
+sops.secrets."pijul-nest-pbkdf2-password" = {
     key = "pijul_nest/pbkdf2_password";
     owner = config.modules.services.pijulNest.user;
     mode = "0400";
