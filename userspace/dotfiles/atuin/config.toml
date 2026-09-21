@@ -3,6 +3,8 @@ db_path = "~/.history.db"
 ## date format used, either "us" or "uk"
 dialect = "us"
 
+mouse_enabled = false
+
 ## default timezone to use when displaying time
 ## either "l", "local" to use the system's current local timezone, or an offset
 ## from UTC in the format of "<+|->H[H][:M[M][:S[S]]]"
