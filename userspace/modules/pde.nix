@@ -9,6 +9,10 @@
 let
   cfg = config.pde;
 
+  ghostty-ng = pkgs.writeShellScriptBin "ghostty-ng" ''
+    exec -a ghostty-ng ${pkgs.ghostty}/bin/ghostty --config-default-files=false --config-file="$HOME/.config/ghostty-ng/config" "$@"
+  '';
+
   blendr = pkgs.rustPlatform.buildRustPackage rec {
     pname = "blendr";
     version = "1.3.3";
@@ -180,6 +184,7 @@ in
           pciutils
           interception-tools
           ghostty
+          ghostty-ng
           rr
           arp-scan
           samba
@@ -207,6 +212,11 @@ in
         recursive = true;
         source = ../dotfiles/ghostty;
         target = "./.config/ghostty";
+      };
+      ghostty-ng = {
+        recursive = true;
+        source = ../dotfiles/ghostty-ng;
+        target = "./.config/ghostty-ng";
       };
       opencode = {
         recursive = true;
