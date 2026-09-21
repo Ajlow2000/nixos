@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -50,6 +51,7 @@ in
       dataDir = cfg.dataDir;
       passwordFile = cfg.passwordFile;
       database.type = "sqlite";
+      extensions = [ pkgs.freshrss-share-to-linkwarden ];
     };
 
     # Override the vhost to listen on a specific port instead of 80.
