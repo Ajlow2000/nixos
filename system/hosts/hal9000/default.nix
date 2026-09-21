@@ -86,6 +86,11 @@
             "d /mnt/ssd2 0755 ajlow users -"
     ];
 
+    # Disable USB auto-suspend for Sennheiser Profile mic (keeps reconnecting otherwise).
+    services.udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="1377", ATTRS{idProduct}=="1100", ATTR{power/autosuspend}="-1"
+    '';
+
     networking.firewall.checkReversePath = false;
 
     boot.loader.systemd-boot.enable = true;
