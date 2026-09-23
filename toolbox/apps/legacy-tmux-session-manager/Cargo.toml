@@ -1,12 +1,9 @@
 [package]
-name = "ng-tmux-session-manager"
+name = "legacy-tmux-session-manager"
 edition.workspace = true
 version.workspace = true
 license.workspace = true
 authors.workspace = true
-
-[dependencies]
-session.workspace = true
 
 [lints]
 workspace = true

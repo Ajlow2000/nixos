@@ -132,11 +132,11 @@
             base = pkgs.lib.genAttrs appNames mkCrate;
           in
           base
-          // pkgs.lib.optionalAttrs (base ? tmux-session-manager) {
-            tmux-session-manager = base.tmux-session-manager.overrideAttrs (old: {
+          // pkgs.lib.optionalAttrs (base ? legacy-tmux-session-manager) {
+            legacy-tmux-session-manager = base.legacy-tmux-session-manager.overrideAttrs (old: {
               nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
               postFixup = (old.postFixup or "") + ''
-                wrapProgram $out/bin/tmux-session-manager \
+                wrapProgram $out/bin/legacy-tmux-session-manager \
                   --prefix PATH : ${
                     pkgs.lib.makeBinPath [
                       pkgs.bash
@@ -145,6 +145,20 @@
                       pkgs.fzf
                       pkgs.gawk
                       pkgs.coreutils
+                    ]
+                  }
+              '';
+            });
+          }
+          // pkgs.lib.optionalAttrs (base ? tmux-session-manager) {
+            tmux-session-manager = base.tmux-session-manager.overrideAttrs (old: {
+              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+              postFixup = (old.postFixup or "") + ''
+                wrapProgram $out/bin/tmux-session-manager \
+                  --prefix PATH : ${
+                    pkgs.lib.makeBinPath [
+                      pkgs.tmux
+                      pkgs.fzf
                     ]
                   }
               '';
