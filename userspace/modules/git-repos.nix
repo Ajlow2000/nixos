@@ -60,6 +60,16 @@ in
   };
 
   config = lib.mkIf (cfg.enable && cfg.profiles != { }) {
+    home.file.".local/share/managed-sessions/manifest" =
+      let
+        allPaths = lib.flatten (
+          lib.mapAttrsToList (
+            profile: urls: map (url: "${cfg.reposRoot}/${profile}/${urlToDirname url}") urls
+          ) cfg.profiles
+        );
+      in
+      { text = lib.concatStringsSep "\n" allPaths + "\n"; };
+
     home.activation.gitCloneRepos = lib.hm.dag.entryAfter [ "writeBoundary" ] (
       let
         git = "${pkgs.git}/bin/git";

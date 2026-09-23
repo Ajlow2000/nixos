@@ -60,7 +60,6 @@ in
   config = lib.mkIf cfg.enable {
     modules.git-repos = {
       enable = true;
-      reposRoot = "${config.home.homeDirectory}/ngrepos";
       profiles = {
         personal = [
           "git@github.com:Ajlow2000/fleetsim.git"

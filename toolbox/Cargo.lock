@@ -387,6 +387,9 @@ dependencies = [
 [[package]]
 name = "ng-tmux-session-manager"
 version = "0.1.0"
+dependencies = [
+ "session",
+]
 
 [[package]]
 name = "nu-ansi-term"
