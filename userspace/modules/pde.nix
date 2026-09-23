@@ -48,7 +48,7 @@ let
   };
 in
 {
-  imports = [ ./git-clone.nix ];
+  imports = [ ./git-repos.nix ];
 
   options = {
     pde.enable = lib.mkOption {
@@ -58,11 +58,27 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Auto-clone repos into ~/repos/personal (clone-only; add entries below).
-    modules.git-clone = {
+    modules.git-repos = {
       enable = true;
-      repos = {
-        ajlow2000_nixos.url = "git@github.com:Ajlow2000/nixos.git";
+      reposRoot = "${config.home.homeDirectory}/ngrepos";
+      profiles = {
+        personal = [
+          "git@github.com:Ajlow2000/fleetsim.git"
+          "git@github.com:Ajlow2000/kaitai-rs.git"
+          "git@github.com:Ajlow2000/nixos.git"
+          "git@github.com:Ajlow2000/notes.git"
+          "git@github.com:Ajlow2000/playground.git"
+          "git@github.com:Ajlow2000/records.git"
+          "git@github.com:Ajlow2000/resume.git"
+          "git@github.com:Ajlow2000/terminus.git"
+        ];
+        sram = [
+          "git@gitlab.com:sram/dse/bleetcode.git"
+          "git@gitlab.com:sram/dse/centauri.git"
+          "git@gitlab.com:sram/dse/sram-sdk-cpp.git"
+          "git@gitlab.com:sram/ese/bambam.git"
+          "git@gitlab.com:sram/ese/common-protobuf.git"
+        ];
       };
     };
 
