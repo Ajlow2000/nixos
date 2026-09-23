@@ -69,6 +69,7 @@ in
           "git@github.com:Ajlow2000/records.git"
           "git@github.com:Ajlow2000/resume.git"
           "git@github.com:Ajlow2000/terminus.git"
+          "git@github.com:Ajlow2000/branding.git"
         ];
         sram = [
           "git@gitlab.com:sram/dse/bleetcode.git"
