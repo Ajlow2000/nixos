@@ -13,6 +13,6 @@
 
   # User-specific settings
   home.username = "alowry";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/alowry" else "/home/alowry";
+  home.homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/alowry" else "/home/alowry";
   home.stateVersion = "22.11";
 }

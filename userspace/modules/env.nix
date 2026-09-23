@@ -30,7 +30,7 @@ in
       AJLOW_MANAGED_SESSIONS = "$XDG_DATA_HOME/managed-sessions.toml";
       AJLOW_REPO_HOME = "$HOME/repos";
     }
-    // lib.optionalAttrs pkgs.stdenv.isLinux {
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       MOZ_ENABLE_WAYLAND = "1";
     };
 

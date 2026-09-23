@@ -7,6 +7,6 @@
   profiles.user.work.enable = true;
 
   home.username = "ajlow";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/ajlow" else "/home/ajlow";
+  home.homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/ajlow" else "/home/ajlow";
   home.stateVersion = "22.11";
 }

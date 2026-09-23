@@ -42,8 +42,8 @@ in
     env.enable = true;
     gui_utilities.enable = true;
     personal.enable = true;
-    de.enable = pkgs.stdenv.isLinux;
-    easyeffects.enable = pkgs.stdenv.isLinux;
+    de.enable = pkgs.stdenv.hostPlatform.isLinux;
+    easyeffects.enable = pkgs.stdenv.hostPlatform.isLinux;
     minecraft.enable = true;
 
     # Empire at War mod tool — only on hal9000 and microvac.
@@ -53,7 +53,7 @@ in
     ];
 
     # Virt-manager dconf settings (Linux only)
-    dconf.settings = lib.mkIf pkgs.stdenv.isLinux {
+    dconf.settings = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = [ "qemu:///system" ];
         uris = [ "qemu:///system" ];

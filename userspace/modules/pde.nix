@@ -3,7 +3,6 @@
   lib,
   pkgs,
   inputs,
-  system,
   ...
 }:
 let
@@ -28,7 +27,7 @@ let
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
 
-    buildInputs = with pkgs; lib.optionals stdenv.isLinux [ dbus ];
+    buildInputs = with pkgs; lib.optionals stdenv.hostPlatform.isLinux [ dbus ];
 
     # time 0.3.22 doesn't compile with Rust >=1.80: Box<_> is ambiguous, Box<[_]> is not
     postPatch = ''
@@ -96,7 +95,7 @@ in
         # `workspace` are filtered out because both bundle the same binaries
         # as the per-crate derivations and would collide in ~/.nix-profile.
         (lib.attrValues (
-          lib.removeAttrs inputs.toolbox.packages.${system} [
+          lib.removeAttrs inputs.toolbox.packages.${pkgs.stdenv.hostPlatform.system} [
             "default"
             "workspace"
           ]
@@ -106,7 +105,7 @@ in
           neovim
           (runCommand "nvim-nightly" { } ''
             mkdir -p $out/bin
-            ln -s ${inputs.neovim-nightly-overlay.packages.${system}.default}/bin/nvim $out/bin/nvim-nightly
+            ln -s ${inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/nvim $out/bin/nvim-nightly
           '')
           tmux
           zellij
@@ -190,7 +189,7 @@ in
           gcc
           scc
         ]
-        ++ lib.optionals stdenv.isLinux [
+        ++ lib.optionals stdenv.hostPlatform.isLinux [
           # Linux-only utilities
           xclip
           util-linux
@@ -301,7 +300,7 @@ in
       };
     };
 
-    xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
+    xdg.desktopEntries = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       win11 = {
         name = "Windows11 VM";
         genericName = "VM";

@@ -36,8 +36,8 @@ in
     pde.enable = true;
     env.enable = true;
     gui_utilities.enable = true;
-    de.enable = pkgs.stdenv.isLinux;
-    easyeffects.enable = pkgs.stdenv.isLinux;
+    de.enable = pkgs.stdenv.hostPlatform.isLinux;
+    easyeffects.enable = pkgs.stdenv.hostPlatform.isLinux;
 
     # Let Home Manager install and manage itself
     programs.home-manager.enable = true;

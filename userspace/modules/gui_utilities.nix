@@ -21,7 +21,7 @@ in
       (
         [
         ]
-        ++ lib.optionals stdenv.isLinux [
+        ++ lib.optionals stdenv.hostPlatform.isLinux [
           # Linux-only GUI apps
           zoom-us
           firefox
