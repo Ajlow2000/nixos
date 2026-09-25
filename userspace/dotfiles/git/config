@@ -5,7 +5,7 @@
 [includeIf "gitdir:~/repos/personal/"]
     path = ~/.config/git/config-personal
 
-[includeIf "gitdir:~/repos/work/"]
+[includeIf "gitdir:~/repos/sram/"]
     path = ~/.config/git/config-work
 
 [core]
