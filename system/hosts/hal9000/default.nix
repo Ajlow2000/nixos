@@ -28,7 +28,7 @@
 # Keep hardware.nix managing fileSystems until next reinstall.
 # On reinstall: flip to true and remove fileSystems/swapDevices from hardware.nix.
 # Note: ssd1/ssd2 entries in hardware.nix must stay until they are added to disko.nix.
-    disko.enableConfig = false;
+    disko.enableConfig = true;
 
     profiles.system.laptop.enable = true;
 
@@ -70,6 +70,8 @@
         };
     };
 
+    modules.sops.enable = false;
+
     user-definitions.ajlow.enable = true;
 
     modules.services.virtualization.users = [ "ajlow" ];
@@ -81,10 +83,6 @@
             proton-vpn
     ];
 
-    systemd.tmpfiles.rules = [
-        "d /mnt/ssd1 0755 ajlow users -"
-            "d /mnt/ssd2 0755 ajlow users -"
-    ];
 
     # Disable USB auto-suspend for Sennheiser Profile mic (keeps reconnecting otherwise).
     services.udev.extraRules = ''
