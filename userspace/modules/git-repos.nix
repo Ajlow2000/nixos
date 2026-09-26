@@ -84,7 +84,7 @@ in
             dest=${lib.escapeShellArg "${profileDir}/${dirname}"}
             if [ ! -e "$dest" ]; then
               echo "git-repos: cloning ${url} -> $dest"
-              $DRY_RUN_CMD ${git} clone ${lib.escapeShellArg url} "$dest"
+              $DRY_RUN_CMD ${git} clone ${lib.escapeShellArg url} "$dest" || echo "git-repos: WARNING: clone failed for ${url}, skipping"
             fi
           '';
 
